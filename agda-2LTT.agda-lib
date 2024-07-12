@@ -1,0 +1,9 @@
+name: agda-2ltt
+include: src agda-unimath/src
+flags:
+  --without-K
+  --exact-split
+  --no-import-sorts
+  --auto-inline
+  -WnoWithoutKFlagPrimEraseEquality
+  --two-level
