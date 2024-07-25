@@ -9,6 +9,7 @@ module foundation.exo-fibers-of-exo-maps where
 ```agda
 open import foundation.exo-universes
 open import foundation.exo-function-types
+open import foundation.exo-unit-type
 open import foundation.exo-homotopies
 open import foundation.exo-dependent-pair-types
 open import foundation.exo-cartesian-product-types
@@ -170,6 +171,21 @@ module _
   exo-iso-eq-Eq-fiberᵉ' : {s t : fiberᵉ' f b} → Eq-fiberᵉ' s t ≅ᵉ (s ＝ᵉ t)
   pr1ᵉ exo-iso-eq-Eq-fiberᵉ' = eq-Eq-fiberᵉ-uncurry'
   pr2ᵉ exo-iso-eq-Eq-fiberᵉ' = is-exo-iso-eq-Eq-fiberᵉ'
+```
+
+### The fiber of the terminal map is iso to the domain
+
+```agda
+module _
+  {l : Level} {A : UUᵉ l}
+  where
+
+  exo-iso-fiber-terminal-map : fiberᵉ (terminal-mapᵉ A) starᵉ ≅ᵉ A
+  pr1ᵉ exo-iso-fiber-terminal-map (a ,ᵉ reflᵉ) = a
+  pr1ᵉ (pr1ᵉ (pr2ᵉ exo-iso-fiber-terminal-map) a) = a
+  pr2ᵉ (pr1ᵉ (pr2ᵉ exo-iso-fiber-terminal-map) a) = reflᵉ
+  pr1ᵉ (pr2ᵉ (pr2ᵉ exo-iso-fiber-terminal-map)) a = reflᵉ
+  pr2ᵉ (pr2ᵉ (pr2ᵉ exo-iso-fiber-terminal-map)) (a ,ᵉ reflᵉ) = reflᵉ
 ```
 
 ### `fiberᵉ f y` and `fiberᵉ' f y` are isomorphic

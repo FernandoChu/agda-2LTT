@@ -29,6 +29,13 @@ idω : {A : UUᵉω} → A → A
 idω a = a
 ```
 
+### The constant function
+
+```agda
+constᵉ : {l1 l2 : Level} (A : UUᵉ l1) {B : UUᵉ l2} → B → A → B
+constᵉ A b x = b
+```
+
 ### Dependent composition of functions
 
 ```agda

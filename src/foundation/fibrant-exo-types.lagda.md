@@ -205,6 +205,19 @@ pr2ᵉ unit-Trivially-Fibrant-Type = is-trivially-fibrant-unitᵉ
 
 ## Properties
 
+### Closure under isos
+
+```agda
+module _
+  {l : Level} {A : UUᵉ l} {B : UUᵉ l}
+  (is-fibrant-A : is-fibrant A) (e : A ≅ᵉ B)
+  where
+
+  is-fibrant-exo-iso : is-fibrant B
+  witness-is-fibrant is-fibrant-exo-iso = witness-is-fibrant is-fibrant-A
+  iso-is-fibrant is-fibrant-exo-iso = comp-exo-iso e (iso-is-fibrant is-fibrant-A)
+```
+
 ### Closure under Σ
 
 ```agda
