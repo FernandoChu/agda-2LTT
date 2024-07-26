@@ -20,9 +20,6 @@ def add_exo(word):
     keywords = ["let", "in", "where", "```", "```agda", "```text", "{-#", "INLINE", "#-}", "open", "import", "module", "using", "renaming", "to", "public", ";", "hiding", "=", ":", "→","λ", "_", "._", "Level", "Level)", "Level}", "lzero", "lsuc", "(lsuc", "lzero)", "⊔", "private", "abstract", "record", "data", "constructor", "field", "instance", "eta-equality", "no-eta-equality", "inductive", "pattern", "infix", "infixr", "infixl", "syntax", "postulate", "primitive", "do", "|", "...", "with"]
     if (word in keywords) or word.isspace() or all(char in "λ()}{[]" for char in word) or represents_int(word):
         return word
-    
-    if (word == "0"):
-        return "zero-ℕᵉ"
 
     for i in range(len(word) - 1, -1, -1):
        if word[i] not in "}]):_":
@@ -84,3 +81,9 @@ with open(f"{cwd}/scripts/agda-unimath.agda-lib", 'r') as file:
     contents = file.read()
 with open(f"{agda_unimath_directory_path}/agda-unimath.agda-lib", 'w') as file:
     file.write(contents)
+
+# After this, I manually copied agda-unimath into agda-unimathᵉ
+# and ran `find . | grep -v 'ᵉ'  | xargs rm -f` to delete all the old files,
+# and then reseted agda-unimath.
+# Note that some files require more manual adjustments: particular offenders are
+# the nat file, core/props, telescopes. So backup these files if updating unimath

@@ -8,20 +8,20 @@ module cofibrations.cofibrations where
 
 ```agda
 open import fibrations.fibrations
-open import foundation.fibrant-exo-types
-open import foundation.exo-universes
-open import foundation.exo-function-types
-open import foundation.exo-homotopies
-open import foundation.exo-dependent-pair-types
-open import foundation.exo-cartesian-product-types
-open import foundation.exo-identity-types
-open import foundation.exo-fibers-of-exo-maps
-open import foundation.exo-unit-type
+open import fibrations.fibrant-types
 
-open import foundation.exo-isomorphisms
-open import foundation.exo-homotopies
-open import foundation.exo-retractions
-open import foundation.exo-sections
+open import foundation.universe-levelsᵉ
+open import foundation.function-typesᵉ
+open import foundation.homotopiesᵉ
+open import foundation.dependent-pair-typesᵉ
+open import foundation.cartesian-product-typesᵉ
+open import foundation.identity-typesᵉ
+open import foundation.fibers-of-mapsᵉ
+open import foundation.unit-typeᵉ
+open import foundation.equivalencesᵉ
+open import foundation.homotopiesᵉ
+open import foundation.retractionsᵉ
+open import foundation.sectionsᵉ
 ```
 
 ## Idea

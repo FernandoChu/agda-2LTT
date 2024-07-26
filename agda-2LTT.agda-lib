@@ -1,5 +1,5 @@
 name: agda-2ltt
-include: src agda-unimath/src
+include: src agda-unimath/src agda-unimathᵉ/src
 flags:
   --without-K
   --exact-split

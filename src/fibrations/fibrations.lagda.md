@@ -7,20 +7,20 @@ module fibrations.fibrations where
 <details><summary>Imports</summary>
 
 ```agda
-open import foundation.fibrant-exo-types
-open import foundation.exo-universes
-open import foundation.exo-function-types
-open import foundation.exo-homotopies
-open import foundation.exo-dependent-pair-types
-open import foundation.exo-cartesian-product-types
-open import foundation.exo-identity-types
-open import foundation.exo-fibers-of-exo-maps
-open import foundation.exo-unit-type
+open import foundation.universe-levelsᵉ
+open import foundation.function-typesᵉ
+open import foundation.homotopiesᵉ
+open import foundation.dependent-pair-typesᵉ
+open import foundation.cartesian-product-typesᵉ
+open import foundation.identity-typesᵉ
+open import foundation.fibers-of-mapsᵉ
+open import foundation.unit-typeᵉ
+open import foundation.equivalencesᵉ
+open import foundation.homotopiesᵉ
+open import foundation.retractionsᵉ
+open import foundation.sectionsᵉ
 
-open import foundation.exo-isomorphisms
-open import foundation.exo-homotopies
-open import foundation.exo-retractions
-open import foundation.exo-sections
+open import fibrations.fibrant-types
 ```
 
 ## Idea
@@ -47,10 +47,10 @@ module _
   is-fibration-terminal-map-is-fibrant :
     is-fibration (terminal-mapᵉ A) → is-fibrant A
   is-fibration-terminal-map-is-fibrant is-fibration-! =
-    is-fibrant-exo-iso (is-fibration-! starᵉ) exo-iso-fiber-terminal-map
+    is-fibrant-equivᵉ (is-fibration-! starᵉ) (equiv-fiber-terminal-mapᵉ starᵉ)
 
   is-fibrant-is-fibration-terminal-map :
     is-fibrant A → is-fibration (terminal-mapᵉ A)
   is-fibrant-is-fibration-terminal-map is-fibrant-A a =
-    is-fibrant-exo-iso is-fibrant-A (inv-exo-iso exo-iso-fiber-terminal-map)
+    is-fibrant-equivᵉ is-fibrant-A (inv-equivᵉ (equiv-fiber-terminal-mapᵉ starᵉ))
 ```
