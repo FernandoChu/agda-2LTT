@@ -1,0 +1,3 @@
+[submodule "agda-unimath"]
+	path = agda-unimath
+	url = https://github.com/FernandoChu/agda-unimath
