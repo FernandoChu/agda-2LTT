@@ -41,6 +41,46 @@ module _
 
 ```agda
 module _
+  {l1 l2 : Level} (A : UUᵉ l1) (B : UUᵉ l2)
+  where
+
+  Fibration : UUᵉ (lsuc (l1 ⊔ l2))
+  Fibration = Σᵉ (A → B) (λ f → is-fibration f)
+
+module _
+  {l1 l2 : Level} {A : UUᵉ l1} {B : UUᵉ l2} (p : Fibration A B)
+  where
+
+  map-Fibration : A → B
+  map-Fibration = pr1ᵉ p
+
+  map-is-fibration-Fibration : is-fibration map-Fibration
+  map-is-fibration-Fibration = pr2ᵉ p
+```
+
+```agda
+module _
+  {l1 l2 : Level} (A : UUᵉ l1) (B : UUᵉ l2)
+  where
+
+  Trivial-Fibration : UUᵉ (lsuc (l1 ⊔ l2))
+  Trivial-Fibration = Σᵉ (A → B) (λ f → is-trivial-fibration f)
+
+module _
+  {l1 l2 : Level} {A : UUᵉ l1} {B : UUᵉ l2} (p : Trivial-Fibration A B)
+  where
+
+  map-Trivial-Fibration : A → B
+  map-Trivial-Fibration = pr1ᵉ p
+
+  map-is-trivial-fibration-Trivial-Fibration :
+    is-trivial-fibration map-Trivial-Fibration
+  map-is-trivial-fibration-Trivial-Fibration = pr2ᵉ p
+```
+
+
+```agda
+module _
   {l1 : Level} {A : UUᵉ l1}
   where
 

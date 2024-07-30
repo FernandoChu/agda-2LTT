@@ -11,7 +11,7 @@ open import Agda.Primitive
 
 ## Idea
 
-Weᵉ import Agda'sᵉ builtᵉ in mechanismᵉ ofᵉ universeᵉ levels.ᵉ Theᵉ universesᵉ areᵉ calledᵉ
-`UU`,ᵉ whichᵉ standsᵉ forᵉ _univalentᵉ universe_,ᵉ althoughᵉ weᵉ willᵉ notᵉ immediatelyᵉ
-assumeᵉ thatᵉ universesᵉ areᵉ univalent.ᵉ Thisᵉ isᵉ doneᵉ in
-[foundation.univalence](foundation.univalence.md).ᵉ
+We import Agda's built in mechanism of universe levels. The universes are called
+`UU`, which stands for _univalent universe_, although we will not immediately
+assume that universes are univalent. This is done in
+[foundation.univalence](foundation.univalence.md).

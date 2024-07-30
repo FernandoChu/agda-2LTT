@@ -22,6 +22,8 @@ open import foundation.equivalencesᵉ
 open import foundation.homotopiesᵉ
 open import foundation.retractionsᵉ
 open import foundation.sectionsᵉ
+
+open import orthogonal-factorization-systems.pullback-homᵉ
 ```
 
 ## Idea
@@ -33,6 +35,14 @@ module _
   {l1 l2 : Level} {A : UUᵉ l1} {B : UUᵉ l2} (f : A → B)
   where
 
-  is-cofibration : UUᵉ (lsuc (l1 ⊔ l2))
-  is-cofibration = (b : B) → is-fibrant (fiberᵉ f b)
+  is-cofibration : UUωᵉ
+  is-cofibration =
+    {l3 l4 : Level} {X : UUᵉ l2} {Y : UUᵉ l4} (p : Y → X) →
+    (is-fibration p → is-fibration (pullback-homᵉ f p)) ×ᵉ
+    (is-trivial-fibration p → is-trivial-fibration (pullback-homᵉ f p))
+
+  is-trivial-cofibration : UUωᵉ
+  is-trivial-cofibration =
+    {l3 l4 : Level} {X : UUᵉ l2} {Y : UUᵉ l4} (p : Y → X) →
+    is-fibration p → is-trivial-fibration (pullback-homᵉ f p)
 ```

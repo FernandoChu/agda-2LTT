@@ -3,6 +3,7 @@
 \.direnv/
 
 ### Agda ###
+agda-unimathᵉ/
 *.agdai
 MAlonzo/
 _build/
