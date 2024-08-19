@@ -39,6 +39,7 @@ def add_exo(word, prevword):
         ";",
         "hiding",
         "=",
+        "_=_",
         ":",
         "→",
         "λ",
@@ -49,6 +50,7 @@ def add_exo(word, prevword):
         "lzero",
         "lsuc",
         "⊔",
+        "_⊔_",
         "private",
         "abstract",
         "postulate",
@@ -164,8 +166,6 @@ def process_contents(contents):
 
 
 def main():
-    os.system("rm -r agda-unimathᵉ")
-
     for filepath in glob.iglob(
         f"{agda_unimath_directory_path}/src/**/*.lagda.md", recursive=True
     ):
@@ -192,7 +192,7 @@ def main():
         f"cp {cwd}/scripts/agda-unimath.agda-lib {agda_unimath_directory_path}/agda-unimath.agda-lib"
     )
 
-    os.system("cp -r agda-unimath agda-unimathᵉ")
+    os.system("cp -r agda-unimath/* agda-unimathᵉ")
     os.system("cd agda-unimathᵉ/src && find . | grep -v 'ᵉ'  | xargs rm -f")
     os.system("cd agda-unimathᵉ && git clean -f && git reset --hard")
 
