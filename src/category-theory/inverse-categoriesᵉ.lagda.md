@@ -1,7 +1,7 @@
 # Inverse categories
 
 ```agda
-module category-theoryᵉ.inverse-categories where
+module category-theory.inverse-categoriesᵉ where
 ```
 
 <details><summary>Imports</summary>

@@ -1,7 +1,7 @@
 # Matching objects
 
 ```agda
-module reedy.matching-objects where
+module foundation.matching-objectsᵉ where
 ```
 
 <details><summary>Imports</summary>
@@ -18,9 +18,8 @@ open import category-theory.right-extensions-precategoriesᵉ
 open import category-theory.right-kan-extensions-precategoriesᵉ
 open import category-theory.terminal-categoryᵉ
 open import category-theory.natural-transformations-functors-precategoriesᵉ
-
-open import category-theoryᵉ.inverse-categories
-open import category-theoryᵉ.reduced-coslice-category
+open import category-theory.inverse-categoriesᵉ
+open import category-theory.reduced-coslice-categoryᵉ
 
 open import elementary-number-theory.inequality-natural-numbersᵉ
 

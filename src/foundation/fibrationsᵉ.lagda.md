@@ -1,7 +1,7 @@
 # Fibrations
 
 ```agda
-module fibrations.fibrations where
+module foundation.fibrationsᵉ where
 ```
 
 <details><summary>Imports</summary>
@@ -19,8 +19,7 @@ open import foundation.equivalencesᵉ
 open import foundation.homotopiesᵉ
 open import foundation.retractionsᵉ
 open import foundation.sectionsᵉ
-
-open import fibrations.fibrant-types
+open import foundation.fibrant-typesᵉ
 ```
 
 ## Idea

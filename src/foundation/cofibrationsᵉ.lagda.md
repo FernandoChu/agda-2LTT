@@ -1,15 +1,14 @@
 # Cofibrations
 
 ```agda
-module cofibrations.cofibrations where
+module foundation.cofibrationsᵉ where
 ```
 
 <details><summary>Imports</summary>
 
 ```agda
-open import fibrations.fibrations
-open import fibrations.fibrant-types
-
+open import foundation.fibrationsᵉ
+open import foundation.fibrant-typesᵉ
 open import foundation.universe-levelsᵉ
 open import foundation.function-typesᵉ
 open import foundation.homotopiesᵉ

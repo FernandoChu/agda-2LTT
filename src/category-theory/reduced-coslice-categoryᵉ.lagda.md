@@ -1,7 +1,7 @@
 # Reduced coslice precategories
 
 ```agda
-module category-theoryᵉ.reduced-coslice-category where
+module category-theory.reduced-coslice-categoryᵉ where
 ```
 
 <details><summary>Imports</summary>
@@ -33,18 +33,18 @@ module _
   {l1 l2 : Level} (C : Precategoryᵉ l1 l2) (X : obj-Precategoryᵉ C)
   where
 
-  Reduced-Coslice-Full-Subprecategoryᵉ :
+  Reduced-Coslice-Full-Subcategoryᵉ :
     Full-Subprecategoryᵉ (l1 ⊔ l2) (Coslice-Precategoryᵉ C X)
-  pr1ᵉ (Reduced-Coslice-Full-Subprecategoryᵉ (Y,f)) =
+  pr1ᵉ (Reduced-Coslice-Full-Subcategoryᵉ (Y,f)) =
     ¬ᵉ ((Y,f) ＝ᵉ ((X ,ᵉ id-hom-Precategoryᵉ C)))
-  pr2ᵉ (Reduced-Coslice-Full-Subprecategoryᵉ (Y,f)) =
+  pr2ᵉ (Reduced-Coslice-Full-Subcategoryᵉ (Y,f)) =
      is-prop-negᵉ
 
   Reduced-Coslice-Categoryᵉ : Precategoryᵉ (l1 ⊔ l2) l2
   Reduced-Coslice-Categoryᵉ =
     precategory-Full-Subprecategoryᵉ
       ( Coslice-Precategoryᵉ C X)
-      ( Reduced-Coslice-Full-Subprecategoryᵉ)
+      ( Reduced-Coslice-Full-Subcategoryᵉ)
 
   cod-obj-Reduced-Coslice-Categoryᵉ :
     (f : obj-Precategoryᵉ Reduced-Coslice-Categoryᵉ) →
@@ -78,7 +78,7 @@ module _
   inclusion-functor-Reduced-Coslice-Category =
     inclusion-Full-Subprecategoryᵉ
       ( Coslice-Precategoryᵉ C X)
-      ( Reduced-Coslice-Full-Subprecategoryᵉ)
+      ( Reduced-Coslice-Full-Subcategoryᵉ)
 
   forgetful-functor-Reduced-Coslice-Categoryᵉ :
     functor-Precategoryᵉ Reduced-Coslice-Categoryᵉ C
