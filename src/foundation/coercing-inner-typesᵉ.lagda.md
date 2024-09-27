@@ -8,6 +8,7 @@ open import foundation.universe-levelsᵉ
 open import foundation.equivalencesᵉ
 open import foundation.dependent-pair-typesᵉ
 open import foundation.identity-typesᵉ
+open import foundation.identity-types
 open import foundation.universe-levels
 open import foundation.dependent-pair-types
 open import foundation.pi-decompositions
@@ -17,6 +18,8 @@ open import foundation.pi-decompositions
 
 Every inner type can be coerced into an outer type.
 
+## Definition
+
 ```agda
 record coerce {i : Level} (A : UU i) : UUᵉ i where
   constructor map-coerce
@@ -25,6 +28,8 @@ record coerce {i : Level} (A : UU i) : UUᵉ i where
 
 open coerce public
 ```
+
+## Properties
 
 ### Coercion respects dependent pair types up isomorphism
 
@@ -93,4 +98,38 @@ equiv-coerce-Πᵉ :
   Πᵉ-coerce A B ≃ᵉ coerce (Π A B)
 pr1ᵉ (equiv-coerce-Πᵉ A B) = map-coerce-Πᵉ A B
 pr2ᵉ (equiv-coerce-Πᵉ A B) = is-equiv-map-coerce-Πᵉ A B
+```
+
+### Coercion respects function types up isomorphism
+
+```agda
+hom-coerce :
+  {l1 l2 : Level} (A : UU l1) (B : UU l2) →
+  UUᵉ (l1 ⊔ l2)
+hom-coerce A B = coerce A → coerce B
+
+map-coerce-hom :
+  {l1 l2 : Level} (A : UU l1) (B : UU l2) →
+  hom-coerce A B → coerce (A → B)
+map-coerce-hom A B f = map-coerce λ a → map-inv-coerce (f (map-coerce a))
+
+map-inv-coerce-hom :
+  {l1 l2 : Level} (A : UU l1) (B : UU l2) →
+  coerce (A → B) → hom-coerce A B
+map-inv-coerce-hom A B (map-coerce f) (map-coerce a) = map-coerce (f a)
+
+is-equiv-map-coerce-hom :
+  {l1 l2 : Level} (A : UU l1) (B : UU l2) →
+  is-equivᵉ (map-coerce-hom A B)
+is-equiv-map-coerce-hom A B =
+  is-equiv-is-invertibleᵉ
+    ( map-inv-coerce-hom A B)
+    ( λ { (map-coerce f) → reflᵉ} )
+    ( λ { f → reflᵉ} )
+
+equiv-coerce-hom :
+  {l1 l2 : Level} (A : UU l1) (B : UU l2) →
+  hom-coerce A B ≃ᵉ coerce (A → B)
+pr1ᵉ (equiv-coerce-hom A B) = map-coerce-hom A B
+pr2ᵉ (equiv-coerce-hom A B) = is-equiv-map-coerce-hom A B
 ```

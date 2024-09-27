@@ -1,7 +1,7 @@
 # Reedy fibrations
 
 ```agda
-module foundation.reedy-fibrationsᵉ where
+module category-theory.reedy-fibrationsᵉ where
 ```
 
 <details><summary>Imports</summary>
@@ -18,9 +18,10 @@ open import category-theory.right-extensions-precategoriesᵉ
 open import category-theory.right-kan-extensions-precategoriesᵉ
 open import category-theory.terminal-categoryᵉ
 open import category-theory.natural-transformations-functors-precategoriesᵉ
-open import category-theory.inverse-categoriesᵉ
-open import category-theory.reduced-coslice-categoryᵉ
-open import category-theory.strict-simplex-categoryᵉ
+open import category-theory.inverse-precategoriesᵉ
+open import category-theory.reduced-coslice-precategoryᵉ
+open import category-theory.strict-simplex-precategoryᵉ
+open import category-theory.matching-objectsᵉ
 
 open import elementary-number-theory.inequality-natural-numbersᵉ
 
@@ -36,7 +37,6 @@ open import foundation.identity-typesᵉ
 open import foundation.setsᵉ
 open import foundation.unit-typeᵉ
 open import foundation.standard-pullbacksᵉ
-open import foundation.matching-objectsᵉ
 ```
 
 </details>
@@ -53,7 +53,7 @@ open import foundation.matching-objectsᵉ
 module _
   {l1 l2 : Level} (C : Precategoryᵉ l1 l2)
   (Y X : copresheaf-Precategoryᵉ C (l1 ⊔ l2))
-  (p : natural-transformation-Precategoryᵉ C (Set-Precategoryᵉ (l1 ⊔ l2)) Y X)
+  (p : hom-Precategoryᵉ (copresheaf-precategory-Precategoryᵉ C (l1 ⊔ l2)) Y X)
   where
 
   reedy-pullback :
@@ -131,20 +131,20 @@ module _
 Reedy-Fibrant-Semisimplicial-Type :
   UUᵉ (lsuc lzero)
 Reedy-Fibrant-Semisimplicial-Type =
-  Σᵉ (copresheaf-Precategoryᵉ op-strict-simplex-Categoryᵉ lzero)
-  (λ X → is-reedy-fibrant op-strict-simplex-Categoryᵉ X)
+  Σᵉ (copresheaf-Precategoryᵉ op-strict-simplex-Precategoryᵉ lzero)
+  (λ X → is-reedy-fibrant op-strict-simplex-Precategoryᵉ X)
 
 module _
   (X : Reedy-Fibrant-Semisimplicial-Type)
   where
 
   diagram-Reedy-Fibrant-Semisimplicial-Type :
-    copresheaf-Precategoryᵉ op-strict-simplex-Categoryᵉ lzero
+    copresheaf-Precategoryᵉ op-strict-simplex-Precategoryᵉ lzero
   diagram-Reedy-Fibrant-Semisimplicial-Type = pr1ᵉ X
 
   is-reedy-fibrant-Reedy-Fibrant-Semisimplicial-Type :
     is-reedy-fibrant
-      op-strict-simplex-Categoryᵉ
+      op-strict-simplex-Precategoryᵉ
       diagram-Reedy-Fibrant-Semisimplicial-Type
   is-reedy-fibrant-Reedy-Fibrant-Semisimplicial-Type = pr2ᵉ X
 ```

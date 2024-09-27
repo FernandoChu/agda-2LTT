@@ -18,14 +18,13 @@ open import category-theory.right-extensions-precategoriesᵉ
 open import category-theory.right-kan-extensions-precategoriesᵉ
 open import category-theory.terminal-categoryᵉ
 open import category-theory.natural-transformations-functors-precategoriesᵉ
-
-open import category-theory.inverse-categoriesᵉ
-open import category-theory.reduced-coslice-categoryᵉ
-open import category-theory.strict-simplex-categoryᵉ
+open import category-theory.matching-objectsᵉ
+open import category-theory.reedy-fibrationsᵉ
+open import category-theory.inverse-precategoriesᵉ
+open import category-theory.reduced-coslice-precategoryᵉ
+open import category-theory.strict-simplex-precategoryᵉ
 
 open import elementary-number-theory.inequality-natural-numbersᵉ
-
-
 open import elementary-number-theory.natural-numbersᵉ
 
 open import foundation.fibrationsᵉ
@@ -42,8 +41,6 @@ open import foundation.identity-typesᵉ
 open import foundation.setsᵉ
 open import foundation.unit-typeᵉ
 open import foundation.standard-pullbacksᵉ
-open import foundation.matching-objectsᵉ
-open import foundation.reedy-fibrationsᵉ
 ```
 
 </details>
@@ -66,7 +63,7 @@ module _
     is-trivial-fibration
       λ τ →
         comp-natural-transformation-Precategoryᵉ
-          ( op-strict-simplex-Categoryᵉ)
+          ( op-strict-simplex-Precategoryᵉ)
           ( Set-Precategoryᵉ lzero)
           ( horn-strict-simplex k n)
           ( standard-strict-simplex n)
@@ -87,13 +84,13 @@ module _
   reedy-fibrant-semisimplicial-type-Semi-Segal = pr1ᵉ X
 
   diagram-Semi-Segal :
-    copresheaf-Precategoryᵉ op-strict-simplex-Categoryᵉ lzero
+    copresheaf-Precategoryᵉ op-strict-simplex-Precategoryᵉ lzero
   diagram-Semi-Segal =
     diagram-Reedy-Fibrant-Semisimplicial-Type
       reedy-fibrant-semisimplicial-type-Semi-Segal
 
   is-reedy-fibrant-Semi-Segal :
-    is-reedy-fibrant op-strict-simplex-Categoryᵉ diagram-Semi-Segal
+    is-reedy-fibrant op-strict-simplex-Precategoryᵉ diagram-Semi-Segal
   is-reedy-fibrant-Semi-Segal =
     is-reedy-fibrant-Reedy-Fibrant-Semisimplicial-Type
       reedy-fibrant-semisimplicial-type-Semi-Segal

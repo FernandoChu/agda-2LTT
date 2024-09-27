@@ -1,7 +1,7 @@
 # Matching objects
 
 ```agda
-module foundation.matching-objectsᵉ where
+module category-theory.matching-objectsᵉ where
 ```
 
 <details><summary>Imports</summary>
@@ -18,8 +18,8 @@ open import category-theory.right-extensions-precategoriesᵉ
 open import category-theory.right-kan-extensions-precategoriesᵉ
 open import category-theory.terminal-categoryᵉ
 open import category-theory.natural-transformations-functors-precategoriesᵉ
-open import category-theory.inverse-categoriesᵉ
-open import category-theory.reduced-coslice-categoryᵉ
+open import category-theory.inverse-precategoriesᵉ
+open import category-theory.reduced-coslice-precategoryᵉ
 
 open import elementary-number-theory.inequality-natural-numbersᵉ
 
@@ -52,61 +52,61 @@ module _
 
   diagram-matching-object :
     functor-Precategoryᵉ
-    ( Reduced-Coslice-Categoryᵉ C z)
+    ( Reduced-Coslice-Precategoryᵉ C z)
     ( Set-Precategoryᵉ (l1 ⊔ l2))
   diagram-matching-object =
     comp-functor-Precategoryᵉ
-    ( Reduced-Coslice-Categoryᵉ C z)
+    ( Reduced-Coslice-Precategoryᵉ C z)
     ( C)
     ( Set-Precategoryᵉ (l1 ⊔ l2))
     ( X)
-    ( forgetful-functor-Reduced-Coslice-Categoryᵉ C z)
+    ( forgetful-functor-Reduced-Coslice-Precategoryᵉ C z)
 
   matching-object :
     limit-Precategoryᵉ
-      ( Reduced-Coslice-Categoryᵉ C z)
+      ( Reduced-Coslice-Precategoryᵉ C z)
       ( Set-Precategoryᵉ (l1 ⊔ l2))
       ( diagram-matching-object)
   matching-object =
     limit-Set-Precategoryᵉ
-      ( Reduced-Coslice-Categoryᵉ C z)
+      ( Reduced-Coslice-Precategoryᵉ C z)
       ( diagram-matching-object)
 
   cone-matching-object :
     cone-Precategoryᵉ
-      ( Reduced-Coslice-Categoryᵉ C z)
+      ( Reduced-Coslice-Precategoryᵉ C z)
       ( Set-Precategoryᵉ (l1 ⊔ l2 ⊔ l2))
       ( diagram-matching-object)
   cone-matching-object =
     cone-limit-Set-Precategoryᵉ
-      ( Reduced-Coslice-Categoryᵉ C z)
+      ( Reduced-Coslice-Precategoryᵉ C z)
       ( diagram-matching-object)
 
   vertex-matching-object : Setᵉ (l1 ⊔ l2)
   vertex-matching-object =
     vertex-limit-Set-Precategoryᵉ
-      ( Reduced-Coslice-Categoryᵉ C z)
+      ( Reduced-Coslice-Precategoryᵉ C z)
       ( diagram-matching-object)
 
   type-vertex-matching-object : UUᵉ (l1 ⊔ l2)
   type-vertex-matching-object =
     type-vertex-limit-Set-Precategoryᵉ
-      ( Reduced-Coslice-Categoryᵉ C z)
+      ( Reduced-Coslice-Precategoryᵉ C z)
       ( diagram-matching-object)
 
   component-matching-object :
-    (x : obj-Precategoryᵉ (Reduced-Coslice-Categoryᵉ C z)) →
+    (x : obj-Precategoryᵉ (Reduced-Coslice-Precategoryᵉ C z)) →
     hom-Precategoryᵉ
       (Set-Precategoryᵉ (l1 ⊔ l2 ⊔ l2))
       ( vertex-matching-object)
       ( obj-functor-Precategoryᵉ
-        ( Reduced-Coslice-Categoryᵉ C z)
+        ( Reduced-Coslice-Precategoryᵉ C z)
         ( Set-Precategoryᵉ (l1 ⊔ l2 ⊔ l2))
         ( diagram-matching-object)
         ( x))
   component-matching-object =
     component-limit-Set-Precategoryᵉ
-      ( Reduced-Coslice-Categoryᵉ C z)
+      ( Reduced-Coslice-Precategoryᵉ C z)
       ( diagram-matching-object)
 ```
 
@@ -124,30 +124,30 @@ module _
     {X : functor-Precategoryᵉ C (Set-Precategoryᵉ (l1 ⊔ l2))}
     (p : natural-transformation-Precategoryᵉ C (Set-Precategoryᵉ (l1 ⊔ l2)) Y X) →
     cone-Precategoryᵉ
-      ( Reduced-Coslice-Categoryᵉ C z)
+      ( Reduced-Coslice-Precategoryᵉ C z)
       ( Set-Precategoryᵉ (l1 ⊔ l2))
       ( diagram-matching-object C X z)
   induced-cone-hom-matching-functor z {Y} {X} p =
     make-cone-Precategoryᵉ
-      ( Reduced-Coslice-Categoryᵉ C z)
+      ( Reduced-Coslice-Precategoryᵉ C z)
       ( Set-Precategoryᵉ (l1 ⊔ l2))
       ( diagram-matching-object C X z)
       ( vertex-matching-object C Y z)
       ( λ f →
         hom-family-natural-transformation-Precategoryᵉ
           ( C) (Set-Precategoryᵉ (l1 ⊔ l2)) Y X p
-          ( cod-obj-Reduced-Coslice-Categoryᵉ C z f) ∘ᵉ
+          ( cod-obj-Reduced-Coslice-Precategoryᵉ C z f) ∘ᵉ
         component-matching-object C Y z f)
       ( λ {f} {g} h → lemma f g h)
    where
     module _
-      (f  : obj-Precategoryᵉ (Reduced-Coslice-Categoryᵉ C z))
-      (g  : obj-Precategoryᵉ (Reduced-Coslice-Categoryᵉ C z))
-      (h  : hom-Precategoryᵉ (Reduced-Coslice-Categoryᵉ C z) f g)
+      (f  : obj-Precategoryᵉ (Reduced-Coslice-Precategoryᵉ C z))
+      (g  : obj-Precategoryᵉ (Reduced-Coslice-Precategoryᵉ C z))
+      (h  : hom-Precategoryᵉ (Reduced-Coslice-Precategoryᵉ C z) f g)
       where
 
-      a = cod-obj-Reduced-Coslice-Categoryᵉ C z f
-      b = cod-obj-Reduced-Coslice-Categoryᵉ C z g
+      a = cod-obj-Reduced-Coslice-Precategoryᵉ C z f
+      b = cod-obj-Reduced-Coslice-Precategoryᵉ C z g
       τf = component-matching-object C Y z f
       τg = component-matching-object C Y z g
       Pa = pr1ᵉ p a
@@ -158,7 +158,7 @@ module _
       eq1 =  pr2ᵉ p (pr1ᵉ h)
       eq2 : τg ＝ᵉ Yh ∘ᵉ τf
       eq2 = naturality-cone-Precategoryᵉ
-             ( Reduced-Coslice-Categoryᵉ C z)
+             ( Reduced-Coslice-Precategoryᵉ C z)
              ( Set-Precategoryᵉ (l1 ⊔ l2 ⊔ l2))
              ( diagram-matching-object C Y z)
              ( cone-matching-object C Y z) h
@@ -174,7 +174,7 @@ module _
     type-vertex-matching-object C X z
   hom-matching-functor Y X p z =
       hom-cone-limit-Precategoryᵉ
-      ( Reduced-Coslice-Categoryᵉ C z)
+      ( Reduced-Coslice-Precategoryᵉ C z)
       ( Set-Precategoryᵉ (l1 ⊔ l2))
       ( diagram-matching-object C X z)
       ( matching-object C X z)
@@ -190,10 +190,10 @@ module _
   pr1ᵉ (pr2ᵉ (pr2ᵉ (matching-functor z))) {X} {Y} {Z} φ ψ =
     eq-htpyᵉ λ τ →
       eq-htpy-hom-family-natural-transformation-Precategoryᵉ
-        ( Reduced-Coslice-Categoryᵉ C z)
+        ( Reduced-Coslice-Precategoryᵉ C z)
         ( Set-Precategoryᵉ (l1 ⊔ l2))
         ( constant-functor-Precategoryᵉ
-          ( Reduced-Coslice-Categoryᵉ C z)
+          ( Reduced-Coslice-Precategoryᵉ C z)
           ( Set-Precategoryᵉ (l1 ⊔ l2))
         ( raise-unit-Setᵉ (l1 ⊔ l2)))
         ( diagram-matching-object C Z z) _ _
@@ -201,10 +201,10 @@ module _
   pr2ᵉ (pr2ᵉ (pr2ᵉ (matching-functor z))) X =
     eq-htpyᵉ λ τ →
       eq-htpy-hom-family-natural-transformation-Precategoryᵉ
-        ( Reduced-Coslice-Categoryᵉ C z)
+        ( Reduced-Coslice-Precategoryᵉ C z)
         ( Set-Precategoryᵉ (l1 ⊔ l2))
         ( constant-functor-Precategoryᵉ
-          ( Reduced-Coslice-Categoryᵉ C z)
+          ( Reduced-Coslice-Precategoryᵉ C z)
           ( Set-Precategoryᵉ (l1 ⊔ l2))
         ( raise-unit-Setᵉ (l1 ⊔ l2)))
         ( diagram-matching-object C X z) _ _
@@ -218,18 +218,18 @@ module _
     (X : functor-Precategoryᵉ C (Set-Precategoryᵉ (l1 ⊔ l2)))
     (z : obj-Precategoryᵉ C) →
     cone-Precategoryᵉ
-      ( Reduced-Coslice-Categoryᵉ C z)
+      ( Reduced-Coslice-Precategoryᵉ C z)
       ( Set-Precategoryᵉ (l1 ⊔ l2))
       ( diagram-matching-object C X z)
   induced-cone-hom-family-matching-natural-transformation X z =
      make-cone-Precategoryᵉ
-      ( Reduced-Coslice-Categoryᵉ C z)
+      ( Reduced-Coslice-Precategoryᵉ C z)
       ( Set-Precategoryᵉ (l1 ⊔ l2))
       ( diagram-matching-object C X z)
       ( obj-functor-Precategoryᵉ C (Set-Precategoryᵉ (l1 ⊔ l2)) X z)
       ( λ f → hom-functor-Precategoryᵉ C (Set-Precategoryᵉ (l1 ⊔ l2))
         ( X)
-        ( hom-obj-Reduced-Coslice-Categoryᵉ C z f))
+        ( hom-obj-Reduced-Coslice-Precategoryᵉ C z f))
       λ {f} {g} h → invᵉ
         ( apᵉ
           ( hom-functor-Precategoryᵉ C (Set-Precategoryᵉ (l1 ⊔ l2)) X)
@@ -249,7 +249,7 @@ module _
     type-vertex-matching-object C X z
   hom-family-matching-natural-transformation X z =
       hom-cone-limit-Precategoryᵉ
-      ( Reduced-Coslice-Categoryᵉ C z)
+      ( Reduced-Coslice-Precategoryᵉ C z)
       ( Set-Precategoryᵉ (l1 ⊔ l2))
       ( diagram-matching-object C X z)
       ( matching-object C X z)
@@ -270,10 +270,10 @@ module _
   pr2ᵉ (matching-natural-transformation z) {Y} {X} p =
     eq-htpyᵉ λ τ →
       eq-htpy-hom-family-natural-transformation-Precategoryᵉ
-        ( Reduced-Coslice-Categoryᵉ C z)
+        ( Reduced-Coslice-Precategoryᵉ C z)
         ( Set-Precategoryᵉ (l1 ⊔ l2))
         ( constant-functor-Precategoryᵉ
-          ( Reduced-Coslice-Categoryᵉ C z)
+          ( Reduced-Coslice-Precategoryᵉ C z)
           ( Set-Precategoryᵉ (l1 ⊔ l2))
         ( raise-unit-Setᵉ (l1 ⊔ l2)))
         ( diagram-matching-object C X z) _ _

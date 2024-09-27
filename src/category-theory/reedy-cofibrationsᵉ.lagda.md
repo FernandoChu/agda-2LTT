@@ -1,7 +1,7 @@
 # Reedy cofibrations
 
 ```agda
-module foundation.reedy-cofibrationsᵉ where
+module category-theory.reedy-cofibrationsᵉ where
 ```
 
 <details><summary>Imports</summary>
@@ -15,10 +15,12 @@ open import category-theory.isomorphisms-in-precategoriesᵉ
 open import category-theory.limits-precategoriesᵉ
 open import category-theory.right-extensions-precategoriesᵉ
 open import category-theory.right-kan-extensions-precategoriesᵉ
-open import category-theory.terminal-categoryᵉ
+-- open import category-theory.terminal-Precategoryᵉ
 open import category-theory.natural-transformations-functors-precategoriesᵉ
-open import category-theory.inverse-categoriesᵉ
-open import category-theory.reduced-coslice-categoryᵉ
+open import category-theory.inverse-precategoriesᵉ
+-- open import category-theory.reduced-coslice-Precategoryᵉ
+open import category-theory.matching-objectsᵉ
+open import category-theory.reedy-fibrationsᵉ
 
 open import elementary-number-theory.inequality-natural-numbersᵉ
 
@@ -36,8 +38,6 @@ open import foundation.setsᵉ
 open import foundation.unit-typeᵉ
 open import foundation.empty-typesᵉ
 open import foundation.standard-pullbacksᵉ
-open import foundation.matching-objectsᵉ
-open import foundation.reedy-fibrationsᵉ
 ```
 
 </details>
