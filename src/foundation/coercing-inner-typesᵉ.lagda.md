@@ -31,6 +31,15 @@ open coerce public
 
 ## Properties
 
+### The functorial action of `map-inv-coerce` on identity types
+
+```agda
+ap-map-inv-coerce :
+  {l : Level} {A : UU l} {x y : coerce A} →
+  x ＝ᵉ y → map-inv-coerce x ＝ map-inv-coerce y
+ap-map-inv-coerce reflᵉ = refl
+```
+
 ### Coercion respects dependent pair types up isomorphism
 
 ```agda
@@ -124,7 +133,7 @@ is-equiv-map-coerce-hom :
 is-equiv-map-coerce-hom A B =
   is-equiv-is-invertibleᵉ
     ( map-inv-coerce-hom A B)
-    ( λ { (map-coerce f) → reflᵉ} )
+    ( λ { f → reflᵉ} )
     ( λ { f → reflᵉ} )
 
 equiv-coerce-hom :

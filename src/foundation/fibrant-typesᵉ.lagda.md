@@ -14,6 +14,7 @@ open import foundation.function-typesᵉ
 open import foundation.function-types
 open import foundation.unit-typeᵉ
 open import foundation.action-on-identifications-functionsᵉ
+open import foundation.action-on-identifications-functions
 open import foundation.equivalences
 open import foundation.homotopiesᵉ
 open import foundation.dependent-pair-typesᵉ
@@ -283,18 +284,6 @@ module _
     witness-is-fibrant
       ( is-fibrant-B (map-is-fibrant is-fibrant-A (map-coerce a)))
 
-  test : coerce witness-is-fibrant-Πᵉ → Πᵉ A B
-  test (map-coerce f) a = {! (map-coerce (f (map-inv-coerce (map-inv-is-fibrant is-fibrant-A a)))) !}
-
-  is-fibrant-Πᵉ' :
-    is-fibrant (Πᵉ A B)
-  witness-is-fibrant is-fibrant-Πᵉ' = witness-is-fibrant-Πᵉ
-  equiv-witness-is-fibrant is-fibrant-Πᵉ' =
-    {! is-equiv-is-invertibleᵉ
-      ?
-      ?
-      ? !}
-
   is-fibrant-Πᵉ :
     is-fibrant (Πᵉ A B)
   witness-is-fibrant is-fibrant-Πᵉ = witness-is-fibrant-Πᵉ
@@ -358,10 +347,14 @@ witness-hom-Fibrant-Type :
 witness-hom-Fibrant-Type A B =
   witness-Fibrant-Type (Π-Fibrant-Type A (λ a → B))
 
--- Warning: This is not judgementally equal to the obvious map.
--- In fact it's probably hard to show that these two maps are equal.
--- If the obvious map is ever needed then `hom-Fibrant-Type` should
--- probably be defined in a different way.
+-- Warning: The "official" induced-map will be the one without `'`
+-- These maps should be equal but it's hard to see since
+-- 1) is-fibrant-Πᵉ doesn't compute
+-- 2) Applying is-fibrant-Πᵉ to the non-dependent case means transporting
+-- along a constant family, but this isn't the identity on the nose.
+-- It's unclear to me if this will matter in the future.
+-- If equality of these maps is ever needed, writing a manual version of
+-- `is-fibrant-Πᵉ` is probably the right choice.
 
 induced-map-hom-Fibrant-Type :
   {l1 l2 : Level} →
@@ -369,16 +362,40 @@ induced-map-hom-Fibrant-Type :
   ( B : Fibrant-Type l2) →
   type-Fibrant-Type (hom-Fibrant-Type A B) →
   witness-Fibrant-Type A → witness-Fibrant-Type B
-induced-map-hom-Fibrant-Type A B f =
+induced-map-hom-Fibrant-Type A B f x =
+  map-inv-coerce (map-inv-Fibrant-Type B (f (map-Fibrant-Type A (map-coerce x))))
+
+induced-map-hom-Fibrant-Type' :
+  {l1 l2 : Level} →
+  ( A : Fibrant-Type l1) →
+  ( B : Fibrant-Type l2) →
+  type-Fibrant-Type (hom-Fibrant-Type A B) →
+  witness-Fibrant-Type A → witness-Fibrant-Type B
+induced-map-hom-Fibrant-Type' A B f =
   map-inv-coerce (map-inv-Fibrant-Type (hom-Fibrant-Type A B) f)
 
--- test :
---   {l1 l2 : Level} →
---   ( A : UUᵉ l1) →
---   ( H H' : is-fibrant A) →
---   is-equiv (induced-map-hom-Fibrant-Type (A ,ᵉ H) (A ,ᵉ H') idᵉ)
--- test A H H' =
---   is-equiv-is-invertible ( induced-map-hom-Fibrant-Type (A ,ᵉ H') (A ,ᵉ H) idᵉ) (λ a → {! !}) {!!}
+is-equiv-id-induced-map-hom-Fibrant-Type :
+  {l : Level} →
+  (A : UUᵉ l) →
+  (H H' : is-fibrant A) →
+  is-equiv (induced-map-hom-Fibrant-Type (A ,ᵉ H) (A ,ᵉ H') idᵉ)
+is-equiv-id-induced-map-hom-Fibrant-Type A H H' =
+  is-equiv-is-invertible
+    ( induced-map-hom-Fibrant-Type (A ,ᵉ H') (A ,ᵉ H) idᵉ)
+    ( λ a →
+      ap-map-inv-coerce
+        ( apᵉ
+          ( map-inv-is-fibrant H')
+          ( is-retraction-map-is-fibrant H
+            ( map-is-fibrant H' (map-coerce a))) ∙ᵉ
+            is-section-map-is-fibrant H' (map-coerce a)))
+    ( λ a →
+      ap-map-inv-coerce
+        ( apᵉ
+          ( map-inv-is-fibrant H)
+          ( is-retraction-map-is-fibrant H'
+            ( map-is-fibrant H (map-coerce a))) ∙ᵉ
+            is-section-map-is-fibrant H (map-coerce a)))
 
 record equiv-Fibrant-Type {l1 l2  : Level} (A : Fibrant-Type l1) (B : Fibrant-Type l2) : UUᵉ (l1 ⊔ l2) where
   field
