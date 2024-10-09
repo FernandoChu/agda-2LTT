@@ -10,13 +10,16 @@ module foundation.cofibrationsᵉ where
 open import foundation.morphisms-arrowsᵉ
 open import foundation.homotopies-morphisms-arrowsᵉ
 open import foundation.action-on-identifications-functionsᵉ
+open import foundation.equality-dependent-pair-typesᵉ
 open import foundation.transport-along-identificationsᵉ
 open import foundation.action-on-identifications-dependent-functionsᵉ
 open import foundation.fibrationsᵉ
+open import foundation.exotypesᵉ
 open import foundation.function-extensionalityᵉ
 open import foundation.fibrant-typesᵉ
 open import foundation.functoriality-dependent-pair-typesᵉ
 open import foundation.universe-levelsᵉ
+open import foundation.pullbacksᵉ
 open import foundation.universe-levels
 open import foundation.function-typesᵉ
 open import foundation.homotopiesᵉ
@@ -29,6 +32,8 @@ open import foundation.equivalencesᵉ
 open import foundation.homotopiesᵉ
 open import foundation.retractionsᵉ
 open import foundation.sectionsᵉ
+open import foundation.dependent-identificationsᵉ
+open import foundation.standard-pullbacksᵉ
 
 open import orthogonal-factorization-systems.pullback-homᵉ
 ```
@@ -70,6 +75,30 @@ module _
   {l1 l2 : Level} {A : UUᵉ l1} {B : UUᵉ l2} (f : A → B)
   where
 
+  lemma319 :
+    {l3 : Level} (X : B → UUᵉ l2) →
+    is-pullbackᵉ
+      (λ (x : unitᵉ) → f)
+      (λ (f : A → Σᵉ B X) → pr1ᵉ ∘ᵉ f)
+      ((λ _ → starᵉ) ,ᵉ
+        (λ (g : (a : A) → (X (f a))) a → (f a ,ᵉ g a)) ,ᵉ
+        ( λ g → reflᵉ))
+  lemma319 X = 
+    is-equiv-is-invertibleᵉ
+      (λ (starᵉ ,ᵉ g ,ᵉ p) a → trᵉ X (invᵉ (htpy-eqᵉ p a)) (pr2ᵉ (g a)))
+      (λ (starᵉ ,ᵉ g ,ᵉ p) →
+        eq-pair-Σᵉ reflᵉ
+          ( eq-pair-Σᵉ
+            ( eq-htpyᵉ
+              (λ a → eq-pair-Σᵉ (htpy-eqᵉ p a) (helper (htpy-eqᵉ p a))))
+            ( has-uip-exotypeᵉ _ _ _ _ _)))
+      (λ g → reflᵉ)
+    where
+      helper :
+        {x y : B} (p : y ＝ᵉ x) {h : X x} →
+        trᵉ X p (trᵉ X (invᵉ p) h) ＝ᵉ h
+      helper reflᵉ = reflᵉ
+
   -- is-cofibration-is-cofibration' :
   --   is-cofibration' f l2 l2 → is-cofibration f l2
   -- pr1ᵉ (is-cofibration-is-cofibration' H) Y' g =
@@ -89,7 +118,12 @@ module _
   --         (inv-equiv-fiber-pr1ᵉ (type-Fibrant-Type ∘ᵉ Y') b)
   --     diag : hom-arrowᵉ f p
   --     diag = (g' ,ᵉ idᵉ ,ᵉ λ _ → reflᵉ)
-  --     lemma : fiberᵉ (pullback-homᵉ f (λ r → pr1ᵉ r)) diag ≃ᵉ
+  --     lemma' : fiberᵉ (pullback-homᵉ f p) diag →
+  --       fiberᵉ (λ (g₁ : (b : B) → type-Fibrant-Type (Y' b)) → g₁ ∘ᵉ f) g
+  --     pr1ᵉ (lemma' (h ,ᵉ e)) b = {!!}
+  --     pr2ᵉ (lemma' (h ,ᵉ e)) = {!!}
+
+  --     lemma : fiberᵉ (pullback-homᵉ f p) diag ≃ᵉ
   --       fiberᵉ (λ (g₁ : (b : B) → type-Fibrant-Type (Y' b)) → g₁ ∘ᵉ f) g
   --     lemma =
   --       pairᵉ
@@ -98,4 +132,9 @@ module _
   --         {!!}
   -- pr2ᵉ (is-cofibration-is-cofibration' H) = {!!}
 
+  -- is-cofibration'-is-cofibration :
+  --   is-cofibration f l2 → is-cofibration' f l2 l2
+  -- pr1ᵉ (is-cofibration'-is-cofibration H p) is-fibration-p (v ,ᵉ g ,ᵉ φ) =
+  --   {!!}
+  -- pr2ᵉ (is-cofibration'-is-cofibration H p) = {!!}
 ```

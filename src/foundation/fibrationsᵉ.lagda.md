@@ -9,6 +9,7 @@ module foundation.fibrationsᵉ where
 ```agda
 open import foundation.universe-levelsᵉ
 open import foundation.function-typesᵉ
+open import foundation.functoriality-dependent-pair-typesᵉ
 open import foundation.homotopiesᵉ
 open import foundation.dependent-pair-typesᵉ
 open import foundation.cartesian-product-typesᵉ
@@ -77,19 +78,20 @@ module _
   map-is-trivial-fibration-Trivial-Fibration = pr2ᵉ p
 ```
 
+## Properties
+
+### Characterization of fibrant types as fibrations over 1
 
 ```agda
-module _
-  {l1 : Level} {A : UUᵉ l1}
-  where
+is-fibration-terminal-map-is-fibrant :
+  {l1 : Level} {A : UUᵉ l1} →
+  is-fibration (terminal-mapᵉ A) → is-fibrant A
+is-fibration-terminal-map-is-fibrant is-fibration-! =
+  is-fibrant-equivᵉ (is-fibration-! starᵉ) (equiv-fiber-terminal-mapᵉ starᵉ)
 
-  is-fibration-terminal-map-is-fibrant :
-    is-fibration (terminal-mapᵉ A) → is-fibrant A
-  is-fibration-terminal-map-is-fibrant is-fibration-! =
-    is-fibrant-equivᵉ (is-fibration-! starᵉ) (equiv-fiber-terminal-mapᵉ starᵉ)
-
-  is-fibrant-is-fibration-terminal-map :
-    is-fibrant A → is-fibration (terminal-mapᵉ A)
-  is-fibrant-is-fibration-terminal-map is-fibrant-A a =
-    is-fibrant-equivᵉ is-fibrant-A (inv-equivᵉ (equiv-fiber-terminal-mapᵉ starᵉ))
+is-fibrant-is-fibration-terminal-map :
+  {l1 : Level} {A : UUᵉ l1} →
+  is-fibrant A → is-fibration (terminal-mapᵉ A)
+is-fibrant-is-fibration-terminal-map is-fibrant-A a =
+  is-fibrant-equivᵉ is-fibrant-A (inv-equivᵉ (equiv-fiber-terminal-mapᵉ starᵉ))
 ```

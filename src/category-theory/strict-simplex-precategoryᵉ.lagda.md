@@ -192,7 +192,7 @@ hom-strict-simplex-Precategoryᵉ n m =
 hom-set-strict-simplex-Precategoryᵉ :
   obj-strict-simplex-Precategoryᵉ → obj-strict-simplex-Precategoryᵉ → Setᵉ lzero
 pr1ᵉ (hom-set-strict-simplex-Precategoryᵉ n m) = hom-strict-simplex-Precategoryᵉ n m
-pr2ᵉ (hom-set-strict-simplex-Precategoryᵉ n m) = is-setᵉ-exotype _
+pr2ᵉ (hom-set-strict-simplex-Precategoryᵉ n m) = is-set-exotypeᵉ _
 
 id-strict-simplex-Precategoryᵉ :
   (n : obj-strict-simplex-Precategoryᵉ) →
@@ -340,7 +340,7 @@ horn-strict-simplex :
   ℕᵉ → ℕᵉ →
   strict-simplicial-set
 pr1ᵉ (pr1ᵉ (horn-strict-simplex j n) k) = type-obj-horn-strict-simplex j n k
-pr2ᵉ (pr1ᵉ (horn-strict-simplex j n) k) = is-setᵉ-exotype _
+pr2ᵉ (pr1ᵉ (horn-strict-simplex j n) k) = is-set-exotypeᵉ _
 pr1ᵉ (pr2ᵉ (horn-strict-simplex j n)) {x} {y} f = hom-horn-strict-simplex j n x y f
 pr1ᵉ (pr2ᵉ (pr2ᵉ (horn-strict-simplex j n))) g f = reflᵉ
 pr2ᵉ (pr2ᵉ (pr2ᵉ (horn-strict-simplex j n))) x = reflᵉ
@@ -497,17 +497,15 @@ pr1ᵉ (pr2ᵉ (pr2ᵉ rank-functor-op-strict-simplex-Precategoryᵉ)) {m} {n} {
 pr2ᵉ (pr2ᵉ (pr2ᵉ rank-functor-op-strict-simplex-Precategoryᵉ)) n =
   eq-is-propᵉ (is-prop-leq-ℕᵉ n n)
 
-reflects-isos-rank-functor-op-strict-simplex-Precategoryᵉ' :
-    (m n : obj-Precategoryᵉ strict-simplex-Precategoryᵉ) →
-    (m ＝ᵉ n) →
-    (f : hom-strict-simplex-Precategoryᵉ m n) →
-    is-iso-Precategoryᵉ ℕ-Precategoryᵉ {m} {n} (hom-rank-functor-op-strict-simplex-Precategoryᵉ f) →
-    is-iso-Precategoryᵉ strict-simplex-Precategoryᵉ f
-reflects-isos-rank-functor-op-strict-simplex-Precategoryᵉ' m .m reflᵉ (f ,ᵉ pf) (p1 ,ᵉ p2) =
-  trᵉ
-    ( is-iso-Precategoryᵉ strict-simplex-Precategoryᵉ)
-    ( invᵉ f＝ᵉid)
-    ( is-iso-id-hom-Precategoryᵉ strict-simplex-Precategoryᵉ {m})
+reflects-id-rank-functor-op-strict-simplex-Precategoryᵉ :
+  reflects-id-functor-Precategoryᵉ
+    strict-simplex-Precategoryᵉ
+    ℕ-Precategoryᵉ
+    rank-functor-op-strict-simplex-Precategoryᵉ
+reflects-id-rank-functor-op-strict-simplex-Precategoryᵉ {m} (f ,ᵉ pf) p =
+  eq-pair-Σᵉ
+    ( eq-htpyᵉ (λ x → lemma m (f ,ᵉ pf) x (f (inrᵉ starᵉ)) reflᵉ))
+    ( eq-is-propᵉ (is-prop-preserves-lt-Finᵉ (succ-ℕᵉ m) (succ-ℕᵉ m) idᵉ))
   where
     lemma :
       (m : obj-strict-simplex-Precategoryᵉ) →
@@ -540,31 +538,10 @@ reflects-isos-rank-functor-op-strict-simplex-Precategoryᵉ' m .m reflᵉ (f ,�
                    (inrᵉ starᵉ)) reflᵉ )
     lemma (succ-ℕᵉ m) (f ,ᵉ pf) (inrᵉ starᵉ) (inrᵉ starᵉ) p = p
 
-    f＝ᵉid :
-      (f ,ᵉ pf) ＝ᵉ id-strict-simplex-Precategoryᵉ m
-    f＝ᵉid =
-      eq-pair-Σᵉ
-        ( eq-htpyᵉ (λ x → lemma m (f ,ᵉ pf) x (f (inrᵉ starᵉ)) reflᵉ))
-        ( eq-is-propᵉ (is-prop-preserves-lt-Finᵉ (succ-ℕᵉ m) (succ-ℕᵉ m) idᵉ))
-
-reflects-isos-rank-functor-op-strict-simplex-Precategoryᵉ :
-  reflects-isos-functor-Precategoryᵉ
-    strict-simplex-Precategoryᵉ
-    ℕ-Precategoryᵉ
-    rank-functor-op-strict-simplex-Precategoryᵉ
-reflects-isos-rank-functor-op-strict-simplex-Precategoryᵉ {m} {n} (f ,ᵉ pf) (p1 ,ᵉ p2) =
-  reflects-isos-rank-functor-op-strict-simplex-Precategoryᵉ' m n m＝ᵉn (f ,ᵉ pf) (p1 ,ᵉ p2) 
-  where
-    m＝ᵉn : m ＝ᵉ n
-    m＝ᵉn =
-      antisymmetric-leq-ℕᵉ m n
-        ( leq-preserves-lt-Finᵉ (succ-ℕᵉ m) (succ-ℕᵉ n) f pf)
-        ( p1)
-
 is-inverse-op-strict-simplex-Precategoryᵉ :
   is-inverse-Precategoryᵉ op-strict-simplex-Precategoryᵉ
 pr1ᵉ is-inverse-op-strict-simplex-Precategoryᵉ =
   rank-functor-op-strict-simplex-Precategoryᵉ
 pr2ᵉ is-inverse-op-strict-simplex-Precategoryᵉ =
-  reflects-isos-rank-functor-op-strict-simplex-Precategoryᵉ
+  reflects-id-rank-functor-op-strict-simplex-Precategoryᵉ
 ```

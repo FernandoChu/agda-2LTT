@@ -37,6 +37,7 @@ open import foundation.universe-levels
 
 ```agda
 record is-fibrant {i : Level} (A : UUᵉ i) : UUᵉ (lsuc i) where
+  constructor mk-is-fibrant
   field
     witness-is-fibrant : UU i
     equiv-witness-is-fibrant : coerce witness-is-fibrant ≃ᵉ A
