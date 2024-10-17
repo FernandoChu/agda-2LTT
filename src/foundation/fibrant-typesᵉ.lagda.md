@@ -3,6 +3,8 @@
 ```agda
 module foundation.fibrant-typesᵉ where
 
+open import elementary-number-theory.natural-numbersᵉ
+
 open import foundation.contractible-types
 open import foundation.dependent-pair-types
 open import foundation.unit-type
@@ -13,20 +15,26 @@ open import foundation.functoriality-dependent-function-typesᵉ
 open import foundation.function-typesᵉ
 open import foundation.function-types
 open import foundation.unit-typeᵉ
+open import foundation.coproduct-typesᵉ
+open import foundation.coproduct-types
 open import foundation.action-on-identifications-functionsᵉ
 open import foundation.action-on-identifications-functions
 open import foundation.equivalences
 open import foundation.homotopiesᵉ
 open import foundation.dependent-pair-typesᵉ
+open import foundation.exotypesᵉ
 open import foundation.cartesian-product-typesᵉ
 open import foundation.identity-typesᵉ
 open import foundation.identity-types
 open import foundation.function-extensionality
+open import foundation.function-extensionalityᵉ
 open import foundation.universe-levelsᵉ
 open import foundation.equivalencesᵉ
 open import foundation.coercing-inner-typesᵉ
 open import foundation.universe-levelsᵉ
 open import foundation.universe-levels
+
+open import univalent-combinatorics.standard-finite-typesᵉ
 ```
 
 ## Idea
@@ -56,6 +64,12 @@ record is-fibrant {i : Level} (A : UUᵉ i) : UUᵉ (lsuc i) where
 
   is-retraction-map-is-fibrant : (map-is-fibrant ∘ᵉ map-inv-is-fibrant) ~ᵉ idᵉ
   is-retraction-map-is-fibrant = is-section-map-inv-equivᵉ equiv-witness-is-fibrant
+
+  exotype-witness-is-fibrant : witness-is-fibrant → A
+  exotype-witness-is-fibrant w = map-is-fibrant (map-coerce w)
+
+  witness-exotype-is-fibrant : A → witness-is-fibrant
+  witness-exotype-is-fibrant a = map-inv-coerce (map-inv-is-fibrant a)
 
 open is-fibrant public
 
@@ -93,6 +107,14 @@ module _
     (map-Fibrant-Type ∘ᵉ map-inv-Fibrant-Type) ~ᵉ idᵉ
   is-retraction-map-Fibrant-Type =
     is-retraction-map-is-fibrant is-fibrant-Fibrant-Type
+
+  exotype-witness-Fibrant-Type : witness-Fibrant-Type → type-Fibrant-Type
+  exotype-witness-Fibrant-Type =
+    exotype-witness-is-fibrant is-fibrant-Fibrant-Type
+
+  witness-exotype-Fibrant-Type : type-Fibrant-Type → witness-Fibrant-Type
+  witness-exotype-Fibrant-Type =
+    witness-exotype-is-fibrant is-fibrant-Fibrant-Type
 ```
 
 ### Trivially Fibrant types
@@ -108,8 +130,10 @@ record is-trivially-fibrant {i : Level} (A : UUᵉ i) : UUᵉ (lsuc i) where
   witness-is-trivially-fibrant =
     witness-is-fibrant is-fibrant-is-trivially-fibrant
 
-  equiv-witness-is-trivially-fibrant : coerce witness-is-trivially-fibrant ≃ᵉ A
-  equiv-witness-is-trivially-fibrant = equiv-witness-is-fibrant is-fibrant-is-trivially-fibrant
+  equiv-witness-is-trivially-fibrant :
+    coerce witness-is-trivially-fibrant ≃ᵉ A
+  equiv-witness-is-trivially-fibrant =
+    equiv-witness-is-fibrant is-fibrant-is-trivially-fibrant
 
   map-is-trivially-fibrant : coerce witness-is-trivially-fibrant → A
   map-is-trivially-fibrant = map-is-fibrant is-fibrant-is-trivially-fibrant
@@ -127,6 +151,14 @@ record is-trivially-fibrant {i : Level} (A : UUᵉ i) : UUᵉ (lsuc i) where
     (map-is-trivially-fibrant ∘ᵉ map-inv-is-trivially-fibrant) ~ᵉ idᵉ
   is-retraction-map-is-trivially-fibrant =
     is-retraction-map-is-fibrant is-fibrant-is-trivially-fibrant
+
+  exotype-witness-is-trivially-fibrant : witness-is-trivially-fibrant → A
+  exotype-witness-is-trivially-fibrant w =
+    map-is-trivially-fibrant (map-coerce w)
+
+  witness-exotype-is-trivially-fibrant : A → witness-is-trivially-fibrant
+  witness-exotype-is-trivially-fibrant a =
+    map-inv-coerce (map-inv-is-trivially-fibrant a)
 
   center-is-trivially-fibrant : A
   center-is-trivially-fibrant =
@@ -152,7 +184,8 @@ module _
   is-fibrant-Trivially-Fibrant-Type :
     is-fibrant type-Trivially-Fibrant-Type
   is-fibrant-Trivially-Fibrant-Type =
-    is-fibrant-is-trivially-fibrant is-trivially-fibrant-Trivially-Fibrant-Type
+    is-fibrant-is-trivially-fibrant
+      is-trivially-fibrant-Trivially-Fibrant-Type
 
   witness-Trivially-Fibrant-Type : UU l
   witness-Trivially-Fibrant-Type =
@@ -161,7 +194,8 @@ module _
   equiv-witness-Trivially-Fibrant-Type :
     coerce witness-Trivially-Fibrant-Type ≃ᵉ type-Trivially-Fibrant-Type
   equiv-witness-Trivially-Fibrant-Type =
-    equiv-witness-is-trivially-fibrant is-trivially-fibrant-Trivially-Fibrant-Type
+    equiv-witness-is-trivially-fibrant
+      is-trivially-fibrant-Trivially-Fibrant-Type
 
   map-Trivially-Fibrant-Type :
     coerce witness-Trivially-Fibrant-Type → type-Trivially-Fibrant-Type
@@ -185,6 +219,18 @@ module _
     is-retraction-map-is-trivially-fibrant
       is-trivially-fibrant-Trivially-Fibrant-Type
 
+  exotype-witness-Trivially-Fibrant-Type :
+    witness-Trivially-Fibrant-Type → type-Trivially-Fibrant-Type
+  exotype-witness-Trivially-Fibrant-Type =
+    exotype-witness-is-trivially-fibrant
+      is-trivially-fibrant-Trivially-Fibrant-Type
+
+  witness-exotype-Trivially-Fibrant-Type :
+    type-Trivially-Fibrant-Type → witness-Trivially-Fibrant-Type
+  witness-exotype-Trivially-Fibrant-Type =
+    witness-exotype-is-trivially-fibrant
+      is-trivially-fibrant-Trivially-Fibrant-Type
+
   is-contr-Trivially-Fibrant-Type :
     is-contr witness-Trivially-Fibrant-Type
   is-contr-Trivially-Fibrant-Type =
@@ -193,6 +239,20 @@ module _
 ```
 
 ## Properties
+
+### Inner types are fibrant
+
+```agda
+is-fibrant-coerce :
+  {l : Level} (A : UU l) → is-fibrant (coerce A)
+witness-is-fibrant (is-fibrant-coerce A) = A
+equiv-witness-is-fibrant (is-fibrant-coerce A) = id-equivᵉ
+
+Fibrant-Type-coerce :
+  {l : Level} (A : UU l) → Fibrant-Type l
+pr1ᵉ (Fibrant-Type-coerce A) = coerce A
+pr2ᵉ (Fibrant-Type-coerce A) = is-fibrant-coerce A
+```
 
 ### Closure under isos
 
@@ -206,6 +266,17 @@ module _
   witness-is-fibrant is-fibrant-equivᵉ = witness-is-fibrant is-fibrant-A
   equiv-witness-is-fibrant is-fibrant-equivᵉ =
     comp-equivᵉ e (equiv-witness-is-fibrant is-fibrant-A)
+
+Fibrant-Type-equivᵉ :
+  {l : Level}
+  (A : Fibrant-Type l) →
+  (B : UUᵉ l) →
+  (type-Fibrant-Type A ≃ᵉ B) →
+  Fibrant-Type l
+pr1ᵉ (Fibrant-Type-equivᵉ A B e) = B
+pr2ᵉ (Fibrant-Type-equivᵉ A B e) =
+  is-fibrant-equivᵉ (is-fibrant-Fibrant-Type A) e
+
 ```
 
 ### Closure under Σ
@@ -331,7 +402,8 @@ type-hom-Fibrant-Type :
   Fibrant-Type l1 →
   Fibrant-Type l2 →
   UUᵉ (l1 ⊔ l2)
-type-hom-Fibrant-Type A B = type-Π-Fibrant-Type A (λ a → B)
+type-hom-Fibrant-Type A B =
+  type-Π-Fibrant-Type A (λ a → B)
 
 hom-Fibrant-Type :
   {l1 l2 : Level} →
@@ -348,6 +420,38 @@ witness-hom-Fibrant-Type :
 witness-hom-Fibrant-Type A B =
   witness-Fibrant-Type (Π-Fibrant-Type A (λ a → B))
 
+witness-hom-Fibrant-Type' :
+  {l1 l2 : Level} →
+  Fibrant-Type l1 →
+  Fibrant-Type l2 →
+  UU (l1 ⊔ l2)
+witness-hom-Fibrant-Type' A B =
+  witness-Fibrant-Type A → witness-Fibrant-Type B
+
+-- is-fibrant-hom-Fibrant-Type' :
+--   {l1 l2 : Level} →
+--   ( A : Fibrant-Type l1) →
+--   ( B : Fibrant-Type l2) →
+--   is-fibrant (type-Fibrant-Type A → type-Fibrant-Type B)
+-- witness-is-fibrant (is-fibrant-hom-Fibrant-Type' A B) =
+--   witness-hom-Fibrant-Type' A B
+-- pr1ᵉ (equiv-witness-is-fibrant (is-fibrant-hom-Fibrant-Type' A B)) (map-coerce f) a =
+--    map-Fibrant-Type B (map-coerce (f (map-inv-coerce (map-inv-Fibrant-Type A a))))
+-- pr2ᵉ (equiv-witness-is-fibrant (is-fibrant-hom-Fibrant-Type' A B)) =
+--   is-equiv-is-invertibleᵉ
+--     {!!}
+--     {!!}
+--     {!!}
+
+arst :
+  {l1 l2 : Level} →
+  ( A : Fibrant-Type l1) →
+  ( B : Fibrant-Type l2) →
+  witness-hom-Fibrant-Type A B ＝ witness-hom-Fibrant-Type' A B
+arst {l1} {l2} A B = refl
+-- pr1 (arst A B) f a = {!!}
+-- pr2 (arst A B) = {!!}
+
 -- Warning: The "official" induced-map will be the one without `'`
 -- These maps should be equal but it's hard to see since
 -- 1) is-fibrant-Πᵉ doesn't compute
@@ -363,8 +467,8 @@ induced-map-hom-Fibrant-Type :
   ( B : Fibrant-Type l2) →
   type-Fibrant-Type (hom-Fibrant-Type A B) →
   witness-Fibrant-Type A → witness-Fibrant-Type B
-induced-map-hom-Fibrant-Type A B f x =
-  map-inv-coerce (map-inv-Fibrant-Type B (f (map-Fibrant-Type A (map-coerce x))))
+induced-map-hom-Fibrant-Type A B f =
+  (witness-exotype-Fibrant-Type B) ∘ᶠᵉᶠ f ∘ᵉᵉᶠ (exotype-witness-Fibrant-Type A)
 
 induced-map-hom-Fibrant-Type' :
   {l1 l2 : Level} →

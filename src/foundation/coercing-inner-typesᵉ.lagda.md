@@ -6,6 +6,8 @@ module foundation.coercing-inner-typesᵉ where
 open import foundation.pi-decompositionsᵉ
 open import foundation.universe-levelsᵉ
 open import foundation.equivalencesᵉ
+open import foundation.coproduct-typesᵉ
+open import foundation.coproduct-types
 open import foundation.dependent-pair-typesᵉ
 open import foundation.identity-typesᵉ
 open import foundation.identity-types
@@ -75,7 +77,7 @@ pr1ᵉ (equiv-coerce-Σᵉ A B) = map-coerce-Σᵉ A B
 pr2ᵉ (equiv-coerce-Σᵉ A B) = is-equiv-map-coerce-Σᵉ A B
 ```
 
-### Coercion respects dependent function types up isomorphism
+### Coercion respects dependent function types up to isomorphism
 
 ```agda
 Πᵉ-coerce :
@@ -109,7 +111,7 @@ pr1ᵉ (equiv-coerce-Πᵉ A B) = map-coerce-Πᵉ A B
 pr2ᵉ (equiv-coerce-Πᵉ A B) = is-equiv-map-coerce-Πᵉ A B
 ```
 
-### Coercion respects function types up isomorphism
+### Coercion respects function types up to isomorphism
 
 ```agda
 hom-coerce :
@@ -133,8 +135,8 @@ is-equiv-map-coerce-hom :
 is-equiv-map-coerce-hom A B =
   is-equiv-is-invertibleᵉ
     ( map-inv-coerce-hom A B)
-    ( λ { f → reflᵉ} )
-    ( λ { f → reflᵉ} )
+    ( λ f → reflᵉ )
+    ( λ f → reflᵉ )
 
 equiv-coerce-hom :
   {l1 l2 : Level} (A : UU l1) (B : UU l2) →

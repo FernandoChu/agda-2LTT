@@ -73,7 +73,7 @@ def add_exo(word, prevword):
         "...",
         "with",
     ]
-    hardcodes = {"if_then_else_": "ifᵉ_thenᵉ_elseᵉ_"}
+    hardcodes = {"if_then_else_": "ifᵉ_thenᵉ_elseᵉ_", "_≡_mod_": "_≡ᵉ_modᵉ_"}
     cleanword = word
     for char in ["(", ")", "{", "}", "."]:
         cleanword = cleanword.replace(char, "")
