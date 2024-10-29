@@ -6,8 +6,6 @@ module foundation.coercing-inner-typesᵉ where
 open import foundation.pi-decompositionsᵉ
 open import foundation.universe-levelsᵉ
 open import foundation.equivalencesᵉ
-open import foundation.coproduct-typesᵉ
-open import foundation.coproduct-types
 open import foundation.dependent-pair-typesᵉ
 open import foundation.identity-typesᵉ
 open import foundation.identity-types

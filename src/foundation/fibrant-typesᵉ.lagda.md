@@ -167,6 +167,15 @@ record is-trivially-fibrant {i : Level} (A : UUᵉ i) : UUᵉ (lsuc i) where
 
 open is-trivially-fibrant public
 
+mk-is-trivially-fibrant :
+  { l : Level} {A : UUᵉ l} →
+  (wA : UU l) → (coerce wA ≃ᵉ A) → is-contr (wA) →
+  is-trivially-fibrant A
+is-fibrant-is-trivially-fibrant (mk-is-trivially-fibrant wA e is-contr-wA) =
+  mk-is-fibrant wA e
+is-contr-witness-is-trivially-fibrant (mk-is-trivially-fibrant wA e is-contr-wA) =
+  is-contr-wA
+
 Trivially-Fibrant-Type : (l : Level) → UUᵉ (lsuc l)
 Trivially-Fibrant-Type l = Σᵉ (UUᵉ l) (λ A → is-trivially-fibrant A)
 
@@ -239,20 +248,6 @@ module _
 ```
 
 ## Properties
-
-### Inner types are fibrant
-
-```agda
-is-fibrant-coerce :
-  {l : Level} (A : UU l) → is-fibrant (coerce A)
-witness-is-fibrant (is-fibrant-coerce A) = A
-equiv-witness-is-fibrant (is-fibrant-coerce A) = id-equivᵉ
-
-Fibrant-Type-coerce :
-  {l : Level} (A : UU l) → Fibrant-Type l
-pr1ᵉ (Fibrant-Type-coerce A) = coerce A
-pr2ᵉ (Fibrant-Type-coerce A) = is-fibrant-coerce A
-```
 
 ### Closure under isos
 
@@ -428,30 +423,6 @@ witness-hom-Fibrant-Type' :
 witness-hom-Fibrant-Type' A B =
   witness-Fibrant-Type A → witness-Fibrant-Type B
 
--- is-fibrant-hom-Fibrant-Type' :
---   {l1 l2 : Level} →
---   ( A : Fibrant-Type l1) →
---   ( B : Fibrant-Type l2) →
---   is-fibrant (type-Fibrant-Type A → type-Fibrant-Type B)
--- witness-is-fibrant (is-fibrant-hom-Fibrant-Type' A B) =
---   witness-hom-Fibrant-Type' A B
--- pr1ᵉ (equiv-witness-is-fibrant (is-fibrant-hom-Fibrant-Type' A B)) (map-coerce f) a =
---    map-Fibrant-Type B (map-coerce (f (map-inv-coerce (map-inv-Fibrant-Type A a))))
--- pr2ᵉ (equiv-witness-is-fibrant (is-fibrant-hom-Fibrant-Type' A B)) =
---   is-equiv-is-invertibleᵉ
---     {!!}
---     {!!}
---     {!!}
-
-arst :
-  {l1 l2 : Level} →
-  ( A : Fibrant-Type l1) →
-  ( B : Fibrant-Type l2) →
-  witness-hom-Fibrant-Type A B ＝ witness-hom-Fibrant-Type' A B
-arst {l1} {l2} A B = refl
--- pr1 (arst A B) f a = {!!}
--- pr2 (arst A B) = {!!}
-
 -- Warning: The "official" induced-map will be the one without `'`
 -- These maps should be equal but it's hard to see since
 -- 1) is-fibrant-Πᵉ doesn't compute
@@ -502,10 +473,14 @@ is-equiv-id-induced-map-hom-Fibrant-Type A H H' =
             ( map-is-fibrant H (map-coerce a))) ∙ᵉ
             is-section-map-is-fibrant H (map-coerce a)))
 
-record equiv-Fibrant-Type {l1 l2  : Level} (A : Fibrant-Type l1) (B : Fibrant-Type l2) : UUᵉ (l1 ⊔ l2) where
+record equiv-Fibrant-Type
+  {l1 l2  : Level} (A : Fibrant-Type l1) (B : Fibrant-Type l2) : UUᵉ (l1 ⊔ l2)
+  where
   field
-    map-equiv-Fibrant-Type : type-Fibrant-Type A → type-Fibrant-Type B
-    is-equiv-map-equiv-Fibrant-Type : is-equiv (induced-map-hom-Fibrant-Type A B map-equiv-Fibrant-Type)
+    map-equiv-Fibrant-Type :
+      type-Fibrant-Type A → type-Fibrant-Type B
+    is-equiv-map-equiv-Fibrant-Type :
+      is-equiv (induced-map-hom-Fibrant-Type A B map-equiv-Fibrant-Type)
 
 infix 6 _≃ᶠ_
 _≃ᶠ_ : {l1 l2  : Level} (A : Fibrant-Type l1) (B : Fibrant-Type l2) → UUᵉ (l1 ⊔ l2)
@@ -617,4 +592,18 @@ is-contr-witness-is-trivially-fibrant is-trivially-fibrant-unitᵉ = is-contr-un
 unit-Trivially-Fibrant-Type : Trivially-Fibrant-Type lzero
 pr1ᵉ unit-Trivially-Fibrant-Type = unitᵉ
 pr2ᵉ unit-Trivially-Fibrant-Type = is-trivially-fibrant-unitᵉ
+```
+
+### Inner types are fibrant
+
+```agda
+is-fibrant-coerce :
+  {l : Level} (A : UU l) → is-fibrant (coerce A)
+witness-is-fibrant (is-fibrant-coerce A) = A
+equiv-witness-is-fibrant (is-fibrant-coerce A) = id-equivᵉ
+
+Fibrant-Type-coerce :
+  {l : Level} (A : UU l) → Fibrant-Type l
+pr1ᵉ (Fibrant-Type-coerce A) = coerce A
+pr2ᵉ (Fibrant-Type-coerce A) = is-fibrant-coerce A
 ```

@@ -7,6 +7,7 @@ module foundation.cofibrationsᵉ where
 <details><summary>Imports</summary>
 
 ```agda
+open import foundation.contractible-types
 open import foundation.morphisms-arrowsᵉ
 open import foundation.homotopies-morphisms-arrowsᵉ
 open import foundation.action-on-identifications-functionsᵉ
@@ -16,6 +17,7 @@ open import foundation.action-on-identifications-dependent-functionsᵉ
 open import foundation.fibrationsᵉ
 open import foundation.exotypesᵉ
 open import foundation.function-extensionalityᵉ
+open import foundation.pi-decompositionsᵉ
 open import foundation.fibrant-typesᵉ
 open import foundation.functoriality-dependent-pair-typesᵉ
 open import foundation.universe-levelsᵉ
@@ -49,23 +51,19 @@ module _
 
   is-cofibration : (l : Level) → UUᵉ (lsuc l1 ⊔ lsuc l2 ⊔ lsuc l)
   is-cofibration l =
-    ((Y : B → Fibrant-Type l) →
+    ((Y : B → UU l) →
     is-fibration
-      (λ (g : (b : B) → type-Fibrant-Type (Y b)) → (g ∘ᵉ f))) ×ᵉ
-    ((Y : B → Trivially-Fibrant-Type l) →
-    is-fibration
-      (λ (g : (b : B) → type-Trivially-Fibrant-Type (Y b)) → (g ∘ᵉ f)))
+      (λ (g : (b : B) → Y b) → (g ∘ᶠᵉᵉ f))) ×ᵉ
+    ((Y : B → UU l) →
+    ((b : B) → is-contr (Y b)) →
+    is-trivial-fibration
+      (λ (g : (b : B) → Y b) → (g ∘ᶠᵉᵉ f)))
 
   is-cofibration' : (l3 l4 : Level) → UUᵉ (lsuc (l1 ⊔ l2 ⊔ l3 ⊔ l4))
   is-cofibration' l3 l4 =
     {X : UUᵉ l3} {Y : UUᵉ l4} (p : Y → X) →
     (is-fibration p → is-fibration (pullback-homᵉ f p)) ×ᵉ
     (is-trivial-fibration p → is-trivial-fibration (pullback-homᵉ f p))
-
-  -- is-trivial-cofibration : UUωᵉ
-  -- is-trivial-cofibration =
-  --   {l3 l4 : Level} {X : UUᵉ l2} {Y : UUᵉ l4} (p : Y → X) →
-  --   is-fibration p → is-trivial-fibration (pullback-homᵉ f p)
 ```
 
 ## Properties

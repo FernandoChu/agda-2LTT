@@ -8,13 +8,21 @@ open import foundation.dependent-pair-types
 open import foundation.unit-type
 
 open import foundation.pi-decompositionsᵉ
+open import foundation.pi-decompositions
+open import foundation.action-on-identifications-functionsᵉ
+open import foundation.homotopies
+open import foundation.action-on-identifications-functions
 open import foundation.cofibrant-typesᵉ
 open import foundation.fibrant-typesᵉ
 open import foundation.equivalences
+open import foundation.equality-dependent-pair-typesᵉ
+open import foundation.equality-dependent-pair-types
 open import foundation.functoriality-dependent-pair-typesᵉ
 open import foundation.functoriality-dependent-function-typesᵉ
 open import foundation.function-typesᵉ
 open import foundation.function-types
+open import foundation.function-extensionality
+open import foundation.function-extensionalityᵉ
 open import foundation.unit-typeᵉ
 open import foundation.transport-along-identifications
 open import foundation.transport-along-identificationsᵉ
@@ -29,6 +37,7 @@ open import foundation.coercing-inner-typesᵉ
 open import foundation.sections
 open import foundation.universe-levelsᵉ
 open import foundation.universe-levels
+open import foundation.exotypesᵉ
 ```
 
 ## Idea
@@ -39,29 +48,49 @@ open import foundation.universe-levels
 
 ```agda
 record is-sharp {i : Level} (B : UUᵉ i) (j : Level) : UUᵉ (lsuc (i ⊔ j)) where
+  constructor mk-is-sharp
   field
     is-cofibrant-is-sharp : is-cofibrant B j
-    fibrant-replacement-is-sharp : Fibrant-Type i
-    map-fibrant-replacement-is-sharp : B → type-Fibrant-Type fibrant-replacement-is-sharp
+    fibrant-replacement-is-sharp : UU i
+    map-fibrant-replacement-is-sharp :
+      B → fibrant-replacement-is-sharp
 
   precomp-map-is-sharp :
-    ( Y : type-Fibrant-Type fibrant-replacement-is-sharp → Fibrant-Type j) →
-    witness-Fibrant-Type
-      ( Π-Fibrant-Type fibrant-replacement-is-sharp Y) →
+    ( Y : fibrant-replacement-is-sharp → UU j) →
+    ( Π fibrant-replacement-is-sharp Y) →
     witness-Fibrant-Type
       ( fibrant-Π-is-cofibrant is-cofibrant-is-sharp
-        ( Y ∘ᵉ map-fibrant-replacement-is-sharp))
-  precomp-map-is-sharp Y =
-    ( induced-map-hom-Fibrant-Type
-      ( Π-Fibrant-Type fibrant-replacement-is-sharp Y)
+        ( Y ∘ᶠᶠᵉ map-fibrant-replacement-is-sharp))
+  precomp-map-is-sharp Y f =
+    map-inv-coerce
+      ( map-inv-is-fibrant
+        ( pr1ᵉ is-cofibrant-is-sharp (Y ∘ᶠᶠᵉ map-fibrant-replacement-is-sharp))
+        ( map-coerce ∘ᵉᶠᵉ f ∘ᶠᶠᵉ map-fibrant-replacement-is-sharp))
+
+  precomp-map-is-sharp' :
+    ( Y : fibrant-replacement-is-sharp → UU j) →
+    ( Π fibrant-replacement-is-sharp Y) →
+    witness-Fibrant-Type
+      ( fibrant-Π-is-cofibrant is-cofibrant-is-sharp
+        ( Y ∘ᶠᶠᵉ map-fibrant-replacement-is-sharp))
+  precomp-map-is-sharp' Y = 
+    induced-map-hom-Fibrant-Type
+      ( Π-Fibrant-Type (Fibrant-Type-coerce fibrant-replacement-is-sharp) (λ a → Fibrant-Type-coerce (Y (map-inv-coerce a))))
       ( fibrant-Π-is-cofibrant
         ( is-cofibrant-is-sharp)
-        ( Y ∘ᵉ map-fibrant-replacement-is-sharp))
-      ( λ h → h ∘ᵉ map-fibrant-replacement-is-sharp))
+        ( Y ∘ᶠᶠᵉ map-fibrant-replacement-is-sharp))
+       λ h → h ∘ᵉ map-coerce ∘ᵉᶠᵉ map-fibrant-replacement-is-sharp
+
+   -- ( induced-map-hom-Fibrant-Type
+   --    ( Π-Fibrant-Type fibrant-replacement-is-sharp Y)
+   --    ( fibrant-Π-is-cofibrant
+   --      ( is-cofibrant-is-sharp)
+   --      ( Y ∘ᵉ map-fibrant-replacement-is-sharp))
+   --    ( λ h → h ∘ᵉ map-fibrant-replacement-is-sharp))
 
   field
     is-equiv-precomp-is-sharp :
-      ( Y : type-Fibrant-Type fibrant-replacement-is-sharp → Fibrant-Type j) →
+      ( Y : fibrant-replacement-is-sharp → UU j) →
       is-equiv (precomp-map-is-sharp Y)
 
 open is-sharp public
@@ -70,78 +99,63 @@ open is-sharp public
 ### Properties
 
 ```agda
-is-section-precomp-is-sharp :
+is-sharp-precomp-section :
   {i : Level} (B : UUᵉ i) (j : Level) →
-  (B# : is-sharp B j) →
-  (Y : type-Fibrant-Type (fibrant-replacement-is-sharp B#) → Fibrant-Type j) →
-  section (precomp-map-is-sharp B# Y)
-is-section-precomp-is-sharp B j B# Y =
-  section-is-equiv (is-equiv-precomp-is-sharp B# Y)
-
-arst :
-  {i : Level} (B : UUᵉ i) (j : Level) →
-  (is-cofibrant-B : is-cofibrant B (i ⊔ j))
-  (RB : Fibrant-Type i)
-  (r : B → type-Fibrant-Type RB) →
-  ((Z : Fibrant-Type (i ⊔ j)) →
+  (is-cofibrant-B : is-cofibrant B (i))
+  (RB : UU i)
+  (r : B → RB) →
+  ((Y : RB → UU (i)) →
   section
-    ( induced-map-hom-Fibrant-Type
-      ( Π-Fibrant-Type RB (λ _ → Z))
-      (  fibrant-Π-is-cofibrant
-        ( is-cofibrant-B)
-        ( λ _ → Z) )
-      ( λ h → h ∘ᵉ r))) →
-  ((Y : type-Fibrant-Type RB → Fibrant-Type (i ⊔ j)) →
-  section
-    ( induced-map-hom-Fibrant-Type
-      ( Π-Fibrant-Type RB Y)
-      (  fibrant-Π-is-cofibrant
-        ( is-cofibrant-B)
-        ( Y ∘ᵉ r) )
-      ( λ h → h ∘ᵉ r)))
-pr1 (arst {i} B j is-cofibrant-B RB r H Y) f = {!!}
+    ( λ (f : Π RB Y) →
+      ( map-inv-coerce
+        ( map-inv-is-fibrant
+          ( pr1ᵉ is-cofibrant-B (Y ∘ᶠᶠᵉ r))
+          ( map-coerce ∘ᵉᶠᵉ f ∘ᶠᶠᵉ r))))) →
+  is-sharp B (i)
+is-sharp-precomp-section {i} B j is-cofibrant-B RB r H =
+  mk-is-sharp
+    ( is-cofibrant-B)
+    ( RB)
+    ( r)
+    ( λ Y →
+      pair
+        ( H Y)
+        ( pair
+          ( pr1 (H Y))
+          ( λ f → lemma Y (pr1 (H Y) (α Y f)) f (pr2 (H Y) (α Y f)))))
   where
-    Z =
-      Σ (witness-Fibrant-Type RB)
-        ( λ c → witness-Fibrant-Type (Y (map-Fibrant-Type RB (map-coerce c))))
-    fZ : Fibrant-Type (i ⊔ j)
-    fZ = (coerce Z ,ᵉ mk-is-fibrant Z id-equivᵉ)
-    σ : witness-Fibrant-Type
-         (fibrant-Π-is-cofibrant is-cofibrant-B (λ _ → fZ)) →
-         witness-Fibrant-Type (Π-Fibrant-Type RB (λ _ → fZ))
-    σ = pr1 (H fZ)
-    -- test : witness-Fibrant-Type (Π-Fibrant-Type RB (λ _ → fZ)) ＝ᵉ type-Fibrant-Type RB → type-Fibrant-Type fZ
-    -- test = _
-    f' : B → Z
-    f' b =
-      map-inv-coerce (map-inv-Fibrant-Type RB (r b)) ,
-      lemma
-        ( invᵉ (is-retraction-map-Fibrant-Type RB (r b)))
-        ( map-inv-coerce
-          ( map-inv-Fibrant-Type
-            ( Y (r b))
-            ( map-Fibrant-Type
-              ( fibrant-Π-is-cofibrant is-cofibrant-B (Y ∘ᵉ r))
-              ( map-coerce f)
-              ( b))))
-      where
-        lemma :
-          {a b : type-Fibrant-Type RB} → a ＝ᵉ b →
-          witness-Fibrant-Type (Y a) → witness-Fibrant-Type (Y b)
-        lemma reflᵉ p = p
-
-pr2 (arst B j is-cofibrant-B RB r H Y) = {!!}
-
-is-sharp-is-fibrant :
- {l1 l2 : Level} {A : UUᵉ l1} → is-fibrant A → is-sharp A l2
-is-cofibrant-is-sharp (is-sharp-is-fibrant is-fibrant-A) =
-  is-cofibrant-is-fibrant is-fibrant-A
-fibrant-replacement-is-sharp (is-sharp-is-fibrant {A = A} is-fibrant-A) =
-  (A ,ᵉ is-fibrant-A)
-map-fibrant-replacement-is-sharp (is-sharp-is-fibrant is-fibrant-A) = idᵉ
-is-equiv-precomp-is-sharp (is-sharp-is-fibrant {A = A} is-fibrant-A) Y =
-  is-equiv-id-induced-map-hom-Fibrant-Type
-    ((a : A) → type-Fibrant-Type (Y a))
-    (is-fibrant-Fibrant-Type (Π-Fibrant-Type (A ,ᵉ is-fibrant-A) Y))
-    (is-fibrant-Fibrant-Type (fibrant-Π-is-cofibrant (is-cofibrant-is-fibrant is-fibrant-A) Y) )
+    module _ (Y : RB → UU (i)) where
+      FM : UU (i)
+      FM =
+        witness-Fibrant-Type
+          ( fibrant-Π-is-cofibrant is-cofibrant-B (Y ∘ᶠᶠᵉ r))
+      α : Π RB Y → FM
+      α f =
+        witness-exotype-is-fibrant
+          ( pr1ᵉ is-cofibrant-B (Y ∘ᶠᶠᵉ r))
+          ( map-coerce ∘ᵉᶠᵉ f ∘ᶠᶠᵉ r)
+      lemma : (f g : Π RB Y) → α f ＝ α g → f ＝ g
+      lemma f g p =
+        eq-htpy
+          (pr1 (H (λ c → f c ＝ g c))
+            ( witness-exotype-is-fibrant
+              ( pr1ᵉ is-cofibrant-B ((λ c → f c ＝ g c) ∘ᶠᶠᵉ r))
+              ( λ b →
+                map-coerce
+                  ( apᵐ
+                    ( λ - → map-inv-coerce (- b))
+                    ( invᵉ
+                      ( is-retraction-map-is-fibrant
+                        ( pr1ᵉ is-cofibrant-B (Y ∘ᶠᶠᵉ r))
+                        ( λ b → map-coerce (f (r b)))))  ∙
+                    ap
+                      (λ - →
+                        map-inv-coerce
+                          ( exotype-witness-is-fibrant
+                            (pr1ᵉ is-cofibrant-B (Y ∘ᶠᶠᵉ r)) - b)) p  ∙
+                    apᵐ
+                      ( λ - → map-inv-coerce (- b))
+                      ( is-retraction-map-is-fibrant
+                        ( pr1ᵉ is-cofibrant-B (Y ∘ᶠᶠᵉ r))
+                        ( λ b → map-coerce (g (r b))))))))
 ```
