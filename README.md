@@ -11,7 +11,7 @@ Clone the repo
 $ git clone --recurse-submodules git@github.com:FernandoChu/agda-2LTT.git
 ```
 
-And run the script 2ltt scrit from the root of the folder
+And run the 2ltt script from the root of the folder
 
 ```
 $ python3 ./scripts/unimath-to-2ltt.py 
