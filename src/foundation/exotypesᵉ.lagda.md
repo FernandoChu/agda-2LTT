@@ -6,10 +6,16 @@ module foundation.exotypesᵉ where
 
 ```agda
 open import foundation.dependent-pair-typesᵉ
+open import foundation.function-extensionalityᵉ
+open import foundation.function-typesᵉ
 open import foundation.identity-typesᵉ
+open import foundation.action-on-identifications-dependent-functionsᵉ
+open import foundation.action-on-identifications-functionsᵉ
+open import foundation.transport-along-identificationsᵉ
 open import foundation.identity-types
 open import foundation.setsᵉ
 open import foundation.universe-levelsᵉ
+open import foundation.equivalencesᵉ
 open import foundation.universe-levels
 ```
 
@@ -82,4 +88,50 @@ pr2ᵉ (exotype-Setᵉ X) = is-set-exotypeᵉ X
 
 has-uip-exotypeᵉ : {l : Level} → (X : UUᵉ l) → has-uipᵉ X
 has-uip-exotypeᵉ X = is-set-has-uipᵉ (is-set-exotypeᵉ X)
+```
+
+# Functioriality of Π
+
+We reprove this since it doesn't compute in Agda-Unimath,
+which difficults some things.
+
+```agda
+module _
+  { l1 l2 l3 l4 : Level}
+  { A' : UUᵉ l1} {B' : A' → UUᵉ l2} {A : UUᵉ l3} (B : A → UUᵉ l4)
+  ( e : A' ≃ᵉ A) (f : (a' : A') → B' a' ≃ᵉ B (map-equivᵉ e a'))
+  where
+
+  map-equiv-Πᵉ : ((a' : A') → B' a') → ((a : A) → B a)
+  map-equiv-Πᵉ h a =
+    trᵉ B
+      ( is-section-map-inv-equivᵉ e a)
+      ( map-equivᵉ (f (map-inv-equivᵉ e a)) (h (map-inv-equivᵉ e a)))
+
+  is-equiv-map-equiv-Πᵉ : is-equivᵉ map-equiv-Πᵉ
+  is-equiv-map-equiv-Πᵉ =
+    is-equiv-is-invertibleᵉ
+      ( λ k a' → ←f a' (k (→e a')))
+      ( λ k → eq-htpyᵉ λ a →
+        apᵉ (trᵉ B (is-section-map-inv-equivᵉ e a))
+          (is-section-map-inv-equivᵉ (f (←e a)) _) ∙ᵉ
+        apdᵉ k (is-section-map-inv-equivᵉ e a))
+      ( λ h → eq-htpyᵉ λ a' →
+        apᵉ
+          ( ←f a')
+          ( apᵉ
+            ( λ - → trᵉ B - ((→f (←e (→e a'))) (h (←e (→e a')))))
+            ( has-uip-exotypeᵉ _ _ _ _ _) ∙ᵉ
+            substitution-law-trᵉ B →e ( is-retraction-map-inv-equivᵉ e a') ∙ᵉ
+            apdᵉ (λ - → →f - (h -)) (is-retraction-map-inv-equivᵉ e a')) ∙ᵉ
+        is-retraction-map-inv-equivᵉ (f a') (h a'))
+    where
+      →e = map-equivᵉ e
+      ←e = map-inv-equivᵉ e
+      →f = λ a' → map-equivᵉ (f a')
+      ←f = λ a' → map-inv-equivᵉ (f a')
+
+  equiv-Πᵉ : ((a' : A') → B' a') ≃ᵉ ((a : A) → B a)
+  pr1ᵉ equiv-Πᵉ = map-equiv-Πᵉ
+  pr2ᵉ equiv-Πᵉ = is-equiv-map-equiv-Πᵉ
 ```
