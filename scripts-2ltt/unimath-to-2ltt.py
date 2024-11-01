@@ -187,27 +187,23 @@ def main():
 
     # Modify universes, nats and flags
     os.system(
-        f"cp {cwd}/scripts/universe-levelsᵉ.lagda.md {agda_unimath_directory_path}/src/foundation/universe-levelsᵉ.lagda.md"
+        f"cp {cwd}/scripts-2ltt/universe-levelsᵉ.lagda.md {agda_unimath_directory_path}/src/foundation/universe-levelsᵉ.lagda.md"
     )
     # Hardcodes some natural number names
     os.system(
-        f"cp {cwd}/scripts/natural-numbersᵉ.lagda.md {agda_unimath_directory_path}/src/elementary-number-theory/natural-numbersᵉ.lagda.md"
+        f"cp {cwd}/scripts-2ltt/natural-numbersᵉ.lagda.md {agda_unimath_directory_path}/src/elementary-number-theory/natural-numbersᵉ.lagda.md"
     )
     # This is so the inverses of a composition of equivalences computes
     os.system(
-        f"cp {cwd}/scripts/equivalencesᵉ.lagda.md {agda_unimath_directory_path}/src/foundation-core/equivalencesᵉ.lagda.md"
+        f"cp {cwd}/scripts-2ltt/equivalencesᵉ.lagda.md {agda_unimath_directory_path}/src/foundation-core/equivalencesᵉ.lagda.md"
     )
     os.system(
-        f"cp {cwd}/scripts/agda-unimath.agda-lib {agda_unimath_directory_path}/agda-unimath.agda-lib"
+        f"cp {cwd}/scripts-2ltt/agda-unimath.agda-lib {agda_unimath_directory_path}/agda-unimath.agda-lib"
     )
 
-    os.system("ls")
     os.system("cp -r agda-unimath/* agda-unimathᵉ")
-    os.system("ls")
     os.system("cd agda-unimathᵉ/src && find . | grep -v 'ᵉ'  | xargs rm -f")
-    os.system("ls")
     os.system("cd agda-unimathᵉ && git clean -f && git reset --hard")
-    os.system("ls")
 
 
 main()
