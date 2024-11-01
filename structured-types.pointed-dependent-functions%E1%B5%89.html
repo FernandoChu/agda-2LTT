@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pointed dependent functions</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700;1,800&family=Inria+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap"
+        rel="stylesheet" />
+</head>
+
+<body class="text-page">
+    <main>
+        <div id="post-toc-container" style="padding-left: 1em; padding-right: 1em">
+            <article>
+<a href="index.html">Back to index</a>
+<h1 id="pointeddependentfunctions">Pointed dependent functions</h1>
+<pre class="Agda"><a id="40" class="Keyword">module</a> <a id="47" href="structured-types.pointed-dependent-functions%25E1%25B5%2589.html" class="Module">structured-types.pointed-dependent-functionsᵉ</a> <a id="93" class="Keyword">where</a>
+</pre>
+<p><details><summary>Imports</summary></p>
+<pre class="Agda"><a id="149" class="Keyword">open</a> <a id="154" class="Keyword">import</a> <a id="161" href="foundation.dependent-pair-types%25E1%25B5%2589.html" class="Module">foundation.dependent-pair-typesᵉ</a>
+<a id="194" class="Keyword">open</a> <a id="199" class="Keyword">import</a> <a id="206" href="foundation.fibers-of-maps%25E1%25B5%2589.html" class="Module">foundation.fibers-of-mapsᵉ</a>
+<a id="233" class="Keyword">open</a> <a id="238" class="Keyword">import</a> <a id="245" href="foundation.function-types%25E1%25B5%2589.html" class="Module">foundation.function-typesᵉ</a>
+<a id="272" class="Keyword">open</a> <a id="277" class="Keyword">import</a> <a id="284" href="foundation.identity-types%25E1%25B5%2589.html" class="Module">foundation.identity-typesᵉ</a>
+<a id="311" class="Keyword">open</a> <a id="316" class="Keyword">import</a> <a id="323" href="foundation.universe-levels%25E1%25B5%2589.html" class="Module">foundation.universe-levelsᵉ</a>
+
+<a id="352" class="Keyword">open</a> <a id="357" class="Keyword">import</a> <a id="364" href="structured-types.pointed-families-of-types%25E1%25B5%2589.html" class="Module">structured-types.pointed-families-of-typesᵉ</a>
+<a id="408" class="Keyword">open</a> <a id="413" class="Keyword">import</a> <a id="420" href="structured-types.pointed-types%25E1%25B5%2589.html" class="Module">structured-types.pointed-typesᵉ</a>
+</pre>
+<p></details></p>
+<h2 id="idea">Idea</h2>
+<p>A pointed dependent function of a pointed family <code>B</code> over <code>A</code> is a dependent
+function of the underlying family taking the base point of <code>A</code> to the base point
+of <code>B</code>.</p>
+<pre class="Agda"><a id="653" class="Keyword">module</a> <a id="660" href="structured-types.pointed-dependent-functions%25E1%25B5%2589.html#660" class="Module">_</a>
+  <a id="664" class="Symbol">{</a><a id="665" href="structured-types.pointed-dependent-functions%25E1%25B5%2589.html#665" class="Bound">l1ᵉ</a> <a id="669" href="structured-types.pointed-dependent-functions%25E1%25B5%2589.html#669" class="Bound">l2ᵉ</a> <a id="673" class="Symbol">:</a> <a id="675" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="680" class="Symbol">}</a> <a id="682" class="Symbol">(</a><a id="683" href="structured-types.pointed-dependent-functions%25E1%25B5%2589.html#683" class="Bound">Aᵉ</a> <a id="686" class="Symbol">:</a> <a id="688" href="structured-types.pointed-types%25E1%25B5%2589.html#358" class="Function">Pointed-Typeᵉ</a> <a id="702" href="structured-types.pointed-dependent-functions%25E1%25B5%2589.html#665" class="Bound">l1ᵉ</a><a id="705" class="Symbol">)</a> <a id="707" class="Symbol">(</a><a id="708" href="structured-types.pointed-dependent-functions%25E1%25B5%2589.html#708" class="Bound">Bᵉ</a> <a id="711" class="Symbol">:</a> <a id="713" href="structured-types.pointed-families-of-types%25E1%25B5%2589.html#587" class="Function">Pointed-Famᵉ</a> <a id="726" href="structured-types.pointed-dependent-functions%25E1%25B5%2589.html#669" class="Bound">l2ᵉ</a> <a id="730" href="structured-types.pointed-dependent-functions%25E1%25B5%2589.html#683" class="Bound">Aᵉ</a><a id="732" class="Symbol">)</a>
+  <a id="736" class="Keyword">where</a>
+
+  <a id="745" href="structured-types.pointed-dependent-functions%25E1%25B5%2589.html#745" class="Function">pointed-Πᵉ</a> <a id="756" class="Symbol">:</a> <a id="758" href="Agda.Primitive.html#429" class="Primitive">UUᵉ</a> <a id="762" class="Symbol">(</a><a id="763" href="structured-types.pointed-dependent-functions%25E1%25B5%2589.html#665" class="Bound">l1ᵉ</a> <a id="767" href="Agda.Primitive.html#961" class="Primitive Operator">⊔</a> <a id="769" href="structured-types.pointed-dependent-functions%25E1%25B5%2589.html#669" class="Bound">l2ᵉ</a><a id="772" class="Symbol">)</a>
+  <a id="776" href="structured-types.pointed-dependent-functions%25E1%25B5%2589.html#745" class="Function">pointed-Πᵉ</a> <a id="787" class="Symbol">=</a>
+    <a id="793" href="foundation-core.fibers-of-maps%25E1%25B5%2589.html#962" class="Function">fiberᵉ</a>
+      <a id="806" class="Symbol">(</a> <a id="808" href="foundation-core.function-types%25E1%25B5%2589.html#741" class="Function">ev-pointᵉ</a> <a id="818" class="Symbol">(</a><a id="819" href="structured-types.pointed-types%25E1%25B5%2589.html#568" class="Function">point-Pointed-Typeᵉ</a> <a id="839" href="structured-types.pointed-dependent-functions%25E1%25B5%2589.html#683" class="Bound">Aᵉ</a><a id="841" class="Symbol">)</a> <a id="843" class="Symbol">{</a><a id="844" href="structured-types.pointed-families-of-types%25E1%25B5%2589.html#867" class="Function">fam-Pointed-Famᵉ</a> <a id="861" href="structured-types.pointed-dependent-functions%25E1%25B5%2589.html#683" class="Bound">Aᵉ</a> <a id="864" href="structured-types.pointed-dependent-functions%25E1%25B5%2589.html#708" class="Bound">Bᵉ</a><a id="866" class="Symbol">})</a>
+      <a id="875" class="Symbol">(</a> <a id="877" href="structured-types.pointed-families-of-types%25E1%25B5%2589.html#950" class="Function">point-Pointed-Famᵉ</a> <a id="896" href="structured-types.pointed-dependent-functions%25E1%25B5%2589.html#683" class="Bound">Aᵉ</a> <a id="899" href="structured-types.pointed-dependent-functions%25E1%25B5%2589.html#708" class="Bound">Bᵉ</a><a id="901" class="Symbol">)</a>
+
+  <a id="906" href="structured-types.pointed-dependent-functions%25E1%25B5%2589.html#906" class="Function">Π∗ᵉ</a> <a id="910" class="Symbol">=</a> <a id="912" href="structured-types.pointed-dependent-functions%25E1%25B5%2589.html#745" class="Function">pointed-Πᵉ</a>
+</pre>
+<p><strong>Note</strong>: the subscript asterisk symbol used for the pointed dependent function
+type <code>Π∗</code>, and pointed type constructions in general, is the
+<a href="https://codepoints.net/U+2217">asterisk operator</a> <code>∗</code> (agda-input: <code>\ast</code>), not
+the <a href="https://codepoints.net/U+002A">asterisk</a> <code>*</code>.</p>
+<pre class="Agda"><a id="1210" class="Keyword">module</a> <a id="1217" href="structured-types.pointed-dependent-functions%25E1%25B5%2589.html#1217" class="Module">_</a>
+  <a id="1221" class="Symbol">{</a><a id="1222" href="structured-types.pointed-dependent-functions%25E1%25B5%2589.html#1222" class="Bound">l1ᵉ</a> <a id="1226" href="structured-types.pointed-dependent-functions%25E1%25B5%2589.html#1226" class="Bound">l2ᵉ</a> <a id="1230" class="Symbol">:</a> <a id="1232" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="1237" class="Symbol">}</a> <a id="1239" class="Symbol">{</a><a id="1240" href="structured-types.pointed-dependent-functions%25E1%25B5%2589.html#1240" class="Bound">Aᵉ</a> <a id="1243" class="Symbol">:</a> <a id="1245" href="structured-types.pointed-types%25E1%25B5%2589.html#358" class="Function">Pointed-Typeᵉ</a> <a id="1259" href="structured-types.pointed-dependent-functions%25E1%25B5%2589.html#1222" class="Bound">l1ᵉ</a><a id="1262" class="Symbol">}</a> <a id="1264" class="Symbol">{</a><a id="1265" href="structured-types.pointed-dependent-functions%25E1%25B5%2589.html#1265" class="Bound">Bᵉ</a> <a id="1268" class="Symbol">:</a> <a id="1270" href="structured-types.pointed-families-of-types%25E1%25B5%2589.html#587" class="Function">Pointed-Famᵉ</a> <a id="1283" href="structured-types.pointed-dependent-functions%25E1%25B5%2589.html#1226" class="Bound">l2ᵉ</a> <a id="1287" href="structured-types.pointed-dependent-functions%25E1%25B5%2589.html#1240" class="Bound">Aᵉ</a><a id="1289" class="Symbol">}</a>
+  <a id="1293" class="Keyword">where</a>
+
+  <a id="1302" href="structured-types.pointed-dependent-functions%25E1%25B5%2589.html#1302" class="Function">function-pointed-Πᵉ</a> <a id="1322" class="Symbol">:</a>
+    <a id="1328" href="structured-types.pointed-dependent-functions%25E1%25B5%2589.html#745" class="Function">pointed-Πᵉ</a> <a id="1339" href="structured-types.pointed-dependent-functions%25E1%25B5%2589.html#1240" class="Bound">Aᵉ</a> <a id="1342" href="structured-types.pointed-dependent-functions%25E1%25B5%2589.html#1265" class="Bound">Bᵉ</a> <a id="1345" class="Symbol">→</a> <a id="1347" class="Symbol">(</a><a id="1348" href="structured-types.pointed-dependent-functions%25E1%25B5%2589.html#1348" class="Bound">xᵉ</a> <a id="1351" class="Symbol">:</a> <a id="1353" href="structured-types.pointed-types%25E1%25B5%2589.html#506" class="Function">type-Pointed-Typeᵉ</a> <a id="1372" href="structured-types.pointed-dependent-functions%25E1%25B5%2589.html#1240" class="Bound">Aᵉ</a><a id="1374" class="Symbol">)</a> <a id="1376" class="Symbol">→</a> <a id="1378" href="structured-types.pointed-families-of-types%25E1%25B5%2589.html#867" class="Function">fam-Pointed-Famᵉ</a> <a id="1395" href="structured-types.pointed-dependent-functions%25E1%25B5%2589.html#1240" class="Bound">Aᵉ</a> <a id="1398" href="structured-types.pointed-dependent-functions%25E1%25B5%2589.html#1265" class="Bound">Bᵉ</a> <a id="1401" href="structured-types.pointed-dependent-functions%25E1%25B5%2589.html#1348" class="Bound">xᵉ</a>
+  <a id="1406" href="structured-types.pointed-dependent-functions%25E1%25B5%2589.html#1302" class="Function">function-pointed-Πᵉ</a> <a id="1426" class="Symbol">=</a> <a id="1428" href="foundation.dependent-pair-types%25E1%25B5%2589.html#697" class="Field">pr1ᵉ</a>
+
+  <a id="1436" href="structured-types.pointed-dependent-functions%25E1%25B5%2589.html#1436" class="Function">preserves-point-function-pointed-Πᵉ</a> <a id="1472" class="Symbol">:</a>
+    <a id="1478" class="Symbol">(</a><a id="1479" href="structured-types.pointed-dependent-functions%25E1%25B5%2589.html#1479" class="Bound">fᵉ</a> <a id="1482" class="Symbol">:</a> <a id="1484" href="structured-types.pointed-dependent-functions%25E1%25B5%2589.html#745" class="Function">pointed-Πᵉ</a> <a id="1495" href="structured-types.pointed-dependent-functions%25E1%25B5%2589.html#1240" class="Bound">Aᵉ</a> <a id="1498" href="structured-types.pointed-dependent-functions%25E1%25B5%2589.html#1265" class="Bound">Bᵉ</a><a id="1500" class="Symbol">)</a> <a id="1502" class="Symbol">→</a>
+    <a id="1508" href="foundation-core.identity-types%25E1%25B5%2589.html#2647" class="Datatype">Idᵉ</a> <a id="1512" class="Symbol">(</a><a id="1513" href="structured-types.pointed-dependent-functions%25E1%25B5%2589.html#1302" class="Function">function-pointed-Πᵉ</a> <a id="1533" href="structured-types.pointed-dependent-functions%25E1%25B5%2589.html#1479" class="Bound">fᵉ</a> <a id="1536" class="Symbol">(</a><a id="1537" href="structured-types.pointed-types%25E1%25B5%2589.html#568" class="Function">point-Pointed-Typeᵉ</a> <a id="1557" href="structured-types.pointed-dependent-functions%25E1%25B5%2589.html#1240" class="Bound">Aᵉ</a><a id="1559" class="Symbol">))</a> <a id="1562" class="Symbol">(</a><a id="1563" href="structured-types.pointed-families-of-types%25E1%25B5%2589.html#950" class="Function">point-Pointed-Famᵉ</a> <a id="1582" href="structured-types.pointed-dependent-functions%25E1%25B5%2589.html#1240" class="Bound">Aᵉ</a> <a id="1585" href="structured-types.pointed-dependent-functions%25E1%25B5%2589.html#1265" class="Bound">Bᵉ</a><a id="1587" class="Symbol">)</a>
+  <a id="1591" href="structured-types.pointed-dependent-functions%25E1%25B5%2589.html#1436" class="Function">preserves-point-function-pointed-Πᵉ</a> <a id="1627" class="Symbol">=</a> <a id="1629" href="foundation.dependent-pair-types%25E1%25B5%2589.html#711" class="Field">pr2ᵉ</a>
+</pre>
+            </article>
+        </div>
+    </main>
+</body>
+</html>

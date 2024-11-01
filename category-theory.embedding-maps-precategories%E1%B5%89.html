@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Embedding maps between precategories</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700;1,800&family=Inria+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap"
+        rel="stylesheet" />
+</head>
+
+<body class="text-page">
+    <main>
+        <div id="post-toc-container" style="padding-left: 1em; padding-right: 1em">
+            <article>
+<a href="index.html">Back to index</a>
+<h1 id="embeddingmapsbetweenprecategories">Embedding maps between precategories</h1>
+<pre class="Agda"><a id="49" class="Keyword">module</a> <a id="56" href="category-theory.embedding-maps-precategories%25E1%25B5%2589.html" class="Module">category-theory.embedding-maps-precategoriesᵉ</a> <a id="102" class="Keyword">where</a>
+</pre>
+<p><details><summary>Imports</summary></p>
+<pre class="Agda"><a id="158" class="Keyword">open</a> <a id="163" class="Keyword">import</a> <a id="170" href="category-theory.fully-faithful-maps-precategories%25E1%25B5%2589.html" class="Module">category-theory.fully-faithful-maps-precategoriesᵉ</a>
+<a id="221" class="Keyword">open</a> <a id="226" class="Keyword">import</a> <a id="233" href="category-theory.maps-precategories%25E1%25B5%2589.html" class="Module">category-theory.maps-precategoriesᵉ</a>
+<a id="269" class="Keyword">open</a> <a id="274" class="Keyword">import</a> <a id="281" href="category-theory.precategories%25E1%25B5%2589.html" class="Module">category-theory.precategoriesᵉ</a>
+
+<a id="313" class="Keyword">open</a> <a id="318" class="Keyword">import</a> <a id="325" href="foundation.dependent-pair-types%25E1%25B5%2589.html" class="Module">foundation.dependent-pair-typesᵉ</a>
+<a id="358" class="Keyword">open</a> <a id="363" class="Keyword">import</a> <a id="370" href="foundation.embeddings%25E1%25B5%2589.html" class="Module">foundation.embeddingsᵉ</a>
+<a id="393" class="Keyword">open</a> <a id="398" class="Keyword">import</a> <a id="405" href="foundation.propositions%25E1%25B5%2589.html" class="Module">foundation.propositionsᵉ</a>
+<a id="430" class="Keyword">open</a> <a id="435" class="Keyword">import</a> <a id="442" href="foundation.universe-levels%25E1%25B5%2589.html" class="Module">foundation.universe-levelsᵉ</a>
+</pre>
+<p></details></p>
+<h2 id="idea">Idea</h2>
+<p>A <a href="category-theory.maps-precategories.md">map</a> between
+<a href="category-theory.precategories.md">precategories</a> <code>C</code> and <code>D</code> is an <strong>embedding
+map</strong> if it's an <a href="foundation-core.embeddings.md">embedding</a> on objects and
+<a href="category-theory.fully-faithful-maps-precategories.md">fully faithful</a>. Hence
+embedding maps are maps that are embeddings on objects and
+<a href="foundation-core.equivalences.md">equivalences</a> on
+hom-<a href="foundation-core.sets.md">sets</a>.</p>
+<p>Note that for a map of precategories to be called <em>an embedding</em>, it must also
+be a <a href="category-theory.functors-precategories.md">functor</a>. This notion is
+considered in
+<a href="category-theory.embeddings-precategories.md"><code>category-theory.embeddings-precategories</code></a>.</p>
+<h2 id="definition">Definition</h2>
+<h3 id="thepredicateonmapsbetweenprecategoriesofbeinganembeddingmap">The predicate on maps between precategories of being an embedding map</h3>
+<pre class="Agda"><a id="1289" class="Keyword">module</a> <a id="1296" href="category-theory.embedding-maps-precategories%25E1%25B5%2589.html#1296" class="Module">_</a>
+  <a id="1300" class="Symbol">{</a><a id="1301" href="category-theory.embedding-maps-precategories%25E1%25B5%2589.html#1301" class="Bound">l1ᵉ</a> <a id="1305" href="category-theory.embedding-maps-precategories%25E1%25B5%2589.html#1305" class="Bound">l2ᵉ</a> <a id="1309" href="category-theory.embedding-maps-precategories%25E1%25B5%2589.html#1309" class="Bound">l3ᵉ</a> <a id="1313" href="category-theory.embedding-maps-precategories%25E1%25B5%2589.html#1313" class="Bound">l4ᵉ</a> <a id="1317" class="Symbol">:</a> <a id="1319" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="1324" class="Symbol">}</a>
+  <a id="1328" class="Symbol">(</a><a id="1329" href="category-theory.embedding-maps-precategories%25E1%25B5%2589.html#1329" class="Bound">Cᵉ</a> <a id="1332" class="Symbol">:</a> <a id="1334" href="category-theory.precategories%25E1%25B5%2589.html#3370" class="Function">Precategoryᵉ</a> <a id="1347" href="category-theory.embedding-maps-precategories%25E1%25B5%2589.html#1301" class="Bound">l1ᵉ</a> <a id="1351" href="category-theory.embedding-maps-precategories%25E1%25B5%2589.html#1305" class="Bound">l2ᵉ</a><a id="1354" class="Symbol">)</a>
+  <a id="1358" class="Symbol">(</a><a id="1359" href="category-theory.embedding-maps-precategories%25E1%25B5%2589.html#1359" class="Bound">Dᵉ</a> <a id="1362" class="Symbol">:</a> <a id="1364" href="category-theory.precategories%25E1%25B5%2589.html#3370" class="Function">Precategoryᵉ</a> <a id="1377" href="category-theory.embedding-maps-precategories%25E1%25B5%2589.html#1309" class="Bound">l3ᵉ</a> <a id="1381" href="category-theory.embedding-maps-precategories%25E1%25B5%2589.html#1313" class="Bound">l4ᵉ</a><a id="1384" class="Symbol">)</a>
+  <a id="1388" class="Symbol">(</a><a id="1389" href="category-theory.embedding-maps-precategories%25E1%25B5%2589.html#1389" class="Bound">Fᵉ</a> <a id="1392" class="Symbol">:</a> <a id="1394" href="category-theory.maps-precategories%25E1%25B5%2589.html#1332" class="Function">map-Precategoryᵉ</a> <a id="1411" href="category-theory.embedding-maps-precategories%25E1%25B5%2589.html#1329" class="Bound">Cᵉ</a> <a id="1414" href="category-theory.embedding-maps-precategories%25E1%25B5%2589.html#1359" class="Bound">Dᵉ</a><a id="1416" class="Symbol">)</a>
+  <a id="1420" class="Keyword">where</a>
+
+  <a id="1429" href="category-theory.embedding-maps-precategories%25E1%25B5%2589.html#1429" class="Function">is-embedding-map-prop-map-Precategoryᵉ</a> <a id="1468" class="Symbol">:</a> <a id="1470" href="foundation-core.propositions%25E1%25B5%2589.html#1181" class="Function">Propᵉ</a> <a id="1476" class="Symbol">(</a><a id="1477" href="category-theory.embedding-maps-precategories%25E1%25B5%2589.html#1301" class="Bound">l1ᵉ</a> <a id="1481" href="Agda.Primitive.html#961" class="Primitive Operator">⊔</a> <a id="1483" href="category-theory.embedding-maps-precategories%25E1%25B5%2589.html#1305" class="Bound">l2ᵉ</a> <a id="1487" href="Agda.Primitive.html#961" class="Primitive Operator">⊔</a> <a id="1489" href="category-theory.embedding-maps-precategories%25E1%25B5%2589.html#1309" class="Bound">l3ᵉ</a> <a id="1493" href="Agda.Primitive.html#961" class="Primitive Operator">⊔</a> <a id="1495" href="category-theory.embedding-maps-precategories%25E1%25B5%2589.html#1313" class="Bound">l4ᵉ</a><a id="1498" class="Symbol">)</a>
+  <a id="1502" href="category-theory.embedding-maps-precategories%25E1%25B5%2589.html#1429" class="Function">is-embedding-map-prop-map-Precategoryᵉ</a> <a id="1541" class="Symbol">=</a>
+    <a id="1547" href="foundation-core.propositions%25E1%25B5%2589.html#5738" class="Function">product-Propᵉ</a>
+      <a id="1567" class="Symbol">(</a> <a id="1569" href="foundation.embeddings%25E1%25B5%2589.html#1671" class="Function">is-emb-Propᵉ</a> <a id="1582" class="Symbol">(</a><a id="1583" href="category-theory.maps-precategories%25E1%25B5%2589.html#1498" class="Function">obj-map-Precategoryᵉ</a> <a id="1604" href="category-theory.embedding-maps-precategories%25E1%25B5%2589.html#1329" class="Bound">Cᵉ</a> <a id="1607" href="category-theory.embedding-maps-precategories%25E1%25B5%2589.html#1359" class="Bound">Dᵉ</a> <a id="1610" href="category-theory.embedding-maps-precategories%25E1%25B5%2589.html#1389" class="Bound">Fᵉ</a><a id="1612" class="Symbol">))</a>
+      <a id="1621" class="Symbol">(</a> <a id="1623" href="category-theory.fully-faithful-maps-precategories%25E1%25B5%2589.html#1789" class="Function">is-fully-faithful-prop-map-Precategoryᵉ</a> <a id="1663" href="category-theory.embedding-maps-precategories%25E1%25B5%2589.html#1329" class="Bound">Cᵉ</a> <a id="1666" href="category-theory.embedding-maps-precategories%25E1%25B5%2589.html#1359" class="Bound">Dᵉ</a> <a id="1669" href="category-theory.embedding-maps-precategories%25E1%25B5%2589.html#1389" class="Bound">Fᵉ</a><a id="1671" class="Symbol">)</a>
+
+  <a id="1676" href="category-theory.embedding-maps-precategories%25E1%25B5%2589.html#1676" class="Function">is-embedding-map-map-Precategoryᵉ</a> <a id="1710" class="Symbol">:</a> <a id="1712" href="Agda.Primitive.html#429" class="Primitive">UUᵉ</a> <a id="1716" class="Symbol">(</a><a id="1717" href="category-theory.embedding-maps-precategories%25E1%25B5%2589.html#1301" class="Bound">l1ᵉ</a> <a id="1721" href="Agda.Primitive.html#961" class="Primitive Operator">⊔</a> <a id="1723" href="category-theory.embedding-maps-precategories%25E1%25B5%2589.html#1305" class="Bound">l2ᵉ</a> <a id="1727" href="Agda.Primitive.html#961" class="Primitive Operator">⊔</a> <a id="1729" href="category-theory.embedding-maps-precategories%25E1%25B5%2589.html#1309" class="Bound">l3ᵉ</a> <a id="1733" href="Agda.Primitive.html#961" class="Primitive Operator">⊔</a> <a id="1735" href="category-theory.embedding-maps-precategories%25E1%25B5%2589.html#1313" class="Bound">l4ᵉ</a><a id="1738" class="Symbol">)</a>
+  <a id="1742" href="category-theory.embedding-maps-precategories%25E1%25B5%2589.html#1676" class="Function">is-embedding-map-map-Precategoryᵉ</a> <a id="1776" class="Symbol">=</a>
+    <a id="1782" href="foundation-core.propositions%25E1%25B5%2589.html#1288" class="Function">type-Propᵉ</a> <a id="1793" href="category-theory.embedding-maps-precategories%25E1%25B5%2589.html#1429" class="Function">is-embedding-map-prop-map-Precategoryᵉ</a>
+
+  <a id="1835" href="category-theory.embedding-maps-precategories%25E1%25B5%2589.html#1835" class="Function">is-prop-is-embedding-map-map-Precategoryᵉ</a> <a id="1877" class="Symbol">:</a>
+    <a id="1883" href="foundation-core.propositions%25E1%25B5%2589.html#1041" class="Function">is-propᵉ</a> <a id="1892" href="category-theory.embedding-maps-precategories%25E1%25B5%2589.html#1676" class="Function">is-embedding-map-map-Precategoryᵉ</a>
+  <a id="1928" href="category-theory.embedding-maps-precategories%25E1%25B5%2589.html#1835" class="Function">is-prop-is-embedding-map-map-Precategoryᵉ</a> <a id="1970" class="Symbol">=</a>
+    <a id="1976" href="foundation-core.propositions%25E1%25B5%2589.html#1361" class="Function">is-prop-type-Propᵉ</a> <a id="1995" href="category-theory.embedding-maps-precategories%25E1%25B5%2589.html#1429" class="Function">is-embedding-map-prop-map-Precategoryᵉ</a>
+</pre>
+<h3 id="thetypeofembeddingmapsbetweenprecategories">The type of embedding maps between precategories</h3>
+<pre class="Agda"><a id="2101" class="Keyword">module</a> <a id="2108" href="category-theory.embedding-maps-precategories%25E1%25B5%2589.html#2108" class="Module">_</a>
+  <a id="2112" class="Symbol">{</a><a id="2113" href="category-theory.embedding-maps-precategories%25E1%25B5%2589.html#2113" class="Bound">l1ᵉ</a> <a id="2117" href="category-theory.embedding-maps-precategories%25E1%25B5%2589.html#2117" class="Bound">l2ᵉ</a> <a id="2121" href="category-theory.embedding-maps-precategories%25E1%25B5%2589.html#2121" class="Bound">l3ᵉ</a> <a id="2125" href="category-theory.embedding-maps-precategories%25E1%25B5%2589.html#2125" class="Bound">l4ᵉ</a> <a id="2129" class="Symbol">:</a> <a id="2131" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="2136" class="Symbol">}</a>
+  <a id="2140" class="Symbol">(</a><a id="2141" href="category-theory.embedding-maps-precategories%25E1%25B5%2589.html#2141" class="Bound">Cᵉ</a> <a id="2144" class="Symbol">:</a> <a id="2146" href="category-theory.precategories%25E1%25B5%2589.html#3370" class="Function">Precategoryᵉ</a> <a id="2159" href="category-theory.embedding-maps-precategories%25E1%25B5%2589.html#2113" class="Bound">l1ᵉ</a> <a id="2163" href="category-theory.embedding-maps-precategories%25E1%25B5%2589.html#2117" class="Bound">l2ᵉ</a><a id="2166" class="Symbol">)</a>
+  <a id="2170" class="Symbol">(</a><a id="2171" href="category-theory.embedding-maps-precategories%25E1%25B5%2589.html#2171" class="Bound">Dᵉ</a> <a id="2174" class="Symbol">:</a> <a id="2176" href="category-theory.precategories%25E1%25B5%2589.html#3370" class="Function">Precategoryᵉ</a> <a id="2189" href="category-theory.embedding-maps-precategories%25E1%25B5%2589.html#2121" class="Bound">l3ᵉ</a> <a id="2193" href="category-theory.embedding-maps-precategories%25E1%25B5%2589.html#2125" class="Bound">l4ᵉ</a><a id="2196" class="Symbol">)</a>
+  <a id="2200" class="Keyword">where</a>
+
+  <a id="2209" href="category-theory.embedding-maps-precategories%25E1%25B5%2589.html#2209" class="Function">embedding-map-Precategoryᵉ</a> <a id="2236" class="Symbol">:</a> <a id="2238" href="Agda.Primitive.html#429" class="Primitive">UUᵉ</a> <a id="2242" class="Symbol">(</a><a id="2243" href="category-theory.embedding-maps-precategories%25E1%25B5%2589.html#2113" class="Bound">l1ᵉ</a> <a id="2247" href="Agda.Primitive.html#961" class="Primitive Operator">⊔</a> <a id="2249" href="category-theory.embedding-maps-precategories%25E1%25B5%2589.html#2117" class="Bound">l2ᵉ</a> <a id="2253" href="Agda.Primitive.html#961" class="Primitive Operator">⊔</a> <a id="2255" href="category-theory.embedding-maps-precategories%25E1%25B5%2589.html#2121" class="Bound">l3ᵉ</a> <a id="2259" href="Agda.Primitive.html#961" class="Primitive Operator">⊔</a> <a id="2261" href="category-theory.embedding-maps-precategories%25E1%25B5%2589.html#2125" class="Bound">l4ᵉ</a><a id="2264" class="Symbol">)</a>
+  <a id="2268" href="category-theory.embedding-maps-precategories%25E1%25B5%2589.html#2209" class="Function">embedding-map-Precategoryᵉ</a> <a id="2295" class="Symbol">=</a>
+    <a id="2301" href="foundation.dependent-pair-types%25E1%25B5%2589.html#585" class="Record">Σᵉ</a> <a id="2304" class="Symbol">(</a><a id="2305" href="category-theory.maps-precategories%25E1%25B5%2589.html#1332" class="Function">map-Precategoryᵉ</a> <a id="2322" href="category-theory.embedding-maps-precategories%25E1%25B5%2589.html#2141" class="Bound">Cᵉ</a> <a id="2325" href="category-theory.embedding-maps-precategories%25E1%25B5%2589.html#2171" class="Bound">Dᵉ</a><a id="2327" class="Symbol">)</a> <a id="2329" class="Symbol">(</a><a id="2330" href="category-theory.embedding-maps-precategories%25E1%25B5%2589.html#1676" class="Function">is-embedding-map-map-Precategoryᵉ</a> <a id="2364" href="category-theory.embedding-maps-precategories%25E1%25B5%2589.html#2141" class="Bound">Cᵉ</a> <a id="2367" href="category-theory.embedding-maps-precategories%25E1%25B5%2589.html#2171" class="Bound">Dᵉ</a><a id="2369" class="Symbol">)</a>
+
+  <a id="2374" href="category-theory.embedding-maps-precategories%25E1%25B5%2589.html#2374" class="Function">map-embedding-map-Precategoryᵉ</a> <a id="2405" class="Symbol">:</a>
+    <a id="2411" href="category-theory.embedding-maps-precategories%25E1%25B5%2589.html#2209" class="Function">embedding-map-Precategoryᵉ</a> <a id="2438" class="Symbol">→</a> <a id="2440" href="category-theory.maps-precategories%25E1%25B5%2589.html#1332" class="Function">map-Precategoryᵉ</a> <a id="2457" href="category-theory.embedding-maps-precategories%25E1%25B5%2589.html#2141" class="Bound">Cᵉ</a> <a id="2460" href="category-theory.embedding-maps-precategories%25E1%25B5%2589.html#2171" class="Bound">Dᵉ</a>
+  <a id="2465" href="category-theory.embedding-maps-precategories%25E1%25B5%2589.html#2374" class="Function">map-embedding-map-Precategoryᵉ</a> <a id="2496" class="Symbol">=</a> <a id="2498" href="foundation.dependent-pair-types%25E1%25B5%2589.html#697" class="Field">pr1ᵉ</a>
+
+  <a id="2506" href="category-theory.embedding-maps-precategories%25E1%25B5%2589.html#2506" class="Function">is-embedding-map-embedding-map-Precategoryᵉ</a> <a id="2550" class="Symbol">:</a>
+    <a id="2556" class="Symbol">(</a><a id="2557" href="category-theory.embedding-maps-precategories%25E1%25B5%2589.html#2557" class="Bound">eᵉ</a> <a id="2560" class="Symbol">:</a> <a id="2562" href="category-theory.embedding-maps-precategories%25E1%25B5%2589.html#2209" class="Function">embedding-map-Precategoryᵉ</a><a id="2588" class="Symbol">)</a> <a id="2590" class="Symbol">→</a>
+    <a id="2596" href="category-theory.embedding-maps-precategories%25E1%25B5%2589.html#1676" class="Function">is-embedding-map-map-Precategoryᵉ</a> <a id="2630" href="category-theory.embedding-maps-precategories%25E1%25B5%2589.html#2141" class="Bound">Cᵉ</a> <a id="2633" href="category-theory.embedding-maps-precategories%25E1%25B5%2589.html#2171" class="Bound">Dᵉ</a> <a id="2636" class="Symbol">(</a><a id="2637" href="category-theory.embedding-maps-precategories%25E1%25B5%2589.html#2374" class="Function">map-embedding-map-Precategoryᵉ</a> <a id="2668" href="category-theory.embedding-maps-precategories%25E1%25B5%2589.html#2557" class="Bound">eᵉ</a><a id="2670" class="Symbol">)</a>
+  <a id="2674" href="category-theory.embedding-maps-precategories%25E1%25B5%2589.html#2506" class="Function">is-embedding-map-embedding-map-Precategoryᵉ</a> <a id="2718" class="Symbol">=</a> <a id="2720" href="foundation.dependent-pair-types%25E1%25B5%2589.html#711" class="Field">pr2ᵉ</a>
+</pre>
+            </article>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,134 @@
+# The univalence axiom
+
+<pre class="Agda"><a id="33" class="Keyword">module</a> <a id="40" href="foundation-core.univalence.html" class="Module">foundation-core.univalence</a> <a id="67" class="Keyword">where</a>
+</pre>
+<details><summary>Imports</summary>
+
+<pre class="Agda"><a id="123" class="Keyword">open</a> <a id="128" class="Keyword">import</a> <a id="135" href="foundation.action-on-identifications-functions.html" class="Module">foundation.action-on-identifications-functions</a>
+<a id="182" class="Keyword">open</a> <a id="187" class="Keyword">import</a> <a id="194" href="foundation.fundamental-theorem-of-identity-types.html" class="Module">foundation.fundamental-theorem-of-identity-types</a>
+<a id="243" class="Keyword">open</a> <a id="248" class="Keyword">import</a> <a id="255" href="foundation.transport-along-identifications.html" class="Module">foundation.transport-along-identifications</a>
+<a id="298" class="Keyword">open</a> <a id="303" class="Keyword">import</a> <a id="310" href="foundation.universe-levels.html" class="Module">foundation.universe-levels</a>
+
+<a id="338" class="Keyword">open</a> <a id="343" class="Keyword">import</a> <a id="350" href="foundation-core.equivalences.html" class="Module">foundation-core.equivalences</a>
+<a id="379" class="Keyword">open</a> <a id="384" class="Keyword">import</a> <a id="391" href="foundation-core.function-types.html" class="Module">foundation-core.function-types</a>
+<a id="422" class="Keyword">open</a> <a id="427" class="Keyword">import</a> <a id="434" href="foundation-core.identity-types.html" class="Module">foundation-core.identity-types</a>
+<a id="465" class="Keyword">open</a> <a id="470" class="Keyword">import</a> <a id="477" href="foundation-core.torsorial-type-families.html" class="Module">foundation-core.torsorial-type-families</a>
+</pre>
+</details>
+
+## Idea
+
+The {{#concept "univalence axiom" Disambiguation="types" Agda=univalence-axiom}}
+characterizes the [identity types](foundation-core.identity-types.md) of
+universes. It asserts that the map `(A ＝ B) → (A ≃ B)` is an equivalence.
+
+In this file, we define the statement of the axiom. The axiom itself is
+postulated in [`foundation.univalence`](foundation.univalence.md) as
+`univalence`.
+
+Univalence is postulated by stating that the canonical comparison map
+
+```text
+  equiv-eq : A ＝ B → A ≃ B
+```
+
+from identifications between two types to equivalences between them is an
+equivalence. Although we could define `equiv-eq` by pattern matching, due to
+computational considerations, we define it as
+
+```text
+  equiv-eq := equiv-tr (id_𝒰).
+```
+
+It follows from this definition that `equiv-eq refl ≐ id-equiv`, as expected.
+
+## Definitions
+
+### Equalities induce equivalences
+
+<pre class="Agda"><a id="1420" class="Keyword">module</a> <a id="1427" href="foundation-core.univalence.html#1427" class="Module">_</a>
+  <a id="1431" class="Symbol">{</a><a id="1432" href="foundation-core.univalence.html#1432" class="Bound">l</a> <a id="1434" class="Symbol">:</a> <a id="1436" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="1441" class="Symbol">}</a>
+  <a id="1445" class="Keyword">where</a>
+
+  <a id="1454" href="foundation-core.univalence.html#1454" class="Function">equiv-eq</a> <a id="1463" class="Symbol">:</a> <a id="1465" class="Symbol">{</a><a id="1466" href="foundation-core.univalence.html#1466" class="Bound">A</a> <a id="1468" href="foundation-core.univalence.html#1468" class="Bound">B</a> <a id="1470" class="Symbol">:</a> <a id="1472" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="1475" href="foundation-core.univalence.html#1432" class="Bound">l</a><a id="1476" class="Symbol">}</a> <a id="1478" class="Symbol">→</a> <a id="1480" href="foundation-core.univalence.html#1466" class="Bound">A</a> <a id="1482" href="foundation-core.identity-types.html#2713" class="Function Operator">＝</a> <a id="1484" href="foundation-core.univalence.html#1468" class="Bound">B</a> <a id="1486" class="Symbol">→</a> <a id="1488" href="foundation-core.univalence.html#1466" class="Bound">A</a> <a id="1490" href="foundation-core.equivalences.html#2554" class="Function Operator">≃</a> <a id="1492" href="foundation-core.univalence.html#1468" class="Bound">B</a>
+  <a id="1496" href="foundation-core.univalence.html#1454" class="Function">equiv-eq</a> <a id="1505" class="Symbol">=</a> <a id="1507" href="foundation.transport-along-identifications.html#1505" class="Function">equiv-tr</a> <a id="1516" href="foundation-core.function-types.html#307" class="Function">id</a>
+
+  <a id="1522" href="foundation-core.univalence.html#1522" class="Function">map-eq</a> <a id="1529" class="Symbol">:</a> <a id="1531" class="Symbol">{</a><a id="1532" href="foundation-core.univalence.html#1532" class="Bound">A</a> <a id="1534" href="foundation-core.univalence.html#1534" class="Bound">B</a> <a id="1536" class="Symbol">:</a> <a id="1538" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="1541" href="foundation-core.univalence.html#1432" class="Bound">l</a><a id="1542" class="Symbol">}</a> <a id="1544" class="Symbol">→</a> <a id="1546" href="foundation-core.univalence.html#1532" class="Bound">A</a> <a id="1548" href="foundation-core.identity-types.html#2713" class="Function Operator">＝</a> <a id="1550" href="foundation-core.univalence.html#1534" class="Bound">B</a> <a id="1552" class="Symbol">→</a> <a id="1554" href="foundation-core.univalence.html#1532" class="Bound">A</a> <a id="1556" class="Symbol">→</a> <a id="1558" href="foundation-core.univalence.html#1534" class="Bound">B</a>
+  <a id="1562" href="foundation-core.univalence.html#1522" class="Function">map-eq</a> <a id="1569" class="Symbol">=</a> <a id="1571" href="foundation-core.equivalences.html#2754" class="Function">map-equiv</a> <a id="1581" href="foundation-core.function-types.html#455" class="Function Operator">∘</a> <a id="1583" href="foundation-core.univalence.html#1454" class="Function">equiv-eq</a>
+
+  <a id="1595" href="foundation-core.univalence.html#1595" class="Function">map-inv-eq</a> <a id="1606" class="Symbol">:</a> <a id="1608" class="Symbol">{</a><a id="1609" href="foundation-core.univalence.html#1609" class="Bound">A</a> <a id="1611" href="foundation-core.univalence.html#1611" class="Bound">B</a> <a id="1613" class="Symbol">:</a> <a id="1615" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="1618" href="foundation-core.univalence.html#1432" class="Bound">l</a><a id="1619" class="Symbol">}</a> <a id="1621" class="Symbol">→</a> <a id="1623" href="foundation-core.univalence.html#1609" class="Bound">A</a> <a id="1625" href="foundation-core.identity-types.html#2713" class="Function Operator">＝</a> <a id="1627" href="foundation-core.univalence.html#1611" class="Bound">B</a> <a id="1629" class="Symbol">→</a> <a id="1631" href="foundation-core.univalence.html#1611" class="Bound">B</a> <a id="1633" class="Symbol">→</a> <a id="1635" href="foundation-core.univalence.html#1609" class="Bound">A</a>
+  <a id="1639" href="foundation-core.univalence.html#1595" class="Function">map-inv-eq</a> <a id="1650" class="Symbol">=</a> <a id="1652" href="foundation-core.univalence.html#1522" class="Function">map-eq</a> <a id="1659" href="foundation-core.function-types.html#455" class="Function Operator">∘</a> <a id="1661" href="foundation-core.identity-types.html#6168" class="Function">inv</a>
+
+  <a id="1668" href="foundation-core.univalence.html#1668" class="Function">compute-equiv-eq-refl</a> <a id="1690" class="Symbol">:</a>
+    <a id="1696" class="Symbol">{</a><a id="1697" href="foundation-core.univalence.html#1697" class="Bound">A</a> <a id="1699" class="Symbol">:</a> <a id="1701" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="1704" href="foundation-core.univalence.html#1432" class="Bound">l</a><a id="1705" class="Symbol">}</a> <a id="1707" class="Symbol">→</a> <a id="1709" href="foundation-core.univalence.html#1454" class="Function">equiv-eq</a> <a id="1718" class="Symbol">(</a><a id="1719" href="foundation-core.identity-types.html#2682" class="InductiveConstructor">refl</a> <a id="1724" class="Symbol">{</a><a id="1725" class="Argument">x</a> <a id="1727" class="Symbol">=</a> <a id="1729" href="foundation-core.univalence.html#1697" class="Bound">A</a><a id="1730" class="Symbol">})</a> <a id="1733" href="foundation-core.identity-types.html#2713" class="Function Operator">＝</a> <a id="1735" href="foundation-core.equivalences.html#3922" class="Function">id-equiv</a>
+  <a id="1746" href="foundation-core.univalence.html#1668" class="Function">compute-equiv-eq-refl</a> <a id="1768" class="Symbol">=</a> <a id="1770" href="foundation-core.identity-types.html#2682" class="InductiveConstructor">refl</a>
+</pre>
+### The statement of the univalence axiom
+
+#### An instance of univalence
+
+<pre class="Agda"><a id="instance-univalence"></a><a id="1863" href="foundation-core.univalence.html#1863" class="Function">instance-univalence</a> <a id="1883" class="Symbol">:</a> <a id="1885" class="Symbol">{</a><a id="1886" href="foundation-core.univalence.html#1886" class="Bound">l</a> <a id="1888" class="Symbol">:</a> <a id="1890" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="1895" class="Symbol">}</a> <a id="1897" class="Symbol">(</a><a id="1898" href="foundation-core.univalence.html#1898" class="Bound">A</a> <a id="1900" href="foundation-core.univalence.html#1900" class="Bound">B</a> <a id="1902" class="Symbol">:</a> <a id="1904" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="1907" href="foundation-core.univalence.html#1886" class="Bound">l</a><a id="1908" class="Symbol">)</a> <a id="1910" class="Symbol">→</a> <a id="1912" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="1915" class="Symbol">(</a><a id="1916" href="Agda.Primitive.html#931" class="Primitive">lsuc</a> <a id="1921" href="foundation-core.univalence.html#1886" class="Bound">l</a><a id="1922" class="Symbol">)</a>
+<a id="1924" href="foundation-core.univalence.html#1863" class="Function">instance-univalence</a> <a id="1944" href="foundation-core.univalence.html#1944" class="Bound">A</a> <a id="1946" href="foundation-core.univalence.html#1946" class="Bound">B</a> <a id="1948" class="Symbol">=</a> <a id="1950" href="foundation-core.equivalences.html#1532" class="Function">is-equiv</a> <a id="1959" class="Symbol">(</a><a id="1960" href="foundation-core.univalence.html#1454" class="Function">equiv-eq</a> <a id="1969" class="Symbol">{</a><a id="1970" class="Argument">A</a> <a id="1972" class="Symbol">=</a> <a id="1974" href="foundation-core.univalence.html#1944" class="Bound">A</a><a id="1975" class="Symbol">}</a> <a id="1977" class="Symbol">{</a><a id="1978" class="Argument">B</a> <a id="1980" class="Symbol">=</a> <a id="1982" href="foundation-core.univalence.html#1946" class="Bound">B</a><a id="1983" class="Symbol">})</a>
+</pre>
+#### Based univalence
+
+<pre class="Agda"><a id="based-univalence-axiom"></a><a id="2022" href="foundation-core.univalence.html#2022" class="Function">based-univalence-axiom</a> <a id="2045" class="Symbol">:</a> <a id="2047" class="Symbol">{</a><a id="2048" href="foundation-core.univalence.html#2048" class="Bound">l</a> <a id="2050" class="Symbol">:</a> <a id="2052" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="2057" class="Symbol">}</a> <a id="2059" class="Symbol">(</a><a id="2060" href="foundation-core.univalence.html#2060" class="Bound">A</a> <a id="2062" class="Symbol">:</a> <a id="2064" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="2067" href="foundation-core.univalence.html#2048" class="Bound">l</a><a id="2068" class="Symbol">)</a> <a id="2070" class="Symbol">→</a> <a id="2072" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="2075" class="Symbol">(</a><a id="2076" href="Agda.Primitive.html#931" class="Primitive">lsuc</a> <a id="2081" href="foundation-core.univalence.html#2048" class="Bound">l</a><a id="2082" class="Symbol">)</a>
+<a id="2084" href="foundation-core.univalence.html#2022" class="Function">based-univalence-axiom</a> <a id="2107" class="Symbol">{</a><a id="2108" href="foundation-core.univalence.html#2108" class="Bound">l</a><a id="2109" class="Symbol">}</a> <a id="2111" href="foundation-core.univalence.html#2111" class="Bound">A</a> <a id="2113" class="Symbol">=</a> <a id="2115" class="Symbol">(</a><a id="2116" href="foundation-core.univalence.html#2116" class="Bound">B</a> <a id="2118" class="Symbol">:</a> <a id="2120" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="2123" href="foundation-core.univalence.html#2108" class="Bound">l</a><a id="2124" class="Symbol">)</a> <a id="2126" class="Symbol">→</a> <a id="2128" href="foundation-core.univalence.html#1863" class="Function">instance-univalence</a> <a id="2148" href="foundation-core.univalence.html#2111" class="Bound">A</a> <a id="2150" href="foundation-core.univalence.html#2116" class="Bound">B</a>
+</pre>
+#### The univalence axiom with respect to a universe level
+
+<pre class="Agda"><a id="univalence-axiom-Level"></a><a id="2225" href="foundation-core.univalence.html#2225" class="Function">univalence-axiom-Level</a> <a id="2248" class="Symbol">:</a> <a id="2250" class="Symbol">(</a><a id="2251" href="foundation-core.univalence.html#2251" class="Bound">l</a> <a id="2253" class="Symbol">:</a> <a id="2255" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="2260" class="Symbol">)</a> <a id="2262" class="Symbol">→</a> <a id="2264" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="2267" class="Symbol">(</a><a id="2268" href="Agda.Primitive.html#931" class="Primitive">lsuc</a> <a id="2273" href="foundation-core.univalence.html#2251" class="Bound">l</a><a id="2274" class="Symbol">)</a>
+<a id="2276" href="foundation-core.univalence.html#2225" class="Function">univalence-axiom-Level</a> <a id="2299" href="foundation-core.univalence.html#2299" class="Bound">l</a> <a id="2301" class="Symbol">=</a> <a id="2303" class="Symbol">(</a><a id="2304" href="foundation-core.univalence.html#2304" class="Bound">A</a> <a id="2306" href="foundation-core.univalence.html#2306" class="Bound">B</a> <a id="2308" class="Symbol">:</a> <a id="2310" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="2313" href="foundation-core.univalence.html#2299" class="Bound">l</a><a id="2314" class="Symbol">)</a> <a id="2316" class="Symbol">→</a> <a id="2318" href="foundation-core.univalence.html#1863" class="Function">instance-univalence</a> <a id="2338" href="foundation-core.univalence.html#2304" class="Bound">A</a> <a id="2340" href="foundation-core.univalence.html#2306" class="Bound">B</a>
+</pre>
+#### The univalence axiom
+
+<pre class="Agda"><a id="univalence-axiom"></a><a id="2382" href="foundation-core.univalence.html#2382" class="Function">univalence-axiom</a> <a id="2399" class="Symbol">:</a> <a id="2401" href="Agda.Primitive.html#512" class="Primitive">UUω</a>
+<a id="2405" href="foundation-core.univalence.html#2382" class="Function">univalence-axiom</a> <a id="2422" class="Symbol">=</a> <a id="2424" class="Symbol">{</a><a id="2425" href="foundation-core.univalence.html#2425" class="Bound">l</a> <a id="2427" class="Symbol">:</a> <a id="2429" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="2434" class="Symbol">}</a> <a id="2436" class="Symbol">→</a> <a id="2438" href="foundation-core.univalence.html#2225" class="Function">univalence-axiom-Level</a> <a id="2461" href="foundation-core.univalence.html#2425" class="Bound">l</a>
+</pre>
+## Properties
+
+### The univalence axiom implies that the total space of equivalences is contractible
+
+<pre class="Agda"><a id="2578" class="Keyword">abstract</a>
+  <a id="is-torsorial-equiv-based-univalence"></a><a id="2589" href="foundation-core.univalence.html#2589" class="Function">is-torsorial-equiv-based-univalence</a> <a id="2625" class="Symbol">:</a>
+    <a id="2631" class="Symbol">{</a><a id="2632" href="foundation-core.univalence.html#2632" class="Bound">l</a> <a id="2634" class="Symbol">:</a> <a id="2636" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="2641" class="Symbol">}</a> <a id="2643" class="Symbol">(</a><a id="2644" href="foundation-core.univalence.html#2644" class="Bound">A</a> <a id="2646" class="Symbol">:</a> <a id="2648" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="2651" href="foundation-core.univalence.html#2632" class="Bound">l</a><a id="2652" class="Symbol">)</a> <a id="2654" class="Symbol">→</a>
+    <a id="2660" href="foundation-core.univalence.html#2022" class="Function">based-univalence-axiom</a> <a id="2683" href="foundation-core.univalence.html#2644" class="Bound">A</a> <a id="2685" class="Symbol">→</a> <a id="2687" href="foundation-core.torsorial-type-families.html#2474" class="Function">is-torsorial</a> <a id="2700" class="Symbol">(λ</a> <a id="2703" class="Symbol">(</a><a id="2704" href="foundation-core.univalence.html#2704" class="Bound">B</a> <a id="2706" class="Symbol">:</a> <a id="2708" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="2711" href="foundation-core.univalence.html#2632" class="Bound">l</a><a id="2712" class="Symbol">)</a> <a id="2714" class="Symbol">→</a> <a id="2716" href="foundation-core.univalence.html#2644" class="Bound">A</a> <a id="2718" href="foundation-core.equivalences.html#2554" class="Function Operator">≃</a> <a id="2720" href="foundation-core.univalence.html#2704" class="Bound">B</a><a id="2721" class="Symbol">)</a>
+  <a id="2725" href="foundation-core.univalence.html#2589" class="Function">is-torsorial-equiv-based-univalence</a> <a id="2761" href="foundation-core.univalence.html#2761" class="Bound">A</a> <a id="2763" href="foundation-core.univalence.html#2763" class="Bound">UA</a> <a id="2766" class="Symbol">=</a>
+    <a id="2772" href="foundation.fundamental-theorem-of-identity-types.html#2304" class="Function">fundamental-theorem-id&#39;</a> <a id="2796" class="Symbol">(λ</a> <a id="2799" href="foundation-core.univalence.html#2799" class="Bound">B</a> <a id="2801" class="Symbol">→</a> <a id="2803" href="foundation-core.univalence.html#1454" class="Function">equiv-eq</a><a id="2811" class="Symbol">)</a> <a id="2813" href="foundation-core.univalence.html#2763" class="Bound">UA</a>
+</pre>
+### Contractibility of the total space of equivalences implies univalence
+
+<pre class="Agda"><a id="2904" class="Keyword">abstract</a>
+  <a id="based-univalence-is-torsorial-equiv"></a><a id="2915" href="foundation-core.univalence.html#2915" class="Function">based-univalence-is-torsorial-equiv</a> <a id="2951" class="Symbol">:</a>
+    <a id="2957" class="Symbol">{</a><a id="2958" href="foundation-core.univalence.html#2958" class="Bound">l</a> <a id="2960" class="Symbol">:</a> <a id="2962" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="2967" class="Symbol">}</a> <a id="2969" class="Symbol">(</a><a id="2970" href="foundation-core.univalence.html#2970" class="Bound">A</a> <a id="2972" class="Symbol">:</a> <a id="2974" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="2977" href="foundation-core.univalence.html#2958" class="Bound">l</a><a id="2978" class="Symbol">)</a> <a id="2980" class="Symbol">→</a>
+    <a id="2986" href="foundation-core.torsorial-type-families.html#2474" class="Function">is-torsorial</a> <a id="2999" class="Symbol">(λ</a> <a id="3002" class="Symbol">(</a><a id="3003" href="foundation-core.univalence.html#3003" class="Bound">B</a> <a id="3005" class="Symbol">:</a> <a id="3007" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="3010" href="foundation-core.univalence.html#2958" class="Bound">l</a><a id="3011" class="Symbol">)</a> <a id="3013" class="Symbol">→</a> <a id="3015" href="foundation-core.univalence.html#2970" class="Bound">A</a> <a id="3017" href="foundation-core.equivalences.html#2554" class="Function Operator">≃</a> <a id="3019" href="foundation-core.univalence.html#3003" class="Bound">B</a><a id="3020" class="Symbol">)</a> <a id="3022" class="Symbol">→</a> <a id="3024" href="foundation-core.univalence.html#2022" class="Function">based-univalence-axiom</a> <a id="3047" href="foundation-core.univalence.html#2970" class="Bound">A</a>
+  <a id="3051" href="foundation-core.univalence.html#2915" class="Function">based-univalence-is-torsorial-equiv</a> <a id="3087" href="foundation-core.univalence.html#3087" class="Bound">A</a> <a id="3089" href="foundation-core.univalence.html#3089" class="Bound">c</a> <a id="3091" class="Symbol">=</a>
+    <a id="3097" href="foundation.fundamental-theorem-of-identity-types.html#2039" class="Function">fundamental-theorem-id</a> <a id="3120" href="foundation-core.univalence.html#3089" class="Bound">c</a> <a id="3122" class="Symbol">(λ</a> <a id="3125" href="foundation-core.univalence.html#3125" class="Bound">B</a> <a id="3127" class="Symbol">→</a> <a id="3129" href="foundation-core.univalence.html#1454" class="Function">equiv-eq</a><a id="3137" class="Symbol">)</a>
+</pre>
+### The underlying map of `equiv-eq` evaluated at `ap B` is the same as transport in the family `B`
+
+For any type family `B` and identification `p : x ＝ y` in the base, we have a
+commuting diagram
+
+```text
+                 equiv-eq
+    (B x = B y) ---------> (B x ≃ B y)
+         ∧                      |
+  ap B p |                      | map-equiv
+         |                      ∨
+      (x = y) -----------> (B x → B y).
+                  tr B p
+```
+
+<pre class="Agda"><a id="3605" class="Keyword">module</a> <a id="3612" href="foundation-core.univalence.html#3612" class="Module">_</a>
+  <a id="3616" class="Symbol">{</a><a id="3617" href="foundation-core.univalence.html#3617" class="Bound">l1</a> <a id="3620" href="foundation-core.univalence.html#3620" class="Bound">l2</a> <a id="3623" class="Symbol">:</a> <a id="3625" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="3630" class="Symbol">}</a> <a id="3632" class="Symbol">{</a><a id="3633" href="foundation-core.univalence.html#3633" class="Bound">A</a> <a id="3635" class="Symbol">:</a> <a id="3637" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="3640" href="foundation-core.univalence.html#3617" class="Bound">l1</a><a id="3642" class="Symbol">}</a> <a id="3644" class="Symbol">{</a><a id="3645" href="foundation-core.univalence.html#3645" class="Bound">B</a> <a id="3647" class="Symbol">:</a> <a id="3649" href="foundation-core.univalence.html#3633" class="Bound">A</a> <a id="3651" class="Symbol">→</a> <a id="3653" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="3656" href="foundation-core.univalence.html#3620" class="Bound">l2</a><a id="3658" class="Symbol">}</a> <a id="3660" class="Symbol">{</a><a id="3661" href="foundation-core.univalence.html#3661" class="Bound">x</a> <a id="3663" href="foundation-core.univalence.html#3663" class="Bound">y</a> <a id="3665" class="Symbol">:</a> <a id="3667" href="foundation-core.univalence.html#3633" class="Bound">A</a><a id="3668" class="Symbol">}</a>
+  <a id="3672" class="Keyword">where</a>
+
+  <a id="3681" href="foundation-core.univalence.html#3681" class="Function">compute-equiv-eq-ap</a> <a id="3701" class="Symbol">:</a>
+    <a id="3707" class="Symbol">(</a><a id="3708" href="foundation-core.univalence.html#3708" class="Bound">p</a> <a id="3710" class="Symbol">:</a> <a id="3712" href="foundation-core.univalence.html#3661" class="Bound">x</a> <a id="3714" href="foundation-core.identity-types.html#2713" class="Function Operator">＝</a> <a id="3716" href="foundation-core.univalence.html#3663" class="Bound">y</a><a id="3717" class="Symbol">)</a> <a id="3719" class="Symbol">→</a> <a id="3721" href="foundation-core.univalence.html#1454" class="Function">equiv-eq</a> <a id="3730" class="Symbol">(</a><a id="3731" href="foundation.action-on-identifications-functions.html#730" class="Function">ap</a> <a id="3734" href="foundation-core.univalence.html#3645" class="Bound">B</a> <a id="3736" href="foundation-core.univalence.html#3708" class="Bound">p</a><a id="3737" class="Symbol">)</a> <a id="3739" href="foundation-core.identity-types.html#2713" class="Function Operator">＝</a> <a id="3741" href="foundation.transport-along-identifications.html#1505" class="Function">equiv-tr</a> <a id="3750" href="foundation-core.univalence.html#3645" class="Bound">B</a> <a id="3752" href="foundation-core.univalence.html#3708" class="Bound">p</a>
+  <a id="3756" href="foundation-core.univalence.html#3681" class="Function">compute-equiv-eq-ap</a> <a id="3776" href="foundation-core.identity-types.html#2682" class="InductiveConstructor">refl</a> <a id="3781" class="Symbol">=</a> <a id="3783" href="foundation-core.identity-types.html#2682" class="InductiveConstructor">refl</a>
+
+  <a id="3791" href="foundation-core.univalence.html#3791" class="Function">compute-map-eq-ap</a> <a id="3809" class="Symbol">:</a>
+    <a id="3815" class="Symbol">(</a><a id="3816" href="foundation-core.univalence.html#3816" class="Bound">p</a> <a id="3818" class="Symbol">:</a> <a id="3820" href="foundation-core.univalence.html#3661" class="Bound">x</a> <a id="3822" href="foundation-core.identity-types.html#2713" class="Function Operator">＝</a> <a id="3824" href="foundation-core.univalence.html#3663" class="Bound">y</a><a id="3825" class="Symbol">)</a> <a id="3827" class="Symbol">→</a> <a id="3829" href="foundation-core.univalence.html#1522" class="Function">map-eq</a> <a id="3836" class="Symbol">(</a><a id="3837" href="foundation.action-on-identifications-functions.html#730" class="Function">ap</a> <a id="3840" href="foundation-core.univalence.html#3645" class="Bound">B</a> <a id="3842" href="foundation-core.univalence.html#3816" class="Bound">p</a><a id="3843" class="Symbol">)</a> <a id="3845" href="foundation-core.identity-types.html#2713" class="Function Operator">＝</a> <a id="3847" href="foundation-core.transport-along-identifications.html#832" class="Function">tr</a> <a id="3850" href="foundation-core.univalence.html#3645" class="Bound">B</a> <a id="3852" href="foundation-core.univalence.html#3816" class="Bound">p</a>
+  <a id="3856" href="foundation-core.univalence.html#3791" class="Function">compute-map-eq-ap</a> <a id="3874" href="foundation-core.univalence.html#3874" class="Bound">p</a> <a id="3876" class="Symbol">=</a> <a id="3878" href="foundation.action-on-identifications-functions.html#730" class="Function">ap</a> <a id="3881" href="foundation-core.equivalences.html#2754" class="Function">map-equiv</a> <a id="3891" class="Symbol">(</a><a id="3892" href="foundation-core.univalence.html#3681" class="Function">compute-equiv-eq-ap</a> <a id="3912" href="foundation-core.univalence.html#3874" class="Bound">p</a><a id="3913" class="Symbol">)</a>
+</pre>

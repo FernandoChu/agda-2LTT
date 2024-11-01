@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pointed families of types</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700;1,800&family=Inria+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap"
+        rel="stylesheet" />
+</head>
+
+<body class="text-page">
+    <main>
+        <div id="post-toc-container" style="padding-left: 1em; padding-right: 1em">
+            <article>
+<a href="index.html">Back to index</a>
+<h1 id="pointedfamiliesoftypes">Pointed families of types</h1>
+<pre class="Agda"><a id="38" class="Keyword">module</a> <a id="45" href="structured-types.pointed-families-of-types%25E1%25B5%2589.html" class="Module">structured-types.pointed-families-of-typesᵉ</a> <a id="89" class="Keyword">where</a>
+</pre>
+<p><details><summary>Imports</summary></p>
+<pre class="Agda"><a id="145" class="Keyword">open</a> <a id="150" class="Keyword">import</a> <a id="157" href="foundation.dependent-pair-types%25E1%25B5%2589.html" class="Module">foundation.dependent-pair-typesᵉ</a>
+<a id="190" class="Keyword">open</a> <a id="195" class="Keyword">import</a> <a id="202" href="foundation.universe-levels%25E1%25B5%2589.html" class="Module">foundation.universe-levelsᵉ</a>
+
+<a id="231" class="Keyword">open</a> <a id="236" class="Keyword">import</a> <a id="243" href="structured-types.pointed-types%25E1%25B5%2589.html" class="Module">structured-types.pointed-typesᵉ</a>
+</pre>
+<p></details></p>
+<h2 id="idea">Idea</h2>
+<p>A pointed family of types over a pointed type <code>A</code> is a family of types <code>B</code> over
+the underlying type of <code>A</code> equipped with a base point over the base point of
+<code>A</code>. Note that a pointed family of types should not be confused with a family of
+pointed types over <code>A</code>.</p>
+<h2 id="definition">Definition</h2>
+<pre class="Agda"><a id="Pointed-Famᵉ"></a><a id="587" href="structured-types.pointed-families-of-types%25E1%25B5%2589.html#587" class="Function">Pointed-Famᵉ</a> <a id="600" class="Symbol">:</a>
+  <a id="604" class="Symbol">{</a><a id="605" href="structured-types.pointed-families-of-types%25E1%25B5%2589.html#605" class="Bound">l1ᵉ</a> <a id="609" class="Symbol">:</a> <a id="611" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="616" class="Symbol">}</a> <a id="618" class="Symbol">(</a><a id="619" href="structured-types.pointed-families-of-types%25E1%25B5%2589.html#619" class="Bound">lᵉ</a> <a id="622" class="Symbol">:</a> <a id="624" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="629" class="Symbol">)</a> <a id="631" class="Symbol">(</a><a id="632" href="structured-types.pointed-families-of-types%25E1%25B5%2589.html#632" class="Bound">Aᵉ</a> <a id="635" class="Symbol">:</a> <a id="637" href="structured-types.pointed-types%25E1%25B5%2589.html#358" class="Function">Pointed-Typeᵉ</a> <a id="651" href="structured-types.pointed-families-of-types%25E1%25B5%2589.html#605" class="Bound">l1ᵉ</a><a id="654" class="Symbol">)</a> <a id="656" class="Symbol">→</a> <a id="658" href="Agda.Primitive.html#429" class="Primitive">UUᵉ</a> <a id="662" class="Symbol">(</a><a id="663" href="Agda.Primitive.html#931" class="Primitive">lsuc</a> <a id="668" href="structured-types.pointed-families-of-types%25E1%25B5%2589.html#619" class="Bound">lᵉ</a> <a id="671" href="Agda.Primitive.html#961" class="Primitive Operator">⊔</a> <a id="673" href="structured-types.pointed-families-of-types%25E1%25B5%2589.html#605" class="Bound">l1ᵉ</a><a id="676" class="Symbol">)</a>
+<a id="678" href="structured-types.pointed-families-of-types%25E1%25B5%2589.html#587" class="Function">Pointed-Famᵉ</a> <a id="691" href="structured-types.pointed-families-of-types%25E1%25B5%2589.html#691" class="Bound">lᵉ</a> <a id="694" href="structured-types.pointed-families-of-types%25E1%25B5%2589.html#694" class="Bound">Aᵉ</a> <a id="697" class="Symbol">=</a>
+  <a id="701" href="foundation.dependent-pair-types%25E1%25B5%2589.html#585" class="Record">Σᵉ</a> <a id="704" class="Symbol">(</a><a id="705" href="structured-types.pointed-types%25E1%25B5%2589.html#506" class="Function">type-Pointed-Typeᵉ</a> <a id="724" href="structured-types.pointed-families-of-types%25E1%25B5%2589.html#694" class="Bound">Aᵉ</a> <a id="727" class="Symbol">→</a> <a id="729" href="Agda.Primitive.html#429" class="Primitive">UUᵉ</a> <a id="733" href="structured-types.pointed-families-of-types%25E1%25B5%2589.html#691" class="Bound">lᵉ</a><a id="735" class="Symbol">)</a> <a id="737" class="Symbol">(λ</a> <a id="740" href="structured-types.pointed-families-of-types%25E1%25B5%2589.html#740" class="Bound">Pᵉ</a> <a id="743" class="Symbol">→</a> <a id="745" href="structured-types.pointed-families-of-types%25E1%25B5%2589.html#740" class="Bound">Pᵉ</a> <a id="748" class="Symbol">(</a><a id="749" href="structured-types.pointed-types%25E1%25B5%2589.html#568" class="Function">point-Pointed-Typeᵉ</a> <a id="769" href="structured-types.pointed-families-of-types%25E1%25B5%2589.html#694" class="Bound">Aᵉ</a><a id="771" class="Symbol">))</a>
+
+<a id="775" class="Keyword">module</a> <a id="782" href="structured-types.pointed-families-of-types%25E1%25B5%2589.html#782" class="Module">_</a>
+  <a id="786" class="Symbol">{</a><a id="787" href="structured-types.pointed-families-of-types%25E1%25B5%2589.html#787" class="Bound">l1ᵉ</a> <a id="791" href="structured-types.pointed-families-of-types%25E1%25B5%2589.html#791" class="Bound">l2ᵉ</a> <a id="795" class="Symbol">:</a> <a id="797" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="802" class="Symbol">}</a> <a id="804" class="Symbol">(</a><a id="805" href="structured-types.pointed-families-of-types%25E1%25B5%2589.html#805" class="Bound">Aᵉ</a> <a id="808" class="Symbol">:</a> <a id="810" href="structured-types.pointed-types%25E1%25B5%2589.html#358" class="Function">Pointed-Typeᵉ</a> <a id="824" href="structured-types.pointed-families-of-types%25E1%25B5%2589.html#787" class="Bound">l1ᵉ</a><a id="827" class="Symbol">)</a> <a id="829" class="Symbol">(</a><a id="830" href="structured-types.pointed-families-of-types%25E1%25B5%2589.html#830" class="Bound">Bᵉ</a> <a id="833" class="Symbol">:</a> <a id="835" href="structured-types.pointed-families-of-types%25E1%25B5%2589.html#587" class="Function">Pointed-Famᵉ</a> <a id="848" href="structured-types.pointed-families-of-types%25E1%25B5%2589.html#791" class="Bound">l2ᵉ</a> <a id="852" href="structured-types.pointed-families-of-types%25E1%25B5%2589.html#805" class="Bound">Aᵉ</a><a id="854" class="Symbol">)</a>
+  <a id="858" class="Keyword">where</a>
+
+  <a id="867" href="structured-types.pointed-families-of-types%25E1%25B5%2589.html#867" class="Function">fam-Pointed-Famᵉ</a> <a id="884" class="Symbol">:</a> <a id="886" href="structured-types.pointed-types%25E1%25B5%2589.html#506" class="Function">type-Pointed-Typeᵉ</a> <a id="905" href="structured-types.pointed-families-of-types%25E1%25B5%2589.html#805" class="Bound">Aᵉ</a> <a id="908" class="Symbol">→</a> <a id="910" href="Agda.Primitive.html#429" class="Primitive">UUᵉ</a> <a id="914" href="structured-types.pointed-families-of-types%25E1%25B5%2589.html#791" class="Bound">l2ᵉ</a>
+  <a id="920" href="structured-types.pointed-families-of-types%25E1%25B5%2589.html#867" class="Function">fam-Pointed-Famᵉ</a> <a id="937" class="Symbol">=</a> <a id="939" href="foundation.dependent-pair-types%25E1%25B5%2589.html#697" class="Field">pr1ᵉ</a> <a id="944" href="structured-types.pointed-families-of-types%25E1%25B5%2589.html#830" class="Bound">Bᵉ</a>
+
+  <a id="950" href="structured-types.pointed-families-of-types%25E1%25B5%2589.html#950" class="Function">point-Pointed-Famᵉ</a> <a id="969" class="Symbol">:</a> <a id="971" href="structured-types.pointed-families-of-types%25E1%25B5%2589.html#867" class="Function">fam-Pointed-Famᵉ</a> <a id="988" class="Symbol">(</a><a id="989" href="structured-types.pointed-types%25E1%25B5%2589.html#568" class="Function">point-Pointed-Typeᵉ</a> <a id="1009" href="structured-types.pointed-families-of-types%25E1%25B5%2589.html#805" class="Bound">Aᵉ</a><a id="1011" class="Symbol">)</a>
+  <a id="1015" href="structured-types.pointed-families-of-types%25E1%25B5%2589.html#950" class="Function">point-Pointed-Famᵉ</a> <a id="1034" class="Symbol">=</a> <a id="1036" href="foundation.dependent-pair-types%25E1%25B5%2589.html#711" class="Field">pr2ᵉ</a> <a id="1041" href="structured-types.pointed-families-of-types%25E1%25B5%2589.html#830" class="Bound">Bᵉ</a>
+</pre>
+<h2 id="examples">Examples</h2>
+<h3 id="theconstantpointedfamily">The constant pointed family</h3>
+<pre class="Agda"><a id="1103" class="Keyword">module</a> <a id="1110" href="structured-types.pointed-families-of-types%25E1%25B5%2589.html#1110" class="Module">_</a>
+  <a id="1114" class="Symbol">{</a><a id="1115" href="structured-types.pointed-families-of-types%25E1%25B5%2589.html#1115" class="Bound">l1ᵉ</a> <a id="1119" href="structured-types.pointed-families-of-types%25E1%25B5%2589.html#1119" class="Bound">l2ᵉ</a> <a id="1123" class="Symbol">:</a> <a id="1125" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="1130" class="Symbol">}</a>
+  <a id="1134" class="Keyword">where</a>
+
+  <a id="1143" href="structured-types.pointed-families-of-types%25E1%25B5%2589.html#1143" class="Function">constant-Pointed-Famᵉ</a> <a id="1165" class="Symbol">:</a>
+    <a id="1171" class="Symbol">(</a><a id="1172" href="structured-types.pointed-families-of-types%25E1%25B5%2589.html#1172" class="Bound">Aᵉ</a> <a id="1175" class="Symbol">:</a> <a id="1177" href="structured-types.pointed-types%25E1%25B5%2589.html#358" class="Function">Pointed-Typeᵉ</a> <a id="1191" href="structured-types.pointed-families-of-types%25E1%25B5%2589.html#1115" class="Bound">l1ᵉ</a><a id="1194" class="Symbol">)</a> <a id="1196" class="Symbol">→</a> <a id="1198" href="structured-types.pointed-types%25E1%25B5%2589.html#358" class="Function">Pointed-Typeᵉ</a> <a id="1212" href="structured-types.pointed-families-of-types%25E1%25B5%2589.html#1119" class="Bound">l2ᵉ</a> <a id="1216" class="Symbol">→</a> <a id="1218" href="structured-types.pointed-families-of-types%25E1%25B5%2589.html#587" class="Function">Pointed-Famᵉ</a> <a id="1231" href="structured-types.pointed-families-of-types%25E1%25B5%2589.html#1119" class="Bound">l2ᵉ</a> <a id="1235" href="structured-types.pointed-families-of-types%25E1%25B5%2589.html#1172" class="Bound">Aᵉ</a>
+  <a id="1240" href="structured-types.pointed-families-of-types%25E1%25B5%2589.html#1143" class="Function">constant-Pointed-Famᵉ</a> <a id="1262" href="structured-types.pointed-families-of-types%25E1%25B5%2589.html#1262" class="Bound">Aᵉ</a> <a id="1265" href="structured-types.pointed-families-of-types%25E1%25B5%2589.html#1265" class="Bound">Bᵉ</a> <a id="1268" class="Symbol">=</a>
+    <a id="1274" href="foundation.dependent-pair-types%25E1%25B5%2589.html#679" class="InductiveConstructor">pairᵉ</a> <a id="1280" class="Symbol">(λ</a> <a id="1283" href="structured-types.pointed-families-of-types%25E1%25B5%2589.html#1283" class="Bound">_</a> <a id="1285" class="Symbol">→</a> <a id="1287" href="structured-types.pointed-types%25E1%25B5%2589.html#506" class="Function">type-Pointed-Typeᵉ</a> <a id="1306" href="structured-types.pointed-families-of-types%25E1%25B5%2589.html#1265" class="Bound">Bᵉ</a><a id="1308" class="Symbol">)</a> <a id="1310" class="Symbol">(</a><a id="1311" href="structured-types.pointed-types%25E1%25B5%2589.html#568" class="Function">point-Pointed-Typeᵉ</a> <a id="1331" href="structured-types.pointed-families-of-types%25E1%25B5%2589.html#1265" class="Bound">Bᵉ</a><a id="1333" class="Symbol">)</a>
+</pre>
+            </article>
+        </div>
+    </main>
+</body>
+</html>

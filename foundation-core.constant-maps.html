@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Constant maps</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700;1,800&family=Inria+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap"
+        rel="stylesheet" />
+</head>
+
+<body class="text-page">
+    <main>
+        <div id="post-toc-container" style="padding-left: 1em; padding-right: 1em">
+            <article>
+<a href="index.html">Back to index</a>
+<h1 id="constantmaps">Constant maps</h1>
+<pre class="Agda"><a id="26" class="Keyword">module</a> <a id="33" href="foundation-core.constant-maps.html" class="Module">foundation-core.constant-maps</a> <a id="63" class="Keyword">where</a>
+</pre>
+<p><details><summary>Imports</summary></p>
+<pre class="Agda"><a id="119" class="Keyword">open</a> <a id="124" class="Keyword">import</a> <a id="131" href="foundation.universe-levels.html" class="Module">foundation.universe-levels</a>
+</pre>
+<p></details></p>
+<h2 id="idea">Idea</h2>
+<p>The {{#concept "constant map" Agda=const}} from <code>A</code> to <code>B</code> at an element <code>b : B</code>
+is the function <code>x ↦ b</code> mapping every element <code>x : A</code> to the given element
+<code>b : B</code>. In common type theoretic notation, the constant map at <code>b</code> is the
+function</p>
+<pre><code class="text language-text">  λ x → b.
+</code></pre>
+<h2 id="definition">Definition</h2>
+<pre class="Agda"><a id="const"></a><a id="472" href="foundation-core.constant-maps.html#472" class="Function">const</a> <a id="478" class="Symbol">:</a> <a id="480" class="Symbol">{</a><a id="481" href="foundation-core.constant-maps.html#481" class="Bound">l1</a> <a id="484" href="foundation-core.constant-maps.html#484" class="Bound">l2</a> <a id="487" class="Symbol">:</a> <a id="489" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="494" class="Symbol">}</a> <a id="496" class="Symbol">(</a><a id="497" href="foundation-core.constant-maps.html#497" class="Bound">A</a> <a id="499" class="Symbol">:</a> <a id="501" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="504" href="foundation-core.constant-maps.html#481" class="Bound">l1</a><a id="506" class="Symbol">)</a> <a id="508" class="Symbol">{</a><a id="509" href="foundation-core.constant-maps.html#509" class="Bound">B</a> <a id="511" class="Symbol">:</a> <a id="513" href="Agda.Primitive.html#388" class="Primitive">UU</a> <a id="516" href="foundation-core.constant-maps.html#484" class="Bound">l2</a><a id="518" class="Symbol">}</a> <a id="520" class="Symbol">→</a> <a id="522" href="foundation-core.constant-maps.html#509" class="Bound">B</a> <a id="524" class="Symbol">→</a> <a id="526" href="foundation-core.constant-maps.html#497" class="Bound">A</a> <a id="528" class="Symbol">→</a> <a id="530" href="foundation-core.constant-maps.html#509" class="Bound">B</a>
+<a id="532" href="foundation-core.constant-maps.html#472" class="Function">const</a> <a id="538" href="foundation-core.constant-maps.html#538" class="Bound">A</a> <a id="540" href="foundation-core.constant-maps.html#540" class="Bound">b</a> <a id="542" href="foundation-core.constant-maps.html#542" class="Bound">x</a> <a id="544" class="Symbol">=</a> <a id="546" href="foundation-core.constant-maps.html#540" class="Bound">b</a>
+</pre>
+<h2 id="seealso">See also</h2>
+<ul>
+<li><a href="structured-types.constant-pointed-maps.md">Constant pointed maps</a></li>
+</ul>
+            </article>
+        </div>
+    </main>
+</body>
+</html>

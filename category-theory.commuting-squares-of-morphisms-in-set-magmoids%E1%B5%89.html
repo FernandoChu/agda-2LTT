@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Commuting squares of morphisms in set-magmoids</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700;1,800&family=Inria+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap"
+        rel="stylesheet" />
+</head>
+
+<body class="text-page">
+    <main>
+        <div id="post-toc-container" style="padding-left: 1em; padding-right: 1em">
+            <article>
+<a href="index.html">Back to index</a>
+<h1 id="commutingsquaresofmorphismsinsetmagmoids">Commuting squares of morphisms in set-magmoids</h1>
+<pre class="Agda"><a id="59" class="Keyword">module</a> <a id="66" href="category-theory.commuting-squares-of-morphisms-in-set-magmoids%25E1%25B5%2589.html" class="Module">category-theory.commuting-squares-of-morphisms-in-set-magmoidsᵉ</a> <a id="130" class="Keyword">where</a>
+</pre>
+<p><details><summary>Imports</summary></p>
+<pre class="Agda"><a id="186" class="Keyword">open</a> <a id="191" class="Keyword">import</a> <a id="198" href="category-theory.set-magmoids%25E1%25B5%2589.html" class="Module">category-theory.set-magmoidsᵉ</a>
+
+<a id="229" class="Keyword">open</a> <a id="234" class="Keyword">import</a> <a id="241" href="foundation.identity-types%25E1%25B5%2589.html" class="Module">foundation.identity-typesᵉ</a>
+<a id="268" class="Keyword">open</a> <a id="273" class="Keyword">import</a> <a id="280" href="foundation.universe-levels%25E1%25B5%2589.html" class="Module">foundation.universe-levelsᵉ</a>
+</pre>
+<p></details></p>
+<h2 id="idea">Idea</h2>
+<p>A square of morphisms</p>
+<pre><code class="text language-text">  x ------&gt; y
+  |         |
+  |         |
+  ∨         ∨
+  z ------&gt; w
+</code></pre>
+<p>in a <a href="category-theory.set-magmoids.md">set-magmoid</a> <code>C</code> is said to <strong>commute</strong>
+if there is an <a href="foundation-core.identity-types.md">identification</a> between both
+composites:</p>
+<pre><code class="text language-text">  bottom ∘ left ＝ right ∘ top.
+</code></pre>
+<h2 id="definitions">Definitions</h2>
+<pre class="Agda"><a id="coherence-square-hom-Set-Magmoidᵉ"></a><a id="680" href="category-theory.commuting-squares-of-morphisms-in-set-magmoids%25E1%25B5%2589.html#680" class="Function">coherence-square-hom-Set-Magmoidᵉ</a> <a id="714" class="Symbol">:</a>
+  <a id="718" class="Symbol">{</a><a id="719" href="category-theory.commuting-squares-of-morphisms-in-set-magmoids%25E1%25B5%2589.html#719" class="Bound">l1ᵉ</a> <a id="723" href="category-theory.commuting-squares-of-morphisms-in-set-magmoids%25E1%25B5%2589.html#723" class="Bound">l2ᵉ</a> <a id="727" class="Symbol">:</a> <a id="729" href="Agda.Primitive.html#742" class="Postulate">Level</a><a id="734" class="Symbol">}</a> <a id="736" class="Symbol">(</a><a id="737" href="category-theory.commuting-squares-of-morphisms-in-set-magmoids%25E1%25B5%2589.html#737" class="Bound">Cᵉ</a> <a id="740" class="Symbol">:</a> <a id="742" href="category-theory.set-magmoids%25E1%25B5%2589.html#1566" class="Function">Set-Magmoidᵉ</a> <a id="755" href="category-theory.commuting-squares-of-morphisms-in-set-magmoids%25E1%25B5%2589.html#719" class="Bound">l1ᵉ</a> <a id="759" href="category-theory.commuting-squares-of-morphisms-in-set-magmoids%25E1%25B5%2589.html#723" class="Bound">l2ᵉ</a><a id="762" class="Symbol">)</a>
+  <a id="766" class="Symbol">{</a><a id="767" href="category-theory.commuting-squares-of-morphisms-in-set-magmoids%25E1%25B5%2589.html#767" class="Bound">xᵉ</a> <a id="770" href="category-theory.commuting-squares-of-morphisms-in-set-magmoids%25E1%25B5%2589.html#770" class="Bound">yᵉ</a> <a id="773" href="category-theory.commuting-squares-of-morphisms-in-set-magmoids%25E1%25B5%2589.html#773" class="Bound">zᵉ</a> <a id="776" href="category-theory.commuting-squares-of-morphisms-in-set-magmoids%25E1%25B5%2589.html#776" class="Bound">wᵉ</a> <a id="779" class="Symbol">:</a> <a id="781" href="category-theory.set-magmoids%25E1%25B5%2589.html#1834" class="Function">obj-Set-Magmoidᵉ</a> <a id="798" href="category-theory.commuting-squares-of-morphisms-in-set-magmoids%25E1%25B5%2589.html#737" class="Bound">Cᵉ</a><a id="800" class="Symbol">}</a>
+  <a id="804" class="Symbol">(</a><a id="805" href="category-theory.commuting-squares-of-morphisms-in-set-magmoids%25E1%25B5%2589.html#805" class="Bound">topᵉ</a> <a id="810" class="Symbol">:</a> <a id="812" href="category-theory.set-magmoids%25E1%25B5%2589.html#1997" class="Function">hom-Set-Magmoidᵉ</a> <a id="829" href="category-theory.commuting-squares-of-morphisms-in-set-magmoids%25E1%25B5%2589.html#737" class="Bound">Cᵉ</a> <a id="832" href="category-theory.commuting-squares-of-morphisms-in-set-magmoids%25E1%25B5%2589.html#767" class="Bound">xᵉ</a> <a id="835" href="category-theory.commuting-squares-of-morphisms-in-set-magmoids%25E1%25B5%2589.html#770" class="Bound">yᵉ</a><a id="837" class="Symbol">)</a>
+  <a id="841" class="Symbol">(</a><a id="842" href="category-theory.commuting-squares-of-morphisms-in-set-magmoids%25E1%25B5%2589.html#842" class="Bound">leftᵉ</a> <a id="848" class="Symbol">:</a> <a id="850" href="category-theory.set-magmoids%25E1%25B5%2589.html#1997" class="Function">hom-Set-Magmoidᵉ</a> <a id="867" href="category-theory.commuting-squares-of-morphisms-in-set-magmoids%25E1%25B5%2589.html#737" class="Bound">Cᵉ</a> <a id="870" href="category-theory.commuting-squares-of-morphisms-in-set-magmoids%25E1%25B5%2589.html#767" class="Bound">xᵉ</a> <a id="873" href="category-theory.commuting-squares-of-morphisms-in-set-magmoids%25E1%25B5%2589.html#773" class="Bound">zᵉ</a><a id="875" class="Symbol">)</a>
+  <a id="879" class="Symbol">(</a><a id="880" href="category-theory.commuting-squares-of-morphisms-in-set-magmoids%25E1%25B5%2589.html#880" class="Bound">rightᵉ</a> <a id="887" class="Symbol">:</a> <a id="889" href="category-theory.set-magmoids%25E1%25B5%2589.html#1997" class="Function">hom-Set-Magmoidᵉ</a> <a id="906" href="category-theory.commuting-squares-of-morphisms-in-set-magmoids%25E1%25B5%2589.html#737" class="Bound">Cᵉ</a> <a id="909" href="category-theory.commuting-squares-of-morphisms-in-set-magmoids%25E1%25B5%2589.html#770" class="Bound">yᵉ</a> <a id="912" href="category-theory.commuting-squares-of-morphisms-in-set-magmoids%25E1%25B5%2589.html#776" class="Bound">wᵉ</a><a id="914" class="Symbol">)</a>
+  <a id="918" class="Symbol">(</a><a id="919" href="category-theory.commuting-squares-of-morphisms-in-set-magmoids%25E1%25B5%2589.html#919" class="Bound">bottomᵉ</a> <a id="927" class="Symbol">:</a> <a id="929" href="category-theory.set-magmoids%25E1%25B5%2589.html#1997" class="Function">hom-Set-Magmoidᵉ</a> <a id="946" href="category-theory.commuting-squares-of-morphisms-in-set-magmoids%25E1%25B5%2589.html#737" class="Bound">Cᵉ</a> <a id="949" href="category-theory.commuting-squares-of-morphisms-in-set-magmoids%25E1%25B5%2589.html#773" class="Bound">zᵉ</a> <a id="952" href="category-theory.commuting-squares-of-morphisms-in-set-magmoids%25E1%25B5%2589.html#776" class="Bound">wᵉ</a><a id="954" class="Symbol">)</a> <a id="956" class="Symbol">→</a>
+  <a id="960" href="Agda.Primitive.html#429" class="Primitive">UUᵉ</a> <a id="964" href="category-theory.commuting-squares-of-morphisms-in-set-magmoids%25E1%25B5%2589.html#723" class="Bound">l2ᵉ</a>
+<a id="968" href="category-theory.commuting-squares-of-morphisms-in-set-magmoids%25E1%25B5%2589.html#680" class="Function">coherence-square-hom-Set-Magmoidᵉ</a> <a id="1002" href="category-theory.commuting-squares-of-morphisms-in-set-magmoids%25E1%25B5%2589.html#1002" class="Bound">Cᵉ</a> <a id="1005" href="category-theory.commuting-squares-of-morphisms-in-set-magmoids%25E1%25B5%2589.html#1005" class="Bound">topᵉ</a> <a id="1010" href="category-theory.commuting-squares-of-morphisms-in-set-magmoids%25E1%25B5%2589.html#1010" class="Bound">leftᵉ</a> <a id="1016" href="category-theory.commuting-squares-of-morphisms-in-set-magmoids%25E1%25B5%2589.html#1016" class="Bound">rightᵉ</a> <a id="1023" href="category-theory.commuting-squares-of-morphisms-in-set-magmoids%25E1%25B5%2589.html#1023" class="Bound">bottomᵉ</a> <a id="1031" class="Symbol">=</a>
+  <a id="1035" class="Symbol">(</a> <a id="1037" href="category-theory.set-magmoids%25E1%25B5%2589.html#2301" class="Function">comp-hom-Set-Magmoidᵉ</a> <a id="1059" href="category-theory.commuting-squares-of-morphisms-in-set-magmoids%25E1%25B5%2589.html#1002" class="Bound">Cᵉ</a> <a id="1062" href="category-theory.commuting-squares-of-morphisms-in-set-magmoids%25E1%25B5%2589.html#1023" class="Bound">bottomᵉ</a> <a id="1070" href="category-theory.commuting-squares-of-morphisms-in-set-magmoids%25E1%25B5%2589.html#1010" class="Bound">leftᵉ</a><a id="1075" class="Symbol">)</a> <a id="1077" href="foundation-core.identity-types%25E1%25B5%2589.html#2730" class="Function Operator">＝ᵉ</a>
+  <a id="1082" class="Symbol">(</a> <a id="1084" href="category-theory.set-magmoids%25E1%25B5%2589.html#2301" class="Function">comp-hom-Set-Magmoidᵉ</a> <a id="1106" href="category-theory.commuting-squares-of-morphisms-in-set-magmoids%25E1%25B5%2589.html#1002" class="Bound">Cᵉ</a> <a id="1109" href="category-theory.commuting-squares-of-morphisms-in-set-magmoids%25E1%25B5%2589.html#1016" class="Bound">rightᵉ</a> <a id="1116" href="category-theory.commuting-squares-of-morphisms-in-set-magmoids%25E1%25B5%2589.html#1005" class="Bound">topᵉ</a><a id="1120" class="Symbol">)</a>
+</pre>
+            </article>
+        </div>
+    </main>
+</body>
+</html>
