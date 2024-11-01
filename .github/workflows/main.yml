@@ -6,7 +6,9 @@ jobs:
 
     steps:
       - name: Checkout 🛎️
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
 
       - name: Setup node
         uses: actions/setup-node@v4
@@ -17,6 +19,11 @@ jobs:
       - uses: wenkokke/setup-agda@v2
         with:
           agda-version: '2.6.4.3'
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - run: python ./scripts-2ltt/unimath-to-2ltt.py
 
       - name: Install and Build 🔧
         run: |
