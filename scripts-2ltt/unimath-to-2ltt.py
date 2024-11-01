@@ -201,9 +201,13 @@ def main():
         f"cp {cwd}/scripts/agda-unimath.agda-lib {agda_unimath_directory_path}/agda-unimath.agda-lib"
     )
 
+    os.system("ls")
     os.system("cp -r agda-unimath/* agda-unimathᵉ")
+    os.system("ls")
     os.system("cd agda-unimathᵉ/src && find . | grep -v 'ᵉ'  | xargs rm -f")
+    os.system("ls")
     os.system("cd agda-unimathᵉ && git clean -f && git reset --hard")
+    os.system("ls")
 
 
 main()
