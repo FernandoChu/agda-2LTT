@@ -14,9 +14,9 @@ jobs:
           node-version: 18
           cache: 'npm'
 
-      - uses: wenkokke/setup-agda@v2.1.0
+      - uses: wenkokke/setup-agda@v2
         with:
-          agda-version: '2.6.4'
+          agda-version: '2.6.4.3'
 
       - name: Install and Build 🔧
         run: |
