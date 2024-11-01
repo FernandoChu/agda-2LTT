@@ -8,34 +8,33 @@ module univalence-principle.diagram-signatures where
 
 ```agda
 open import category-theory.functors-precategoriesᵉ
-open import category-theory.precategoriesᵉ
-open import category-theory.inverse-precategoriesᵉ
-open import category-theory.opposite-precategoriesᵉ
 open import category-theory.isomorphisms-in-precategoriesᵉ
+open import category-theory.opposite-precategoriesᵉ
+open import category-theory.precategoriesᵉ
 
-open import elementary-number-theory.natural-numbersᵉ
+open import category-theory-2LTT.inverse-precategories
+
 open import elementary-number-theory.inequality-natural-numbersᵉ
+open import elementary-number-theory.natural-numbersᵉ
 
 open import foundation.action-on-identifications-functionsᵉ
-open import foundation.dependent-pair-typesᵉ
-open import foundation.identity-typesᵉ
-open import foundation.universe-levelsᵉ
-open import foundation.propositionsᵉ
 open import foundation.binary-transportᵉ
-open import foundation.cofibrant-typesᵉ
-open import foundation.setsᵉ
+open import foundation.dependent-pair-typesᵉ
 open import foundation.equality-dependent-pair-typesᵉ
-open import foundation.fibrant-typesᵉ
+open import foundation.identity-typesᵉ
+open import foundation.propositionsᵉ
+open import foundation.setsᵉ
 open import foundation.transport-along-identificationsᵉ
 open import foundation.unit-typeᵉ
-open import foundation.sharp-typesᵉ
-open import foundation.exotypesᵉ
+open import foundation.universe-levelsᵉ
+
+open import foundation-2LTT.cofibrant-types
+open import foundation-2LTT.exotypes
+open import foundation-2LTT.fibrant-types
+open import foundation-2LTT.sharp-types
 ```
 
 </details>
-
-## Idea
-
 
 ## Definitions
 
@@ -46,12 +45,12 @@ record is-DSig
   where
 
   field
-   has-height-is-DSig : has-height 𝓛 p
-   is-sharp-ranked-sort-is-DSig :
-     (n : ℕᵉ) → is-sharp (ranked-sort 𝓛 n) l3
-   is-cofibrant-fanout-is-DSig :
-     (n : ℕᵉ) (K : ranked-sort 𝓛 n) (m : ℕᵉ) (m<n : succ-ℕᵉ m ≤-ℕᵉ n) →
-     is-cofibrant (Fanout K m m<n) l4
+    has-height-is-DSig : has-height 𝓛 p
+    is-sharp-ranked-sort-is-DSig :
+      (n : ℕᵉ) → is-sharp (ranked-sort 𝓛 n) l3
+    is-cofibrant-fanout-is-DSig :
+      (n : ℕᵉ) (K : ranked-sort 𝓛 n) (m : ℕᵉ) (m<n : succ-ℕᵉ m ≤-ℕᵉ n) →
+      is-cofibrant (Fanout K m m<n) l4
 
 open is-DSig
 
@@ -75,12 +74,14 @@ obj-derivative-is-DSig-Precategoryᵉ 𝓛 p is-DSig-𝓛 l5 M =
 
 hom-derivative-is-DSig-Precategoryᵉ :
   {l1 l2 : Level} (𝓛 : Inverse-Precategoryᵉ l1 l2)
-  (p : ℕᵉ) {l3 l4 : Level} (is-DSig-𝓛 : is-DSig 𝓛 (succ-ℕᵉ p) l3 l4) → (l5 : Level) →
+  (p : ℕᵉ) {l3 l4 : Level}
+  (is-DSig-𝓛 : is-DSig 𝓛 (succ-ℕᵉ p) l3 l4) → (l5 : Level) →
   (M : ranked-sort 𝓛 0ᵉ → Fibrant-Type l5) →
   (obj-derivative-is-DSig-Precategoryᵉ 𝓛 p is-DSig-𝓛 l5 M) →
   (obj-derivative-is-DSig-Precategoryᵉ 𝓛 p is-DSig-𝓛 l5 M) →
   UUᵉ (l1 ⊔ l2 ⊔ l5)
-hom-derivative-is-DSig-Precategoryᵉ 𝓛 p is-DSig-𝓛 l5 M (n ,ᵉ K ,ᵉ α) (m ,ᵉ K' ,ᵉ α') =
+hom-derivative-is-DSig-Precategoryᵉ
+  𝓛 p is-DSig-𝓛 l5 M (n ,ᵉ K ,ᵉ α) (m ,ᵉ K' ,ᵉ α') =
   Σᵉ
     ( hom-Precategoryᵉ
       ( precategory-Inverse-Precategoryᵉ 𝓛)
@@ -99,19 +100,24 @@ hom-derivative-is-DSig-Precategoryᵉ 𝓛 p is-DSig-𝓛 l5 M (n ,ᵉ K ,ᵉ α
 
 hom-set-derivative-is-DSig-Precategoryᵉ :
   {l1 l2 : Level} (𝓛 : Inverse-Precategoryᵉ l1 l2)
-  (p : ℕᵉ) {l3 l4 : Level} (is-DSig-𝓛 : is-DSig 𝓛 (succ-ℕᵉ p) l3 l4) → (l5 : Level) →
+  (p : ℕᵉ) {l3 l4 : Level}
+  (is-DSig-𝓛 : is-DSig 𝓛 (succ-ℕᵉ p) l3 l4) → (l5 : Level) →
   (M : ranked-sort 𝓛 0ᵉ → Fibrant-Type l5) →
   (obj-derivative-is-DSig-Precategoryᵉ 𝓛 p is-DSig-𝓛 l5 M) →
   (obj-derivative-is-DSig-Precategoryᵉ 𝓛 p is-DSig-𝓛 l5 M) →
   Setᵉ (l1 ⊔ l2 ⊔ l5)
-pr1ᵉ (hom-set-derivative-is-DSig-Precategoryᵉ 𝓛 p is-DSig-𝓛 l5 M (n ,ᵉ K ,ᵉ α) (m ,ᵉ K' ,ᵉ α')) =
-  hom-derivative-is-DSig-Precategoryᵉ 𝓛 p is-DSig-𝓛 l5 M (n ,ᵉ K ,ᵉ α) (m ,ᵉ K' ,ᵉ α')
-pr2ᵉ (hom-set-derivative-is-DSig-Precategoryᵉ 𝓛 p is-DSig-𝓛 l5 M (n ,ᵉ K ,ᵉ α) (m ,ᵉ K' ,ᵉ α')) =
-   is-set-exotypeᵉ _
+pr1ᵉ (hom-set-derivative-is-DSig-Precategoryᵉ
+  𝓛 p is-DSig-𝓛 l5 M (n ,ᵉ K ,ᵉ α) (m ,ᵉ K' ,ᵉ α')) =
+  hom-derivative-is-DSig-Precategoryᵉ
+    𝓛 p is-DSig-𝓛 l5 M (n ,ᵉ K ,ᵉ α) (m ,ᵉ K' ,ᵉ α')
+pr2ᵉ (hom-set-derivative-is-DSig-Precategoryᵉ
+  𝓛 p is-DSig-𝓛 l5 M (n ,ᵉ K ,ᵉ α) (m ,ᵉ K' ,ᵉ α')) =
+  is-set-exotypeᵉ _
 
 comp-hom-derivative-is-DSig-Precategoryᵉ :
   {l1 l2 : Level} (𝓛 : Inverse-Precategoryᵉ l1 l2)
-  (p : ℕᵉ) {l3 l4 : Level} (is-DSig-𝓛 : is-DSig 𝓛 (succ-ℕᵉ p) l3 l4) → (l5 : Level) →
+  (p : ℕᵉ) {l3 l4 : Level}
+  (is-DSig-𝓛 : is-DSig 𝓛 (succ-ℕᵉ p) l3 l4) → (l5 : Level) →
   (M : ranked-sort 𝓛 0ᵉ → Fibrant-Type l5) →
   {x y z : obj-derivative-is-DSig-Precategoryᵉ 𝓛 p is-DSig-𝓛 l5 M} →
   ( hom-derivative-is-DSig-Precategoryᵉ 𝓛 p is-DSig-𝓛 l5 M y z) →
@@ -119,7 +125,8 @@ comp-hom-derivative-is-DSig-Precategoryᵉ :
   ( hom-derivative-is-DSig-Precategoryᵉ 𝓛 p is-DSig-𝓛 l5 M x z)
 pr1ᵉ (comp-hom-derivative-is-DSig-Precategoryᵉ 𝓛 p is-DSig-𝓛 l5 M g f) =
   comp-hom-Precategoryᵉ ( precategory-Inverse-Precategoryᵉ 𝓛) (pr1ᵉ g) (pr1ᵉ f)
-pr2ᵉ (comp-hom-derivative-is-DSig-Precategoryᵉ 𝓛 p is-DSig-𝓛 l5 M {(n ,ᵉ K ,ᵉ α)} {(m ,ᵉ K' ,ᵉ β)} {(o ,ᵉ K'' ,ᵉ θ)} g f) F =
+pr2ᵉ (comp-hom-derivative-is-DSig-Precategoryᵉ
+  𝓛 p is-DSig-𝓛 l5 M {(n ,ᵉ K ,ᵉ α)} {(m ,ᵉ K' ,ᵉ β)} {(o ,ᵉ K'' ,ᵉ θ)} g f) F =
   trᵉ
     (λ - → α (mk-Fanout K 0ᵉ starᵉ (ranked-sort-Fanout F) -) ＝ᵉ θ F)
     ( associative-comp-hom-Precategoryᵉ
@@ -147,7 +154,8 @@ id-hom-derivative-is-DSig-Precategoryᵉ :
   hom-derivative-is-DSig-Precategoryᵉ 𝓛 p is-DSig-𝓛 l5 M K K
 pr1ᵉ (id-hom-derivative-is-DSig-Precategoryᵉ 𝓛 p is-DSig-𝓛 l5 M K) =
   id-hom-Precategoryᵉ (precategory-Inverse-Precategoryᵉ 𝓛)
-pr2ᵉ (id-hom-derivative-is-DSig-Precategoryᵉ 𝓛 p is-DSig-𝓛 l5 M (n ,ᵉ K ,ᵉ α)) F =
+pr2ᵉ (id-hom-derivative-is-DSig-Precategoryᵉ
+  𝓛 p is-DSig-𝓛 l5 M (n ,ᵉ K ,ᵉ α)) F =
   trᵉ
     ( λ - → α (mk-Fanout K 0ᵉ starᵉ (ranked-sort-Fanout F) -) ＝ᵉ α F)
     ( invᵉ
@@ -165,11 +173,15 @@ associative-comp-hom-derivative-is-DSig-Precategoryᵉ :
   (g : hom-derivative-is-DSig-Precategoryᵉ 𝓛 p is-DSig-𝓛 l5 M y z)
   (f : hom-derivative-is-DSig-Precategoryᵉ 𝓛 p is-DSig-𝓛 l5 M x y) →
   comp-hom-derivative-is-DSig-Precategoryᵉ 𝓛 p is-DSig-𝓛 l5 M {x} {y} {w}
-    ( comp-hom-derivative-is-DSig-Precategoryᵉ 𝓛 p is-DSig-𝓛 l5 M {y} {z} {w} h g)
+    ( comp-hom-derivative-is-DSig-Precategoryᵉ
+      𝓛 p is-DSig-𝓛 l5 M {y} {z} {w} h g)
     ( f) ＝ᵉ
-  comp-hom-derivative-is-DSig-Precategoryᵉ 𝓛 p is-DSig-𝓛 l5 M {x} {z} {w} h
-    ( comp-hom-derivative-is-DSig-Precategoryᵉ 𝓛 p is-DSig-𝓛 l5 M {x} {y} {z} g f)
-associative-comp-hom-derivative-is-DSig-Precategoryᵉ 𝓛 p is-DSig-𝓛 l5 M {x} {y} {z} {w} h g f =
+  comp-hom-derivative-is-DSig-Precategoryᵉ
+    𝓛 p is-DSig-𝓛 l5 M {x} {z} {w} h
+    ( comp-hom-derivative-is-DSig-Precategoryᵉ
+      𝓛 p is-DSig-𝓛 l5 M {x} {y} {z} g f)
+associative-comp-hom-derivative-is-DSig-Precategoryᵉ
+  𝓛 p is-DSig-𝓛 l5 M {x} {y} {z} {w} h g f =
   eq-pair-Σᵉ
     ( associative-comp-hom-Precategoryᵉ
       ( precategory-Inverse-Precategoryᵉ 𝓛)
@@ -187,10 +199,13 @@ derivative-is-DSig-Precategoryᵉ 𝓛 p is-DSig-𝓛 l5 M =
   make-Precategoryᵉ
     ( obj-derivative-is-DSig-Precategoryᵉ 𝓛 p is-DSig-𝓛 l5 M)
     ( hom-set-derivative-is-DSig-Precategoryᵉ 𝓛 p is-DSig-𝓛 l5 M)
-    ( λ {x} {y} {z} g f → comp-hom-derivative-is-DSig-Precategoryᵉ 𝓛 p is-DSig-𝓛 l5 M {x} {y} {z} g f)
+    ( λ {x} {y} {z} g f →
+      comp-hom-derivative-is-DSig-Precategoryᵉ
+        𝓛 p is-DSig-𝓛 l5 M {x} {y} {z} g f)
     ( id-hom-derivative-is-DSig-Precategoryᵉ 𝓛 p is-DSig-𝓛 l5 M)
     ( λ {x} {y} {z} {w} h g f →
-      associative-comp-hom-derivative-is-DSig-Precategoryᵉ 𝓛 p is-DSig-𝓛 l5 M {x} {y} {z} {w} h g f)
+      associative-comp-hom-derivative-is-DSig-Precategoryᵉ
+        𝓛 p is-DSig-𝓛 l5 M {x} {y} {z} {w} h g f)
     ( λ f →
       eq-pair-Σᵉ
         ( left-unit-law-comp-hom-Precategoryᵉ
@@ -212,12 +227,16 @@ rank-functor-is-inverse-derivative-is-DSig-Precategoryᵉ :
     ( opposite-Precategoryᵉ
       ( derivative-is-DSig-Precategoryᵉ 𝓛 p is-DSig-𝓛 l5 M))
     ℕ-Precategoryᵉ
-pr1ᵉ (rank-functor-is-inverse-derivative-is-DSig-Precategoryᵉ 𝓛 p is-DSig-𝓛 l5 M) (n ,ᵉ K ,ᵉ α) = n 
-pr1ᵉ (pr2ᵉ (rank-functor-is-inverse-derivative-is-DSig-Precategoryᵉ 𝓛 p is-DSig-𝓛 l5 M)) {n ,ᵉ K ,ᵉ α} {m ,ᵉ K' ,ᵉ β} f =
+pr1ᵉ (rank-functor-is-inverse-derivative-is-DSig-Precategoryᵉ
+  𝓛 p is-DSig-𝓛 l5 M) (n ,ᵉ K ,ᵉ α) = n
+pr1ᵉ (pr2ᵉ (rank-functor-is-inverse-derivative-is-DSig-Precategoryᵉ
+  𝓛 p is-DSig-𝓛 l5 M)) {n ,ᵉ K ,ᵉ α} {m ,ᵉ K' ,ᵉ β} f =
   preserves-order-hom-ranked-sort K' K (pr1ᵉ f)
-pr1ᵉ (pr2ᵉ (pr2ᵉ (rank-functor-is-inverse-derivative-is-DSig-Precategoryᵉ 𝓛 p is-DSig-𝓛 l5 M))) {n ,ᵉ K ,ᵉ α} {_} {m ,ᵉ K' ,ᵉ β} g f =
+pr1ᵉ (pr2ᵉ (pr2ᵉ (rank-functor-is-inverse-derivative-is-DSig-Precategoryᵉ
+  𝓛 p is-DSig-𝓛 l5 M))) {n ,ᵉ K ,ᵉ α} {_} {m ,ᵉ K' ,ᵉ β} g f =
   eq-is-propᵉ (is-prop-leq-ℕᵉ n m)
-pr2ᵉ (pr2ᵉ (pr2ᵉ (rank-functor-is-inverse-derivative-is-DSig-Precategoryᵉ 𝓛 p is-DSig-𝓛 l5 M))) (n ,ᵉ K ,ᵉ α) =
+pr2ᵉ (pr2ᵉ (pr2ᵉ (rank-functor-is-inverse-derivative-is-DSig-Precategoryᵉ
+  𝓛 p is-DSig-𝓛 l5 M))) (n ,ᵉ K ,ᵉ α) =
   eq-is-propᵉ (is-prop-leq-ℕᵉ n n)
 
 reflects-id-rank-functor-is-inverse-derivative-is-DSig-Precategoryᵉ :
@@ -229,13 +248,14 @@ reflects-id-rank-functor-is-inverse-derivative-is-DSig-Precategoryᵉ :
       ( derivative-is-DSig-Precategoryᵉ 𝓛 p is-DSig-𝓛 l5 M))
     ℕ-Precategoryᵉ
     (rank-functor-is-inverse-derivative-is-DSig-Precategoryᵉ 𝓛 p is-DSig-𝓛 l5 M)
-reflects-id-rank-functor-is-inverse-derivative-is-DSig-Precategoryᵉ 𝓛 p is-DSig-𝓛 l5 M {n ,ᵉ K ,ᵉ α} (f1 ,ᵉ f2) H =
+reflects-id-rank-functor-is-inverse-derivative-is-DSig-Precategoryᵉ
+  𝓛 p is-DSig-𝓛 l5 M {n ,ᵉ K ,ᵉ α} (f1 ,ᵉ f2) H =
   eq-pair-Σᵉ
     ( reflects-id-rank-functor-Inverse-Precategoryᵉ 𝓛 f1
       ( trᵉ
         ( λ (x ,ᵉ r) → is-id-Precategoryᵉ ℕ-Precategoryᵉ x r)
         ( eq-pair-Σᵉ
-          ( invᵉ (is-ranked-sort-ranked-sort K ))
+          ( invᵉ (is-ranked-sort-ranked-sort K))
           ( eq-is-propᵉ
             ( is-prop-leq-ℕᵉ
               ( obj-rank-functor-Inverse-Precategoryᵉ 𝓛 (sort-ranked-sort K))
@@ -247,15 +267,18 @@ is-inverse-derivative-is-DSig-Precategoryᵉ :
   {l1 l2 : Level} (𝓛 : Inverse-Precategoryᵉ l1 l2)
   (p : ℕᵉ) {l3 l4 : Level} (is-DSig-𝓛 : is-DSig 𝓛 (succ-ℕᵉ p) l3 l4)
   (l5 : Level) (M : ranked-sort 𝓛 0ᵉ → Fibrant-Type l5) →
-  is-inverse-Precategoryᵉ (derivative-is-DSig-Precategoryᵉ 𝓛 p is-DSig-𝓛 l5 M)
+  is-inverse-Precategoryᵉ
+    ( derivative-is-DSig-Precategoryᵉ 𝓛 p is-DSig-𝓛 l5 M)
 pr1ᵉ (is-inverse-derivative-is-DSig-Precategoryᵉ 𝓛 p is-DSig-𝓛 l5 M) =
-  rank-functor-is-inverse-derivative-is-DSig-Precategoryᵉ 𝓛 p is-DSig-𝓛 l5 M
+  rank-functor-is-inverse-derivative-is-DSig-Precategoryᵉ
+    𝓛 p is-DSig-𝓛 l5 M
 pr2ᵉ (is-inverse-derivative-is-DSig-Precategoryᵉ 𝓛 p is-DSig-𝓛 l5 M) =
-  reflects-id-rank-functor-is-inverse-derivative-is-DSig-Precategoryᵉ 𝓛 p is-DSig-𝓛 l5 M
+  reflects-id-rank-functor-is-inverse-derivative-is-DSig-Precategoryᵉ
+    𝓛 p is-DSig-𝓛 l5 M
 
-derivative-DSig :
-  (l1 l2 l3 l4 : Level) (p : ℕᵉ) →
-  DSig l1 l2 l3 l4 (succ-ℕᵉ p) → DSig l1 l2 l3 l4 p
-pr1ᵉ (derivative-DSig l1 l2 l3 l4 p 𝓛) = {!!}
-pr2ᵉ (derivative-DSig l1 l2 l3 l4 p 𝓛) = {!!}
+-- derivative-DSig :
+--   (l1 l2 l3 l4 : Level) (p : ℕᵉ) →
+--   DSig l1 l2 l3 l4 (succ-ℕᵉ p) → DSig l1 l2 l3 l4 p
+-- pr1ᵉ (derivative-DSig l1 l2 l3 l4 p 𝓛) = {!!}
+-- pr2ᵉ (derivative-DSig l1 l2 l3 l4 p 𝓛) = {!!}
 ```

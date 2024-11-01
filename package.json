@@ -1,0 +1,23 @@
+{
+  "name": "agda-2LTT",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "node web/build.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fernandochu/agda-2LTT.git"
+  },
+  "author": "",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/fernandochu/agda-2LTT/issues"
+  },
+  "homepage": "https://github.com/fernandochu/agda-2LTT#readme",
+  "dependencies": {
+    "handlebars": "^4.7.7",
+    "showdown": "^2.1.0"
+  }
+}
