@@ -76,7 +76,7 @@ def add_exo(word, prevword):
     hardcodes = {
         "if_then_else_": "ifᵉ_thenᵉ_elseᵉ_",
         "_≡_mod_": "_≡ᵉ_modᵉ_",
-        "@(n , f)": "@ᵉ(nᵉ ,ᵉ fᵉ)",
+        "c@(n": "cᵉ@(nᵉ",
     }
     cleanword = word
     for char in ["(", ")", "{", "}", "."]:
