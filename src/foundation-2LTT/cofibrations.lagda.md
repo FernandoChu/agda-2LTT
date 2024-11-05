@@ -33,6 +33,7 @@ open import foundation.unit-typeᵉ
 open import foundation.universe-levels
 open import foundation.universe-levelsᵉ
 
+open import foundation-2LTT.coercing-inner-types
 open import foundation-2LTT.exotypes
 open import foundation-2LTT.fibrant-types
 open import foundation-2LTT.fibrations
@@ -51,19 +52,26 @@ module _
 
   is-cofibration : (l : Level) → UUᵉ (lsuc l1 ⊔ lsuc l2 ⊔ lsuc l)
   is-cofibration l =
-    ((Y : B → UU l) →
-    is-fibration
-      (λ (g : (b : B) → Y b) → (g ∘ᶠᵉᵉ f))) ×ᵉ
-    ((Y : B → UU l) →
-    ((b : B) → is-contr (Y b)) →
-    is-trivial-fibration
-      (λ (g : (b : B) → Y b) → (g ∘ᶠᵉᵉ f)))
+    (Y : B → UU l) →
+    Σᵉ (is-fibration (λ (g : Πᵉ B (coerce ∘ᵉᶠᵉ Y)) → (g ∘ᵉ f)))
+      ( λ is-fibration-Π-is-cofibration →
+        ( (b : B) → is-contr (Y b)) →
+        ( h : Πᵉ A (coerce ∘ᵉᶠᵉ Y ∘ᶠᵉᵉ f)) →
+        is-contr (witness-is-fibrant (is-fibration-Π-is-cofibration h)))
 
   is-cofibration' : (l3 l4 : Level) → UUᵉ (lsuc (l1 ⊔ l2 ⊔ l3 ⊔ l4))
   is-cofibration' l3 l4 =
     {X : UUᵉ l3} {Y : UUᵉ l4} (p : Y → X) →
-    (is-fibration p → is-fibration (pullback-homᵉ f p)) ×ᵉ
-    (is-trivial-fibration p → is-trivial-fibration (pullback-homᵉ f p))
+    ( is-fibration p → is-fibration (pullback-homᵉ f p)) ×ᵉ
+    ( is-trivial-fibration p → is-trivial-fibration (pullback-homᵉ f p))
+
+is-fibration-Π-is-cofibration :
+  {l1 l2 : Level} {A : UUᵉ l1} {B : UUᵉ l2}
+  {f : A → B} {j : Level} →
+  is-cofibration f j →
+  (Y : B → UU j) →
+  is-fibration (λ (g : Πᵉ B (coerce ∘ᵉᶠᵉ Y)) → (g ∘ᵉ f))
+is-fibration-Π-is-cofibration H Y = pr1ᵉ (H Y)
 ```
 
 ## Properties

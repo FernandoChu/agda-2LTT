@@ -591,7 +591,7 @@ hom-Trivially-Fibrant-Type A B = Π-Trivially-Fibrant-Type A (λ a → B)
 
 ```agda
 map-is-fibrant-unitᵉ : coerce unit → unitᵉ
-map-is-fibrant-unitᵉ (map-coerce star) = starᵉ
+map-is-fibrant-unitᵉ (map-coerce x) = starᵉ
 
 map-inv-is-fibrant-unitᵉ : unitᵉ → coerce unit
 map-inv-is-fibrant-unitᵉ starᵉ = map-coerce star
@@ -601,7 +601,7 @@ is-equiv-map-is-fibrant-unitᵉ =
   is-equiv-is-invertibleᵉ
     map-inv-is-fibrant-unitᵉ
     ( λ { starᵉ → reflᵉ})
-    ( λ { (map-coerce star) → reflᵉ})
+    ( λ { (map-coerce x) → reflᵉ})
 
 equiv-witness-is-fibrant-unitᵉ : coerce unit ≃ᵉ unitᵉ
 pr1ᵉ equiv-witness-is-fibrant-unitᵉ = map-is-fibrant-unitᵉ

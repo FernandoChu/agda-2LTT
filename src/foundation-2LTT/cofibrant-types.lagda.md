@@ -7,22 +7,30 @@ module foundation-2LTT.cofibrant-types where
 <details><summary>Imports</summary>
 
 ```agda
+open import foundation.action-on-identifications-functionsᵉ
 open import foundation.cartesian-product-typesᵉ
 open import foundation.contractible-types
 open import foundation.dependent-pair-types
 open import foundation.dependent-pair-typesᵉ
+open import foundation.empty-typesᵉ
+open import foundation.equality-dependent-pair-typesᵉ
 open import foundation.equivalencesᵉ
+open import foundation.function-extensionalityᵉ
 open import foundation.function-typesᵉ
 open import foundation.functoriality-dependent-pair-typesᵉ
 open import foundation.homotopiesᵉ
 open import foundation.identity-typesᵉ
 open import foundation.pi-decompositionsᵉ
+open import foundation.propositionsᵉ
+open import foundation.raising-universe-levels
 open import foundation.unit-type
 open import foundation.unit-typeᵉ
+open import foundation.universal-property-empty-typeᵉ
 open import foundation.universe-levels
 open import foundation.universe-levelsᵉ
 
 open import foundation-2LTT.coercing-inner-types
+open import foundation-2LTT.cofibrations
 open import foundation-2LTT.exotypes
 open import foundation-2LTT.fibrant-types
 ```
@@ -117,6 +125,48 @@ Trivially-Cofibrant-Type l1 l2 =
 
 ## Properties
 
+### B is cofibrant iff the terminal map from B is a cofibration
+
+```agda
+is-cofibrant-is-cofibration-terminal-map :
+  {i : Level} (B : UUᵉ i) (j : Level) →
+  is-cofibration (initial-mapᵉ B) j →
+  is-cofibrant B j
+pr1ᵉ (is-cofibrant-is-cofibration-terminal-map B j H Y) =
+  is-fibrant-equivᵉ
+    ( is-fibration-Π-is-cofibration H Y (λ ()))
+    ( pairᵉ
+      ( λ (g ,ᵉ p) → g)
+      ( is-equiv-is-invertibleᵉ
+        ( λ g → pairᵉ g (eq-htpyᵉ λ ()))
+        ( λ g → eq-htpyᵉ (λ b → reflᵉ))
+        ( λ (g ,ᵉ p) →
+          eq-pair-Σᵉ
+            ( eq-htpyᵉ (λ x → reflᵉ))
+            ( eq-is-propᵉ (is-set-exotypeᵉ _ _ _)))))
+pr2ᵉ (is-cofibrant-is-cofibration-terminal-map B j H Y) f =
+  pr2ᵉ (H Y) f (λ ())
+
+is-cofibration-terminal-map-is-cofibrant :
+  {i : Level} (B : UUᵉ i) (j : Level) →
+  is-cofibrant B j →
+  is-cofibration (initial-mapᵉ B) j
+pr1ᵉ (is-cofibration-terminal-map-is-cofibrant B j is-cofibrant-B Y) f =
+  is-fibrant-equivᵉ
+    ( is-fibrant-Π-is-cofibrant is-cofibrant-B Y)
+    ( pairᵉ
+      ( λ g → pairᵉ g (eq-htpyᵉ λ ()))
+      ( is-equiv-is-invertibleᵉ
+        ( λ (g ,ᵉ p) → g)
+        ( λ (g ,ᵉ p) →
+          eq-pair-Σᵉ
+            ( eq-htpyᵉ (λ x → reflᵉ))
+            ( eq-is-propᵉ (is-set-exotypeᵉ _ _ _)))
+        ( λ g → eq-htpyᵉ (λ x → reflᵉ))))
+pr2ᵉ (is-cofibration-terminal-map-is-cofibrant B j is-cofibrant-B Y) H h =
+  is-contr-witness-is-fibrant-Π-is-cofibrant is-cofibrant-B Y H
+```
+
 ### Closure under isos
 
 ```agda
@@ -159,4 +209,21 @@ pr1ᵉ (is-cofibrant-is-fibrant is-fibrant-A Y) =
   is-fibrant-Πᵉ is-fibrant-A (λ a → is-fibrant-coerce (Y a))
 pr2ᵉ (is-cofibrant-is-fibrant is-fibrant-A Y) H =
   is-contr-Π (λ a → H _)
+```
+
+## Examples
+
+### The exo-empty type is cofibrant
+
+```agda
+is-cofibrant-emptyᵉ : is-cofibrant emptyᵉ lzero
+pr1ᵉ (is-cofibrant-emptyᵉ Y) =
+  is-fibrant-equivᵉ
+    is-fibrant-unitᵉ
+    ( inv-equivᵉ
+      ( equiv-unit-is-contrᵉ
+        ( dependent-universal-property-empty'ᵉ
+        ( λ b → coerce (Y b)))))
+pr2ᵉ (is-cofibrant-emptyᵉ Y) f =
+  is-contr-unit
 ```
