@@ -6,8 +6,9 @@
 
 This is a formalization of some aspects of
 [Two-Level Type Theory](https://arxiv.org/abs/1705.03307), building on top of
-the [Agda-Unimath library](https://unimath.github.io/agda-unimath/). The repository
-can be found here [repository](https://github.com/FernandoChu/agda-2LTT).
+the [Agda-Unimath library](https://unimath.github.io/agda-unimath/). The
+repository can be found here
+[repository](https://github.com/FernandoChu/agda-2LTT).
 
 This library consists of three parts:
 
